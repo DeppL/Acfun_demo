@@ -167,59 +167,44 @@
     HomeModel *model = self.homeModelsArr[indexPath.section];
     HomeModelFrame *modelFrame = self.homeModelsFrameArr[indexPath.section];
     
+    id cell;
+    
     switch ([model.type.typeId integerValue]) {
-            
         case HomeViewCellTypeVideos: {
-            TableViewVideosCell *cell = [tableView dequeueReusableCellWithIdentifier:TableViewVideosCellID forIndexPath:indexPath];
-            [cell setUpWithModel:model];
-            [cell setUpWithModelFrame:modelFrame];
-            cell.delegate = self;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-            
+            cell = (TableViewVideosCell *)[tableView dequeueReusableCellWithIdentifier:TableViewVideosCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
         }
         
         case HomeViewCellTypeBanners: {
-            TableViewBannersCell *cell = [tableView dequeueReusableCellWithIdentifier:TableViewBannersCellID forIndexPath:indexPath];
-            [cell setUpWithModel:model];
-            [cell setUpWithModelFrame:modelFrame];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-            
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewBannersCellID forIndexPath:indexPath];
+            break;
         }
         
         case HomeViewCellTypeBangumis: {
-            TableViewBangumisCell *cell = [tableView dequeueReusableCellWithIdentifier:TableViewBangumisCellID forIndexPath:indexPath];
-            [cell setUpWithModel:model];
-            [cell setUpWithModelFrame:modelFrame];
-            cell.delegate = self;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-            
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewBangumisCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
         }
         
         case HomeViewCellTypeCarousels: {
-            TableViewCarouselsCell *cell = [tableView dequeueReusableCellWithIdentifier:TableViewCarouselsCellID forIndexPath:indexPath];
-            [cell setUpWithModel:model];
-            [cell setUpWithModelFrame:modelFrame];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-            
+            cell = (TableViewCarouselsCell *)[tableView dequeueReusableCellWithIdentifier:TableViewCarouselsCellID forIndexPath:indexPath];
+            break;
         }
         
         case HomeViewCellTypeArticles: {
-            TableViewArticlesCell *cell = [tableView dequeueReusableCellWithIdentifier:TableViewArticlesCellID forIndexPath:indexPath];
-            [cell setUpWithModel:model];
-            [cell setUpWithModelFrame:modelFrame];
-            cell.delegate = self;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-            
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewArticlesCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
         }
             
         default: return nil;
-            
     }
+    
+    [cell setUpWithModel:model];
+    [cell setUpWithModelFrame:modelFrame];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    return cell;
     
 }
 

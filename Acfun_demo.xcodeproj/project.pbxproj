@@ -50,6 +50,7 @@
 		88B22E5F1C6099CE00E7F54D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E5C1C6099CE00E7F54D /* SearchViewController.m */; };
 		88B22E671C6099D400E7F54D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E631C6099D400E7F54D /* UserViewController.m */; };
 		88B22E681C6099D400E7F54D /* SlideTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E661C6099D400E7F54D /* SlideTabBarView.m */; };
+		88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */; };
 		88FD946C1C575E0F001CD81B /* URL_Note in Resources */ = {isa = PBXBuildFile; fileRef = 88FD946B1C575E0F001CD81B /* URL_Note */; };
 		D15484E5BD899D311A57C1A4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32195E865B75FA70404F1020 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -139,6 +140,8 @@
 		88B22E631C6099D400E7F54D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
 		88B22E651C6099D400E7F54D /* SlideTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideTabBarView.h; sourceTree = "<group>"; };
 		88B22E661C6099D400E7F54D /* SlideTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideTabBarView.m; sourceTree = "<group>"; };
+		88B22E691C609ACB00E7F54D /* ClassifierSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierSubView.h; sourceTree = "<group>"; };
+		88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierSubView.m; sourceTree = "<group>"; };
 		88B519C81C43976300A59610 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		88FD946B1C575E0F001CD81B /* URL_Note */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = URL_Note; sourceTree = "<group>"; };
 		C00D391E9470A4EE3BAC9D53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
@@ -191,9 +194,9 @@
 				88B22E601C6099D400E7F54D /* UserView */,
 				88B22E561C6099CE00E7F54D /* SubViewControllers */,
 				88B22E2C1C6099C600E7F54D /* HomeView */,
-				88B22E091C6099C000E7F54D /* FocusView */,
 				88B22E021C6099B900E7F54D /* DetailView */,
 				88B22DFB1C6099AE00E7F54D /* ClassifierView */,
+				88B22E091C6099C000E7F54D /* FocusView */,
 				88B22DE81C60993A00E7F54D /* ChannelView */,
 				8820DA561C4E1E92004CE184 /* Tools */,
 				8805F21A1C2BF008001F51FF /* AppDelegate.h */,
@@ -299,6 +302,8 @@
 		88B22E001C6099AE00E7F54D /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				88B22E691C609ACB00E7F54D /* ClassifierSubView.h */,
+				88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -649,6 +654,7 @@
 				88B22DFA1C60993A00E7F54D /* CollectionHeadView.m in Sources */,
 				88B22E251C6099C000E7F54D /* CollectionViewVerticalCell.m in Sources */,
 				88B22E261C6099C000E7F54D /* TableViewSubArticleCell.m in Sources */,
+				88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */,
 				88514B111C521F8C00F37B5A /* SingleHttpTool.m in Sources */,
 				88B22E081C6099B900E7F54D /* DetailModel.m in Sources */,
 				88B22E2A1C6099C000E7F54D /* TableViewCarouselsCell.m in Sources */,
