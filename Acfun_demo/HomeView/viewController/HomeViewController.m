@@ -11,39 +11,71 @@
 #import "HistoryViewController.h"
 #import "SearchViewController.h"
 
-#import "UserViewController.h"
+#import "TableViewArticlesCell.h"
+#import "TableViewBangumisCell.h"
+#import "TableViewBannersCell.h"
+#import "TableViewCarouselsCell.h"
+#import "TableViewVideosCell.h"
 
-//#import "HomeModel.h"
 #import "HomeModelConfig.h"
-#import "HomeCollectionViewCell.h"
-#import "HomeCollectionHeadView.h"
-#import "HomeCollectionFootView.h"
 
-
-
-@interface HomeViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
-
-@property (nonatomic, strong) UICollectionView *homeCollectionView;
+@interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, TableViewArticlesCellDelegate, TableViewVideosCellDelegate, TableViewBangumisCellDelegate>
 
 @property (nonatomic, copy) NSArray *homeModelsArr;
+@property (nonatomic, copy) NSArray *homeModelsFrameArr;
+
+@property (nonatomic, strong) UITableView *homeTableView;
 
 @end
 
 @implementation HomeViewController
 
 
+#pragma mark - LifeCycle
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+    
     [self setUpNav];
     
-//    [self setUpHomelList];
-    
-    [self setUpCollectionView];
-    
+    [self setUpHomelList];
 }
 
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[SDImageCache sharedImageCache] clearMemory];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
+#pragma mark - 内存警告
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
+
+#pragma mark - initialize
 
 - (NSArray *)homeModelsArr {
     if (!_homeModelsArr) {
@@ -51,6 +83,31 @@
     }
     return _homeModelsArr;
 }
+
+- (NSArray *)homeModelsFrameArr {
+    if (!_homeModelsFrameArr) {
+        _homeModelsFrameArr = [NSArray array];
+    }
+    return _homeModelsFrameArr;
+}
+
+- (UITableView *)homeTableView {
+    if (!_homeTableView) {
+        CGRect rect = CGRectMake(0, 64, kDeviceWidth, KDeviceHeight - 64);
+        _homeTableView = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
+        _homeTableView.delegate = self;
+        _homeTableView.dataSource = self;
+        _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_homeTableView registerClass:[TableViewArticlesCell class] forCellReuseIdentifier:TableViewArticlesCellID];
+        [_homeTableView registerClass:[TableViewBangumisCell class] forCellReuseIdentifier:TableViewBangumisCellID];
+        [_homeTableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
+        [_homeTableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
+        [_homeTableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
+        [self.view addSubview:_homeTableView];
+    }
+    return _homeTableView;
+}
+
 
 - (void)setUpNav {
     
@@ -93,29 +150,17 @@
     
 }
 
-// 设置CollectionView
-- (void)setUpCollectionView {
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    
-    self.homeCollectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
-    self.homeCollectionView.delegate = self;
-    self.homeCollectionView.dataSource = self;
-    
-    [self.homeCollectionView registerClass:[HomeCollectionViewCell class] forCellWithReuseIdentifier:homeCellID];
-    [self.homeCollectionView registerClass:[HomeCollectionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:homeCollectionHeadViewID];
-    [self.homeCollectionView registerClass:[HomeCollectionFootView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:homeCollectionFootViewID];
-    
-    self.view = self.homeCollectionView;
-}
-
-// 下载channelList
 - (void)setUpHomelList {
     
     [SingleHttpTool GETHomeModelSuccess:^(id object) {
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
             self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
+            self.homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:self.homeModelsArr];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.homeCollectionView reloadData];
+                
+                [self.homeTableView reloadData];
             });
         });
     } failure:^(NSError *error) {
@@ -126,156 +171,132 @@
     
 }
 
-#pragma mark - UICollectionViewDataSource
 
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return ((HomeModel *)self.homeModelsArr[section]).contents.count;
-    //    return 10;
+#pragma mark - UITableViewDataSource
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
+    HomeModel *model = self.homeModelsArr[indexPath.section];
+    HomeModelFrame *modelFrame = self.homeModelsFrameArr[indexPath.section];
     
-    HomeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:homeCellID forIndexPath:indexPath];
+    id cell;
     
-    // 获取subCell模型数据
-    HomeModelContent *subModel = [HomeModel getSubHomeModelInModelArr:self.homeModelsArr withSection:indexPath.section andRow:indexPath.row];
+    switch ([model.type.typeId integerValue]) {
+        case HomeViewCellTypeVideos: {
+            cell = (TableViewVideosCell *)[tableView dequeueReusableCellWithIdentifier:TableViewVideosCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
+        }
+            
+        case HomeViewCellTypeBanners: {
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewBannersCellID forIndexPath:indexPath];
+            break;
+        }
+            
+        case HomeViewCellTypeBangumis: {
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewBangumisCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
+        }
+            
+        case HomeViewCellTypeCarousels: {
+            cell = (TableViewCarouselsCell *)[tableView dequeueReusableCellWithIdentifier:TableViewCarouselsCellID forIndexPath:indexPath];
+            break;
+        }
+            
+        case HomeViewCellTypeArticles: {
+            cell = (TableViewBannersCell *)[tableView dequeueReusableCellWithIdentifier:TableViewArticlesCellID forIndexPath:indexPath];
+            [cell setDelegate:self];
+            break;
+        }
+            
+        default: return nil;
+    }
     
-    UIImage *placeHolderImage = [UIImage imageNamed:@"placeHolder"];
-    NSURL *url = [NSURL URLWithString:subModel.image];
-    
-    // 设置subCell
-    [cell.mainImageView sd_setImageWithURL:url placeholderImage:placeHolderImage];
-    //    [cell.subChannelImageView setImage:placeHolderImage];
-    cell.labelTitle.text = subModel.title;
-//    NSLog(@"%f",cell.frame.size.height);
+    [cell setUpWithModel:model];
+    [cell setUpWithModelFrame:modelFrame];
+    [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;
+    
 }
 
-
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.homeModelsArr.count;
 }
 
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - UITableViewDelegate
 
-    if (UICollectionElementKindSectionHeader == kind) {
-        NSString *headTitle = ((HomeModel *)self.homeModelsArr[indexPath.section]).name;
-        HomeCollectionHeadView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:homeCollectionHeadViewID forIndexPath:indexPath];
-        [headView.headButton setTitle:headTitle forState:UIControlStateNormal];
-        [headView.headButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [headView.headButton addTarget:self action:@selector(pushToSearchView) forControlEvents:UIControlEventTouchUpInside];
-        return headView;
-    } else {
-        NSString *footTitle = ((HomeModelMenu *)((HomeModel *)self.homeModelsArr[indexPath.section]).menus[0]).name;
-        HomeCollectionFootView *footView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:homeCollectionFootViewID forIndexPath:indexPath];
-//        NSString *footTitle = [NSString stringWithFormat:@"%@推荐->",headTitle];
-        footView.footLable.text = footTitle;
-        
-        return footView;
-    }
-}
-#pragma mark - UICollectionViewDelegate
-
-#warning cell selected
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"%ld--%ld",(long)indexPath.section, (long)indexPath.row);
-}
-
-#pragma mark - UICollectionViewDelegateFlowLayout
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section {
-    return CGSizeMake(kDeviceWidth, 44);
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section {
-    return CGSizeMake(kDeviceWidth, 44);
-}
-
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
-    return 10;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section {
-    return 0;
-}
-
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    HomeModelFrame *modelFrame = self.homeModelsFrameArr[indexPath.section];
     
-    switch (indexPath.section) {
-        case 0:
-            return CGSizeMake(kDeviceWidth, kDeviceWidth * 0.5);
-        case 2:
-            return CGSizeMake(kDeviceWidth, kDeviceWidth * 0.5);
-        case 5:
-            return CGSizeMake(kDeviceWidth, kDeviceWidth * 0.5);
-        case 8:
-            return CGSizeMake(kDeviceWidth, kDeviceWidth * 0.5);
-        default:
-            return CGSizeMake(kDeviceWidth * 0.5 - 20, kDeviceWidth * 0.25 - 10);
+    if (indexPath.section == self.homeModelsArr.count - 1) return modelFrame.cellHight + 100;
+    return modelFrame.cellHight;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    HomeModel *model = self.homeModelsArr[indexPath.row];
+    NSLog(@"focusTableView:%@ --- cell --- %ld",model.name, (long)indexPath.section);
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    
+    if ( 1 == section || 4 == section || 7 == section || 16 == section ) return 0;
+    return 5;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    
+    CGFloat sectionFooterHeight = 40;
+    CGFloat ButtomHeight = scrollView.contentSize.height - self.homeTableView.frame.size.height;
+    
+    if (ButtomHeight - sectionFooterHeight <= scrollView.contentOffset.y && scrollView.contentSize.height > 0) {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    } else  {
+        scrollView.contentInset = UIEdgeInsetsMake(0, 0, -(sectionFooterHeight), 0);
     }
     
-//    return CGSizeMake(kDeviceWidth * 0.5 - 20, kDeviceWidth * 0.25 - 10);
 }
 
-#warning edge
-- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
-    
-    switch (section) {
-        case 0:
-            return UIEdgeInsetsMake(0, 0, 0 ,0);
-        case 2:
-            return UIEdgeInsetsMake(0, 0, 0 ,0);
-        case 5:
-            return UIEdgeInsetsMake(0, 0, 0 ,0);
-        case 8:
-            return UIEdgeInsetsMake(0, 0, 0 ,0);
-        default:
-            return UIEdgeInsetsMake(10, 10, 10 ,10);
-    }
+#pragma mark - TableViewArticlesCellDelegate TableViewVideosCellDelegate
+
+- (void)articleCellDidSelectRowAtURL:(NSString *)url {
+    NSLog(@"articleCell-Clicked With %@",url);
 }
 
-
-
-
-#pragma mark - 内存警告
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)videosCellDidSelectRowAtURL:(NSString *)url {
+    NSLog(@"videosCell-Clicked With %@",url);
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (void)bangumisCellDidSelectRowAtURL:(NSString *)url {
+    NSLog(@"bangumisCell-Clicked With %@",url);
 }
-*/
 
 
 #pragma mark - 事件响应
 
 - (void)pushToDownloadView {
-//    DownloadViewController *downloadVC = [[DownloadViewController alloc]init];
-//    [self.navigationController pushViewController:downloadVC animated:NO];
+    //    DownloadViewController *downloadVC = [[DownloadViewController alloc]init];
+    //    [self.navigationController pushViewController:downloadVC animated:NO];
     
 }
 
 - (void)pushToHistoryView {
-//    HistoryViewController *historyVC = [[HistoryViewController alloc]init];
-//    [self.navigationController pushViewController:historyVC animated:YES];
+    //    HistoryViewController *historyVC = [[HistoryViewController alloc]init];
+    //    [self.navigationController pushViewController:historyVC animated:YES];
     
     
 }
 
 - (void)pushToSearchView {
-//    SearchViewController *searchVC = [[SearchViewController alloc]init];
-//    [self.navigationController pushViewController:searchVC animated:NO];
+    //    SearchViewController *searchVC = [[SearchViewController alloc]init];
+    //    [self.navigationController pushViewController:searchVC animated:NO];
     NSLog(@"btnClick");
 }
+
 
 
 @end

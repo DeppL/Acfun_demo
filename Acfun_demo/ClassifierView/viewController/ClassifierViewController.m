@@ -10,10 +10,12 @@
 #import "ChannelModel.h"
 
 #define kGuideViewHight 40
+#define kGuideViewWidth kDeviceWidth / _tabCount
 
 @interface ClassifierViewController () <UIScrollViewDelegate>
 
-@property (assign) NSInteger tabCount;
+@property (nonatomic, assign) NSInteger tabCount;
+
 
 @property (nonatomic, assign) NSInteger firstResponseRow;
 @property (nonatomic, strong) UIView *slideView;
@@ -34,24 +36,115 @@
 #pragma mark -
 #pragma mark - private
 
+
+#pragma mark - LifeCycle
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+    
+    //
+    self.tabBarController.tabBar.hidden = YES;
+    
+    // 设置navigationItem
+    [self setUpNav];
+    
+    // 设置导航条
+    [self.view addSubview:self.guideView];
+    
+    // 设置主视图
+    [self.view addSubview:self.mainScrollView];
+    
+    // 设置第一响应视图
+    [self setFirstResponseView];
+    
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
+
 #pragma mark - 初始化
 - (UIView *)slideView {
     if (!_slideView) {
         _slideView = [[UIView alloc]init];
+        _slideView = [[UIView alloc]initWithFrame:CGRectMake((kGuideViewWidth - 30) * 0.5, kGuideViewHight + 64 - 5, 30, 5)];
+        _slideView.backgroundColor = kMyRed;
+
     }
     return _slideView;
 }
 
 - (UIView *)guideView {
     if (!_guideView) {
+        
         _guideView = [[UIView alloc]init];
+        self.automaticallyAdjustsScrollViewInsets = NO;
+        _tabCount = self.channelSubModel.childChannels.count;
+        
+        CGRect guideRect = CGRectMake(0, 64, kDeviceWidth, kGuideViewHight);
+        _guideView = [[UIScrollView alloc]initWithFrame:guideRect];
+        [_guideView setBounds:guideRect];
+        _guideView.backgroundColor = kMyWhite;
+        
+        
+        for (int i = 0; i < _tabCount; i ++) {
+            CGRect btnRect = CGRectMake(kGuideViewWidth * i, 64, kGuideViewWidth, kGuideViewHight);
+            UIButton *btn = [[UIButton alloc]initWithFrame:btnRect];
+            ChannelModel *model = self.channelSubModel.childChannels[i];
+            [btn setTitle:model.name forState:UIControlStateNormal];
+            [btn setTitleColor:RGB(150, 150, 150) forState:UIControlStateNormal];
+            [btn addTarget:self action:@selector(guideBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
+            [btn setTag:i];
+            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+            [_guideView addSubview:btn];
+        }
+        
+        [_guideView addSubview:self.slideView];
     }
     return _guideView;
 }
 
 - (UIScrollView *)mainScrollView {
     if (!_mainScrollView) {
+        
         _mainScrollView = [[UIScrollView alloc]init];
+        
+        CGRect mainScrollViewRect = CGRectMake(0, 64 + kGuideViewHight, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64);
+        _mainScrollView = [[UIScrollView alloc]initWithFrame:mainScrollViewRect];
+        _mainScrollView.pagingEnabled = YES;
+        _mainScrollView.delegate = self;
+        _mainScrollView.contentSize = CGSizeMake(kDeviceWidth * _tabCount, KDeviceHeight - kGuideViewHight - 64);
+        
+        for (int i = 0; i < _tabCount; i ++) {
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64)];
+            imageView.image = [UIImage imageNamed:@"placeHolder"];
+            [_mainScrollView addSubview:imageView];
+        }
     }
     return _mainScrollView;
 }
@@ -60,11 +153,13 @@
 - (void)setUpNav {
     
     
-    self.tabBarController.tabBar.hidden = YES;
     UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
     titleLabel.text = self.channelSubModel.name;
     titleLabel.textColor = kMyWhite;
     [self.navigationItem.titleView addSubview:titleLabel];
+    
+//    self.navigationItem.title = self.channelSubModel.name;
+//    self.navigationItem.
     
     UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
     
@@ -74,70 +169,17 @@
     UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]initWithCustomView:cancelBtn];
     self.navigationItem.leftBarButtonItem = cancelItem;
     
-    UIButton *deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    [deleteBtn setTitle:@"delete" forState:UIControlStateNormal];
-    [deleteBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //    [deleteBtn addTarget:self action:@selector(clickToDelete) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *deleteItem = [[UIBarButtonItem alloc]initWithCustomView:deleteBtn];
-    self.navigationItem.rightBarButtonItem = deleteItem;
-    
-}
-
-// 设置导航条
-- (void)setUpGuideView {
-    self.automaticallyAdjustsScrollViewInsets = NO;
-    _tabCount = self.channelSubModel.childChannels.count;
-    
-    
-    CGRect guideRect = CGRectMake(0, 64, kDeviceWidth, kGuideViewHight);
-    _guideView = [[UIScrollView alloc]initWithFrame:guideRect];
-    [_guideView setBounds:guideRect];
-    _guideView.backgroundColor = kMyWhite;
-    
-    
-    CGFloat width = (CGFloat)kDeviceWidth / _tabCount;
-    for (int i = 0; i < _tabCount; i ++) {
-        CGRect btnRect = CGRectMake(width * i, 64, width, kGuideViewHight);
-        UIButton *btn = [[UIButton alloc]initWithFrame:btnRect];
-        ChannelModel *model = self.channelSubModel.childChannels[i];
-        [btn setTitle:model.name forState:UIControlStateNormal];
-        [btn setTitleColor:RGB(150, 150, 150) forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(guideBtnClicked:) forControlEvents:UIControlEventTouchUpInside];
-        [btn setTag:i];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [_guideView addSubview:btn];
-    }
-    
-    
-    _slideView = [[UIView alloc]initWithFrame:CGRectMake((width - 30) * 0.5, kGuideViewHight + 64 - 5, 30, 5)];
-    _slideView.backgroundColor = kMyRed;
-    [_guideView addSubview:_slideView];
-    
-    [self.view addSubview:_guideView];
-}
-
-// 设置主视图
-- (void)setUpMainScrollView {
-    CGRect mainScrollViewRect = CGRectMake(0, 64 + kGuideViewHight, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64);
-    _mainScrollView = [[UIScrollView alloc]initWithFrame:mainScrollViewRect];
-    _mainScrollView.pagingEnabled = YES;
-    _mainScrollView.delegate = self;
-    for (int i = 0; i < _tabCount; i ++) {
-        UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64)];
-        imageView.image = [UIImage imageNamed:@"placeHolder"];
-        [_mainScrollView addSubview:imageView];
-    }
-    
-    [self.view addSubview:_mainScrollView];
 }
 
 
 // 设置第一响应视图
 - (void)setFirstResponseView {
-    [_mainScrollView setContentOffset:CGPointMake(kDeviceWidth * _firstResponseRow, 0) animated:YES];
     
-    CGFloat slideViewCenterX = kDeviceWidth / (CGFloat)_tabCount * (_firstResponseRow + 0.5);
+    if (!self.mainScrollView || !self.slideView) return;
+    
+    [_mainScrollView setContentOffset:CGPointMake(kDeviceWidth * _firstResponseRow, 0) animated:NO];
+    
+    CGFloat slideViewCenterX = kGuideViewWidth * (_firstResponseRow + 0.5);
     CGPoint slideViewCenterP = _slideView.center;
     slideViewCenterP.x = slideViewCenterX;
     [_slideView setCenter:slideViewCenterP];
@@ -148,37 +190,6 @@
 }
 
 
-#pragma mark - LifeCycle
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    // 设置navigationItem
-    [self setUpNav];
-    
-    // 设置导航条
-    [self setUpGuideView];
-    
-    // 设置主视图
-    [self setUpMainScrollView];
-    
-    // 设置第一响应视图
-    [self setFirstResponseView];
-    
-}
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    _mainScrollView.contentSize = CGSizeMake(kDeviceWidth * _tabCount, KDeviceHeight - kGuideViewHight - 64);
-}
-
 #pragma mark - scrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -187,7 +198,7 @@
     
     // 设置_slideView.frame
     CGRect rect = _slideView.frame;
-    rect.origin.x = kDeviceWidth / _tabCount * i + (kDeviceWidth / _tabCount - 30) * 0.5;
+    rect.origin.x = kGuideViewWidth * i + (kGuideViewWidth - 30) * 0.5;
     _slideView.frame = rect;
     
     // 滚动时，设置guideView的颜色

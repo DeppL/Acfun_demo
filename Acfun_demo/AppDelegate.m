@@ -44,6 +44,8 @@
     
     UserViewController *userVC = [[UserViewController alloc]init];
     UINavigationController *userNavC = [[UINavigationController alloc]initWithRootViewController:userVC];
+    UIImage *personImg = [UIImage imageNamed:@"tabbar_item_person"];
+    userVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"USER" image:personImg selectedImage:nil];
     
     
     rootTabBarC.viewControllers = @[homeNavC, channelNavC, focusNavC, userNavC];

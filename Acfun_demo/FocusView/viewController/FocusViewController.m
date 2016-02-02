@@ -32,29 +32,50 @@
 
 @implementation FocusViewController
 
-#pragma mark - life cycle
+
+#pragma mark - LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+    
     [self setUpNav];
     
-    [self setUpTableView];
-    
-    [self setUpHomelList];
-    
-    
+//    [self setUpHomelList];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
 }
 
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+}
+
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     [[SDImageCache sharedImageCache] clearMemory];
 }
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
+#pragma mark - 内存警告
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+
 
 #pragma mark - initialize
 
@@ -67,7 +88,7 @@
 
 - (NSArray *)homeModelsFrameArr {
     if (!_homeModelsFrameArr) {
-        _homeModelsFrameArr = [[NSArray alloc]init];
+        _homeModelsFrameArr = [NSArray array];
     }
     return _homeModelsFrameArr;
 }
@@ -79,6 +100,12 @@
         _homeTableView.delegate = self;
         _homeTableView.dataSource = self;
         _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_homeTableView registerClass:[TableViewArticlesCell class] forCellReuseIdentifier:TableViewArticlesCellID];
+        [_homeTableView registerClass:[TableViewBangumisCell class] forCellReuseIdentifier:TableViewBangumisCellID];
+        [_homeTableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
+        [_homeTableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
+        [_homeTableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
+        [self.view addSubview:_homeTableView];
     }
     return _homeTableView;
 }
@@ -125,19 +152,10 @@
     
 }
 
-- (void)setUpTableView {
-    [self.homeTableView registerClass:[TableViewArticlesCell class] forCellReuseIdentifier:TableViewArticlesCellID];
-    [self.homeTableView registerClass:[TableViewBangumisCell class] forCellReuseIdentifier:TableViewBangumisCellID];
-    [self.homeTableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
-    [self.homeTableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
-    [self.homeTableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
-    [self.view addSubview:self.homeTableView];
-    
-}
-
 - (void)setUpHomelList {
     
     [SingleHttpTool GETHomeModelSuccess:^(id object) {
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
             self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
@@ -228,7 +246,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     
-    if (section == 1 || section == 4 || section == 7 || section == 16) return 0;
+    if ( 1 == section || 4 == section || 7 == section || 16 == section ) return 0;
     return 5;
 }
 
@@ -257,14 +275,6 @@
 
 - (void)bangumisCellDidSelectRowAtURL:(NSString *)url {
     NSLog(@"bangumisCell-Clicked With %@",url);
-}
-
-
-#pragma mark - 内存警告
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 

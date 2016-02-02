@@ -105,6 +105,8 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
         
         __block NSMutableArray *mMainArr = [NSMutableArray arrayWithArray:object[@"data"]];
         
+        success(object);
+        
         for (NSDictionary *subDict in mMainArr) {
             
             if (subDict[@"contents"]) continue;

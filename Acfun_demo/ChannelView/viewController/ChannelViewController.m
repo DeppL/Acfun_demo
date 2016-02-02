@@ -35,6 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
     // 设置导航栏
     [self setUpNav];
@@ -47,8 +48,16 @@
     
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -56,7 +65,15 @@
     [[SDImageCache sharedImageCache] clearMemory];
 }
 
-- (void)dealloc {
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+}
+
+#pragma mark - 内存警告
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
 }
 
 
@@ -108,9 +125,9 @@
             });
         });
     } failure:^(NSError *error) {
-//        NSLog(@"error");
+        NSLog(@"error");
     } offline:^{
-//        NSLog(@"offline");
+        NSLog(@"offline");
     }];
 }
 
@@ -167,6 +184,7 @@
         return footView;
     }
 }
+
 #pragma mark - Delegate
 
 #warning cell selected
@@ -210,21 +228,6 @@
     return UIEdgeInsetsMake(10, edge * 0.5, 0, edge * 0.5);
 }
 
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
-#pragma mark - 内存警告
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
 
 #pragma mark - 事件响应
 

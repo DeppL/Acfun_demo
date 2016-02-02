@@ -9,10 +9,10 @@
 #import <UIKit/UIKit.h>
 
 
-static NSString *homeCellID = @"homeCellID";
-static NSString *homeCollectionHeadViewID = @"homeCollectionHeadViewID";
-static NSString *homeCollectionFootViewID = @"homeCollectionFootViewID";
-
+//static NSString *homeCellID = @"homeCellID";
+//static NSString *homeCollectionHeadViewID = @"homeCollectionHeadViewID";
+//static NSString *homeCollectionFootViewID = @"homeCollectionFootViewID";
+//
 @interface HomeViewController : UIViewController
 
 @end
