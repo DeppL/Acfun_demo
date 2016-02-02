@@ -1,0 +1,47 @@
+PODS:
+  - AFNetworking (3.0.4):
+    - AFNetworking/NSURLSession (= 3.0.4)
+    - AFNetworking/Reachability (= 3.0.4)
+    - AFNetworking/Security (= 3.0.4)
+    - AFNetworking/Serialization (= 3.0.4)
+    - AFNetworking/UIKit (= 3.0.4)
+  - AFNetworking/NSURLSession (3.0.4):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (3.0.4)
+  - AFNetworking/Security (3.0.4)
+  - AFNetworking/Serialization (3.0.4)
+  - AFNetworking/UIKit (3.0.4):
+    - AFNetworking/NSURLSession
+  - MBProgressHUD (0.9.2)
+  - MJExtension (3.0.10)
+  - Reachability (3.2)
+  - Reveal (1.2.3)
+  - Reveal-iOS-SDK (1.6.2)
+  - SDWebImage (3.7.5):
+    - SDWebImage/Core (= 3.7.5)
+  - SDWebImage/Core (3.7.5)
+  - YYCache (0.9.5)
+
+DEPENDENCIES:
+  - AFNetworking
+  - MBProgressHUD
+  - MJExtension
+  - Reachability
+  - Reveal (~> 1.2.3)
+  - Reveal-iOS-SDK (~> 1.6.2)
+  - SDWebImage
+  - YYCache
+
+SPEC CHECKSUMS:
+  AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  MBProgressHUD: 1569cf7ace17a8bac47aabfbb8580a49690386d1
+  MJExtension: d86aacb740c87519d20e3cca55b6fa4be6cc7548
+  Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
+  Reveal: fbff7a0dcd206b8de19baf5bbff14d5f8369a4e0
+  Reveal-iOS-SDK: e2250b3c155bcfac53ae223ddc1f76d08f206c33
+  SDWebImage: 69c6303e3348fba97e03f65d65d4fbc26740f461
+  YYCache: 3ddcc49c387655f077c4e1b3708ed5ed71c79be2
+
+COCOAPODS: 0.39.0

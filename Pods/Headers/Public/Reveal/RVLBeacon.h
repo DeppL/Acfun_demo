@@ -1,0 +1,1 @@
+../../../Reveal/Classes/RVLBeacon.h

@@ -1,0 +1,140 @@
+//
+//  HomeModel.h
+//  Acfun_demo
+//
+//  Created by DeppL on 16/1/18.
+//  Copyright © 2016年 DeppL. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+
+@class HomeModelType;
+@class HomeModelVisit;
+@class HomeModelOwner;
+@class HomeModelContent;
+@class HomeModelLatestBangumiVideo;
+
+typedef NS_ENUM(NSInteger, HomeViewCellType) {
+    HomeViewCellTypeVideos = 1,
+    HomeViewCellTypeArticles = 2,
+    HomeViewCellTypeBangumis = 3,
+    HomeViewCellTypeCarousels = 5,
+    HomeViewCellTypeBanners = 6
+};
+
+//typedef enum {
+//    HomeViewCellTypeVideos = 1,
+//    HomeViewCellTypeArticles = 2,
+//    HomeViewCellTypeBangumis = 3,
+//    HomeViewCellTypeCarousels = 5,
+//    HomeViewCellTypeBanners = 6
+//} HomeViewCellType;
+
+
+@interface HomeModel : NSObject
+
+@property (nonatomic, copy) NSString *belong;
+@property (nonatomic, copy) NSString *channelId;
+@property (nonatomic, copy) NSString *contentCount;
+@property (nonatomic, copy) NSArray *contents;                // ~~ HomeModelContent ~~
+@property (nonatomic, copy) NSString *goText;
+@property (nonatomic, copy) NSString *hide;
+@property (nonatomic, copy) NSString *homeId;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *menuCount;
+@property (nonatomic, copy) NSArray *menus;                   // ~~ HomeModelMenu ~~
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *platformId;
+@property (nonatomic, copy) NSString *showLine;
+@property (nonatomic, copy) NSString *showMore;
+@property (nonatomic, copy) NSString *showName;
+@property (nonatomic, copy) NSString *sort;
+@property (nonatomic, copy) NSString *subTitle;
+@property (nonatomic, strong) HomeModelType *type;            // ~~ HomeModelType ~~
+@property (nonatomic, copy) NSString *url;
+
++ (HomeModelContent *)getSubHomeModelInModelArr:(NSArray *)arr withSection:(NSInteger)section andRow:(NSInteger)row;
+
+@end
+
+@interface HomeModelContent : NSObject
+
+@property (nonatomic, copy) NSString *actionId;
+@property (nonatomic, copy) NSString *channelId;
+@property (nonatomic, copy) NSString *hide;
+@property (nonatomic, copy) NSString *contentId;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *intro;
+@property (nonatomic, strong) HomeModelLatestBangumiVideo *latestBangumiVideo;
+@property (nonatomic, strong) HomeModelOwner *owner;
+@property (nonatomic, copy) NSString *regionId;
+@property (nonatomic, copy) NSString *releaseDate;
+@property (nonatomic, copy) NSString *releasedAt;
+@property (nonatomic, copy) NSString *status;
+@property (nonatomic, copy) NSString *subTitle;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *subUrl;
+@property (nonatomic, copy) NSString *url;
+@property (nonatomic, strong) HomeModelVisit *visit;
+
+@end
+
+
+@interface HomeModelOwner : NSObject
+
+@property (nonatomic, copy) NSString *avatar;
+@property (nonatomic, copy) NSString *ownerId;
+@property (nonatomic, copy) NSString *name;
+
+@end
+
+
+@interface HomeModelVisit : NSObject
+
+@property (nonatomic, copy) NSString *comments;
+@property (nonatomic, copy) NSString *danmakuSize;
+@property (nonatomic, copy) NSString *goldBanana;
+@property (nonatomic, copy) NSString *score;
+@property (nonatomic, copy) NSString *stows;
+@property (nonatomic, copy) NSString *ups;
+@property (nonatomic, copy) NSString *views;
+
+@end
+
+
+@interface HomeModelMenu : NSObject
+
+@property (nonatomic, copy) NSString *actionId;
+@property (nonatomic, copy) NSString *channelId;
+@property (nonatomic, copy) NSString *hide;
+@property (nonatomic, copy) NSString *menuId;
+@property (nonatomic, copy) NSString *image;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *regionId;
+@property (nonatomic, copy) NSString *sort;
+@property (nonatomic, copy) NSString *url;
+
+@end
+
+
+@interface HomeModelType : NSObject
+
+@property (nonatomic, assign) HomeViewCellType *typeId;
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *value;
+
+@end
+
+
+@interface HomeModelLatestBangumiVideo : NSObject
+
+@property (nonatomic, copy) NSString *bangumiId;
+@property (nonatomic, copy) NSString *sort;
+@property (nonatomic, copy) NSString *title;
+@property (nonatomic, copy) NSString *updateTime;
+@property (nonatomic, copy) NSString *videoId;
+
+@end
+
+
+

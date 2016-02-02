@@ -1,0 +1,10 @@
+platform:ios, '8.0'
+
+pod 'SDWebImage'
+pod 'MBProgressHUD'
+pod 'MJExtension'
+pod 'AFNetworking'
+pod 'Reachability'
+pod 'Reveal', '~> 1.2.3'
+pod 'Reveal-iOS-SDK', '~> 1.6.2'
+pod 'YYCache'
