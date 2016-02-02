@@ -19,11 +19,6 @@
 		880A13641C50A27400B3866C /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A13631C50A27400B3866C /* DetailModel.m */; };
 		880A136A1C50AA2800B3866C /* ClassifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A13691C50AA2800B3866C /* ClassifierViewController.m */; };
 		8817D3021C30E19B0018B398 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8817D3011C30E19B0018B398 /* Assets.xcassets */; };
-		8820DA201C4D129B004CE184 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA151C4D129B004CE184 /* ChannelModel.m */; };
-		8820DA211C4D129B004CE184 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA181C4D129B004CE184 /* ChannelViewController.m */; };
-		8820DA221C4D129B004CE184 /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA1B1C4D129B004CE184 /* ChannelCollectionViewCell.m */; };
-		8820DA231C4D129B004CE184 /* CollectionFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA1D1C4D129B004CE184 /* CollectionFootView.m */; };
-		8820DA241C4D129B004CE184 /* CollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA1F1C4D129B004CE184 /* CollectionHeadView.m */; };
 		8820DA2B1C4D15ED004CE184 /* FocusViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA291C4D15ED004CE184 /* FocusViewController.m */; };
 		8820DA341C4D15F4004CE184 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA301C4D15F4004CE184 /* HomeViewController.m */; };
 		8820DA3F1C4D15FB004CE184 /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA3C1C4D15FB004CE184 /* UserViewController.m */; };
@@ -42,6 +37,11 @@
 		88218AC11C5A717A0078D6DC /* HomeModelType.m in Sources */ = {isa = PBXBuildFile; fileRef = 88218AC01C5A717A0078D6DC /* HomeModelType.m */; };
 		88218AC41C5A71AF0078D6DC /* HomeModelLatestBangumiVideo.m in Sources */ = {isa = PBXBuildFile; fileRef = 88218AC31C5A71AF0078D6DC /* HomeModelLatestBangumiVideo.m */; };
 		88514B111C521F8C00F37B5A /* SingleHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88514B101C521F8C00F37B5A /* SingleHttpTool.m */; };
+		88B22DF61C60993A00E7F54D /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22DEB1C60993A00E7F54D /* ChannelModel.m */; };
+		88B22DF71C60993A00E7F54D /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22DEE1C60993A00E7F54D /* ChannelViewController.m */; };
+		88B22DF81C60993A00E7F54D /* ChannelCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22DF11C60993A00E7F54D /* ChannelCollectionViewCell.m */; };
+		88B22DF91C60993A00E7F54D /* CollectionFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22DF31C60993A00E7F54D /* CollectionFootView.m */; };
+		88B22DFA1C60993A00E7F54D /* CollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22DF51C60993A00E7F54D /* CollectionHeadView.m */; };
 		88E79AD41C5B1A6E007BAD7C /* HomeModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 88E79AD31C5B1A6E007BAD7C /* HomeModelFrame.m */; };
 		88FD946C1C575E0F001CD81B /* URL_Note in Resources */ = {isa = PBXBuildFile; fileRef = 88FD946B1C575E0F001CD81B /* URL_Note */; };
 		88FD946F1C576385001CD81B /* TableViewCarouselsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FD946E1C576385001CD81B /* TableViewCarouselsCell.m */; };
@@ -76,16 +76,6 @@
 		880A13691C50AA2800B3866C /* ClassifierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierViewController.m; sourceTree = "<group>"; };
 		8817D2CF1C2E3D540018B398 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		8817D3011C30E19B0018B398 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		8820DA141C4D129B004CE184 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
-		8820DA151C4D129B004CE184 /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
-		8820DA171C4D129B004CE184 /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
-		8820DA181C4D129B004CE184 /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
-		8820DA1A1C4D129B004CE184 /* ChannelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionViewCell.h; sourceTree = "<group>"; };
-		8820DA1B1C4D129B004CE184 /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
-		8820DA1C1C4D129B004CE184 /* CollectionFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionFootView.h; sourceTree = "<group>"; };
-		8820DA1D1C4D129B004CE184 /* CollectionFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionFootView.m; sourceTree = "<group>"; };
-		8820DA1E1C4D129B004CE184 /* CollectionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionHeadView.h; sourceTree = "<group>"; };
-		8820DA1F1C4D129B004CE184 /* CollectionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionHeadView.m; sourceTree = "<group>"; };
 		8820DA281C4D15ED004CE184 /* FocusViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FocusViewController.h; sourceTree = "<group>"; };
 		8820DA291C4D15ED004CE184 /* FocusViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FocusViewController.m; sourceTree = "<group>"; };
 		8820DA2F1C4D15F4004CE184 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
@@ -123,6 +113,16 @@
 		88218AC61C5A720A0078D6DC /* HomeModelConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeModelConfig.h; sourceTree = "<group>"; };
 		88514B0F1C521F8C00F37B5A /* SingleHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleHttpTool.h; sourceTree = "<group>"; };
 		88514B101C521F8C00F37B5A /* SingleHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleHttpTool.m; sourceTree = "<group>"; };
+		88B22DEA1C60993A00E7F54D /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
+		88B22DEB1C60993A00E7F54D /* ChannelModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelModel.m; sourceTree = "<group>"; };
+		88B22DED1C60993A00E7F54D /* ChannelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelViewController.h; sourceTree = "<group>"; };
+		88B22DEE1C60993A00E7F54D /* ChannelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelViewController.m; sourceTree = "<group>"; };
+		88B22DF01C60993A00E7F54D /* ChannelCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelCollectionViewCell.h; sourceTree = "<group>"; };
+		88B22DF11C60993A00E7F54D /* ChannelCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChannelCollectionViewCell.m; sourceTree = "<group>"; };
+		88B22DF21C60993A00E7F54D /* CollectionFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionFootView.h; sourceTree = "<group>"; };
+		88B22DF31C60993A00E7F54D /* CollectionFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionFootView.m; sourceTree = "<group>"; };
+		88B22DF41C60993A00E7F54D /* CollectionHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionHeadView.h; sourceTree = "<group>"; };
+		88B22DF51C60993A00E7F54D /* CollectionHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionHeadView.m; sourceTree = "<group>"; };
 		88B519C81C43976300A59610 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		88E79AD21C5B1A6E007BAD7C /* HomeModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModelFrame.h; sourceTree = "<group>"; };
 		88E79AD31C5B1A6E007BAD7C /* HomeModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModelFrame.m; sourceTree = "<group>"; };
@@ -184,12 +184,12 @@
 		8805F2161C2BF008001F51FF /* Acfun_demo */ = {
 			isa = PBXGroup;
 			children = (
+				88B22DE81C60993A00E7F54D /* ChannelView */,
 				880A135E1C50A1E100B3866C /* DetailView */,
 				8820DA561C4E1E92004CE184 /* Tools */,
 				8805F21A1C2BF008001F51FF /* AppDelegate.h */,
 				8805F21B1C2BF008001F51FF /* AppDelegate.m */,
 				8820DA2C1C4D15F4004CE184 /* HomeView */,
-				8820DA121C4D129B004CE184 /* ChannelView */,
 				8820DA251C4D15ED004CE184 /* FocusView */,
 				8820DA361C4D15FB004CE184 /* UserView */,
 				880A135A1C50A1D600B3866C /* ClassifierView */,
@@ -219,18 +219,9 @@
 		880A135A1C50A1D600B3866C /* ClassifierView */ = {
 			isa = PBXGroup;
 			children = (
-				880A135B1C50A1D600B3866C /* Models */,
 				880A135C1C50A1D600B3866C /* viewController */,
-				880A135D1C50A1D600B3866C /* Views */,
 			);
 			path = ClassifierView;
-			sourceTree = "<group>";
-		};
-		880A135B1C50A1D600B3866C /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		880A135C1C50A1D600B3866C /* viewController */ = {
@@ -240,13 +231,6 @@
 				880A13691C50AA2800B3866C /* ClassifierViewController.m */,
 			);
 			path = viewController;
-			sourceTree = "<group>";
-		};
-		880A135D1C50A1D600B3866C /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		880A135E1C50A1E100B3866C /* DetailView */ = {
@@ -278,47 +262,6 @@
 		880A13611C50A1E100B3866C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		8820DA121C4D129B004CE184 /* ChannelView */ = {
-			isa = PBXGroup;
-			children = (
-				8820DA161C4D129B004CE184 /* viewController */,
-				8820DA131C4D129B004CE184 /* Models */,
-				8820DA191C4D129B004CE184 /* Views */,
-			);
-			path = ChannelView;
-			sourceTree = "<group>";
-		};
-		8820DA131C4D129B004CE184 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				8820DA141C4D129B004CE184 /* ChannelModel.h */,
-				8820DA151C4D129B004CE184 /* ChannelModel.m */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		8820DA161C4D129B004CE184 /* viewController */ = {
-			isa = PBXGroup;
-			children = (
-				8820DA171C4D129B004CE184 /* ChannelViewController.h */,
-				8820DA181C4D129B004CE184 /* ChannelViewController.m */,
-			);
-			path = viewController;
-			sourceTree = "<group>";
-		};
-		8820DA191C4D129B004CE184 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				8820DA1A1C4D129B004CE184 /* ChannelCollectionViewCell.h */,
-				8820DA1B1C4D129B004CE184 /* ChannelCollectionViewCell.m */,
-				8820DA1C1C4D129B004CE184 /* CollectionFootView.h */,
-				8820DA1D1C4D129B004CE184 /* CollectionFootView.m */,
-				8820DA1E1C4D129B004CE184 /* CollectionHeadView.h */,
-				8820DA1F1C4D129B004CE184 /* CollectionHeadView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -493,6 +436,47 @@
 			path = subViews;
 			sourceTree = "<group>";
 		};
+		88B22DE81C60993A00E7F54D /* ChannelView */ = {
+			isa = PBXGroup;
+			children = (
+				88B22DE91C60993A00E7F54D /* Models */,
+				88B22DEC1C60993A00E7F54D /* ViewController */,
+				88B22DEF1C60993A00E7F54D /* Views */,
+			);
+			path = ChannelView;
+			sourceTree = "<group>";
+		};
+		88B22DE91C60993A00E7F54D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				88B22DEA1C60993A00E7F54D /* ChannelModel.h */,
+				88B22DEB1C60993A00E7F54D /* ChannelModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		88B22DEC1C60993A00E7F54D /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				88B22DED1C60993A00E7F54D /* ChannelViewController.h */,
+				88B22DEE1C60993A00E7F54D /* ChannelViewController.m */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		88B22DEF1C60993A00E7F54D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				88B22DF01C60993A00E7F54D /* ChannelCollectionViewCell.h */,
+				88B22DF11C60993A00E7F54D /* ChannelCollectionViewCell.m */,
+				88B22DF21C60993A00E7F54D /* CollectionFootView.h */,
+				88B22DF31C60993A00E7F54D /* CollectionFootView.m */,
+				88B22DF41C60993A00E7F54D /* CollectionHeadView.h */,
+				88B22DF51C60993A00E7F54D /* CollectionHeadView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		C49019E96A3C13DF57D5D953 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,40 +615,40 @@
 			files = (
 				88218AB21C5A703E0078D6DC /* HomeModel.m in Sources */,
 				8820DA4C1C4D277B004CE184 /* HomeModel.m.back in Sources */,
-				8820DA231C4D129B004CE184 /* CollectionFootView.m in Sources */,
 				8805F21C1C2BF008001F51FF /* AppDelegate.m in Sources */,
 				8820DA481C4D1694004CE184 /* HistoryViewController.m in Sources */,
 				88FD947B1C5763FB001CD81B /* TableViewArticlesCell.m in Sources */,
 				88218AB81C5A70E00078D6DC /* HomeModelOwner.m in Sources */,
+				88B22DF71C60993A00E7F54D /* ChannelViewController.m in Sources */,
 				88218AAF1C5A57470078D6DC /* TableViewSubArticleCell.m in Sources */,
 				88218AC11C5A717A0078D6DC /* HomeModelType.m in Sources */,
 				8820DA491C4D1694004CE184 /* SearchViewController.m in Sources */,
 				8805F23E1C2BF13B001F51FF /* main.m in Sources */,
 				880A134E1C4FD11300B3866C /* HomeCollectionHeadView.m in Sources */,
-				8820DA221C4D129B004CE184 /* ChannelCollectionViewCell.m in Sources */,
 				8805F23A1C2BF13B001F51FF /* Acfun_demo.xcdatamodeld in Sources */,
 				88FD94781C5763D5001CD81B /* TableViewBangumisCell.m in Sources */,
+				88B22DF81C60993A00E7F54D /* ChannelCollectionViewCell.m in Sources */,
 				8820DA3F1C4D15FB004CE184 /* UserViewController.m in Sources */,
 				88E79AD41C5B1A6E007BAD7C /* HomeModelFrame.m in Sources */,
 				88218AA91C5A05A40078D6DC /* CollectionViewHorizontalCell.m in Sources */,
-				8820DA241C4D129B004CE184 /* CollectionHeadView.m in Sources */,
 				88FD94721C5763B0001CD81B /* TableViewVideosCell.m in Sources */,
 				88218ABB1C5A71080078D6DC /* HomeModelVisit.m in Sources */,
+				88B22DF91C60993A00E7F54D /* CollectionFootView.m in Sources */,
 				880A13481C4FB3FB00B3866C /* HomeCollectionViewCell.m in Sources */,
 				8820DA341C4D15F4004CE184 /* HomeViewController.m in Sources */,
-				8820DA201C4D129B004CE184 /* ChannelModel.m in Sources */,
 				880A136A1C50AA2800B3866C /* ClassifierViewController.m in Sources */,
 				88218AA61C5A057C0078D6DC /* CollectionViewVerticalCell.m in Sources */,
-				8820DA211C4D129B004CE184 /* ChannelViewController.m in Sources */,
 				880A134B1C4FD0F900B3866C /* HomeCollectionFootView.m in Sources */,
 				88218AB51C5A70A00078D6DC /* HomeModelContent.m in Sources */,
 				88FD94751C5763BE001CD81B /* TableViewBannersCell.m in Sources */,
+				88B22DFA1C60993A00E7F54D /* CollectionHeadView.m in Sources */,
 				88218ABE1C5A713F0078D6DC /* HomeModelMenu.m in Sources */,
 				88218AC41C5A71AF0078D6DC /* HomeModelLatestBangumiVideo.m in Sources */,
 				88514B111C521F8C00F37B5A /* SingleHttpTool.m in Sources */,
 				880A13641C50A27400B3866C /* DetailModel.m in Sources */,
 				8804F98A1C4A757A00194F58 /* myTools.m in Sources */,
 				8820DA2B1C4D15ED004CE184 /* FocusViewController.m in Sources */,
+				88B22DF61C60993A00E7F54D /* ChannelModel.m in Sources */,
 				8820DA471C4D1694004CE184 /* DownloadViewController.m in Sources */,
 				88FD946F1C576385001CD81B /* TableViewCarouselsCell.m in Sources */,
 			);
