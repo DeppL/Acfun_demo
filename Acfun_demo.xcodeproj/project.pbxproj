@@ -18,7 +18,6 @@
 		880A134E1C4FD11300B3866C /* HomeCollectionHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A134D1C4FD11300B3866C /* HomeCollectionHeadView.m */; };
 		880A13641C50A27400B3866C /* DetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A13631C50A27400B3866C /* DetailModel.m */; };
 		880A136A1C50AA2800B3866C /* ClassifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A13691C50AA2800B3866C /* ClassifierViewController.m */; };
-		880A13701C50C05300B3866C /* SlideTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 880A136F1C50C05300B3866C /* SlideTabBarView.m */; };
 		8817D3021C30E19B0018B398 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8817D3011C30E19B0018B398 /* Assets.xcassets */; };
 		8820DA201C4D129B004CE184 /* ChannelModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA151C4D129B004CE184 /* ChannelModel.m */; };
 		8820DA211C4D129B004CE184 /* ChannelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8820DA181C4D129B004CE184 /* ChannelViewController.m */; };
@@ -75,8 +74,6 @@
 		880A13631C50A27400B3866C /* DetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailModel.m; sourceTree = "<group>"; };
 		880A13681C50AA2800B3866C /* ClassifierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierViewController.h; sourceTree = "<group>"; };
 		880A13691C50AA2800B3866C /* ClassifierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierViewController.m; sourceTree = "<group>"; };
-		880A136E1C50C05300B3866C /* SlideTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SlideTabBarView.h; path = ../../UserView/Views/SlideTabBarView.h; sourceTree = "<group>"; };
-		880A136F1C50C05300B3866C /* SlideTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SlideTabBarView.m; path = ../../UserView/Views/SlideTabBarView.m; sourceTree = "<group>"; };
 		8817D2CF1C2E3D540018B398 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
 		8817D3011C30E19B0018B398 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8820DA141C4D129B004CE184 /* ChannelModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChannelModel.h; sourceTree = "<group>"; };
@@ -248,8 +245,6 @@
 		880A135D1C50A1D600B3866C /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				880A136E1C50C05300B3866C /* SlideTabBarView.h */,
-				880A136F1C50C05300B3866C /* SlideTabBarView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -657,7 +652,6 @@
 				88218ABB1C5A71080078D6DC /* HomeModelVisit.m in Sources */,
 				880A13481C4FB3FB00B3866C /* HomeCollectionViewCell.m in Sources */,
 				8820DA341C4D15F4004CE184 /* HomeViewController.m in Sources */,
-				880A13701C50C05300B3866C /* SlideTabBarView.m in Sources */,
 				8820DA201C4D129B004CE184 /* ChannelModel.m in Sources */,
 				880A136A1C50AA2800B3866C /* ClassifierViewController.m in Sources */,
 				88218AA61C5A057C0078D6DC /* CollectionViewVerticalCell.m in Sources */,

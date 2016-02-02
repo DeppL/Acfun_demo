@@ -101,7 +101,6 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
     
     NSString *str = homeModelURL;
     
-    
     [SingleHttpTool GETModelWithURL:str success:^(id object) {
         
         __block NSMutableArray *mMainArr = [NSMutableArray arrayWithArray:object[@"data"]];
