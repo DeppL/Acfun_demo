@@ -17,8 +17,6 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
 
 @interface SingleHttpTool ()
 
-//@property (nonatomic, copy) NSDictionary *paramsDict;
-//@property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) AFHTTPSessionManager *manager;
 @property (nonatomic, strong) YYCache *cache;
 
@@ -38,15 +36,14 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
         [mgr.requestSerializer setValue:@"appstore" forHTTPHeaderField:@"market"];
         [mgr.requestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
         [mgr.requestSerializer setValue:@"4.1.0" forHTTPHeaderField:@"appVersion"];
-        [mgr.requestSerializer setValue:@"Mon, 18 Jan 2016 05:56:19 GMT" forHTTPHeaderField:@"If-Modified-Since"];
         [mgr.requestSerializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
         [mgr.requestSerializer setValue:@"zh-Hans-CN;q=1" forHTTPHeaderField:@"Accept-Language"];
-        [mgr.requestSerializer setValue:@"\"26ff6288-2be3-4501-b2a1-964a3e94adb7\"" forHTTPHeaderField:@"If-None-Match"];
+        [mgr.requestSerializer setValue:@"\"24e6f768-2be3-4381-b221-964a39e4abd7\"" forHTTPHeaderField:@"If-None-Match"];
         [mgr.requestSerializer setValue:@"0" forHTTPHeaderField:@"deviceType"];
         [mgr.requestSerializer setValue:@"AcFun/4.1.0 (iPad; iOS 9.2; Scale/2.00)" forHTTPHeaderField:@"User-Agent"];
         [mgr.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
         [mgr.requestSerializer setValue:@"1536x2048" forHTTPHeaderField:@"resolution"];
-        [mgr.requestSerializer setValue:@"D0BAD719-6DF8-4EC0-814B-2B15C27E72CC" forHTTPHeaderField:@"udid"];
+        [mgr.requestSerializer setValue:@"C5EOO719-6DF8-4EC0-314B-4C82D57E72CC" forHTTPHeaderField:@"udid"];
         self.manager = mgr;
         
         YYCache *cache = [[YYCache alloc]initWithName:SingleHttpToolCache];
@@ -55,6 +52,22 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
         self.cache = cache;
     }
     return self;
+}
+
+- (AFHTTPSessionManager *)manager {
+    if (!_manager) {
+        _manager = [AFHTTPSessionManager manager];
+    }
+    
+    NSDate *date = [NSDate date];
+    NSDateFormatter *forMatter = [[NSDateFormatter alloc]init];
+    [forMatter setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss"];
+    NSString *dateNow = [forMatter stringFromDate:date];
+    dateNow = [dateNow stringByAppendingString:@" GMT"];
+    
+    [_manager.requestSerializer setValue:dateNow forHTTPHeaderField:@"If-Modified-Since"];
+    
+    return _manager;
 }
 
 + (instancetype)shareHttpTool {
@@ -166,7 +179,7 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
     for (id child in children) {
         if ([child isKindOfClass:NSClassFromString(@"UIStatusBarDataNetworkItemView")]) {
             type = [[child valueForKeyPath:@"dataNetworkType"]intValue];
-            NSLog(@"%d",type);
+//            NSLog(@"%d",type);
             if (0 == type) {
                 return NO;
             }else return YES;

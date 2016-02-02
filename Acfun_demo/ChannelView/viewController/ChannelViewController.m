@@ -49,7 +49,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    NSLog(@"%s",__func__);
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -97,10 +96,11 @@
 }
 
 // SingleHttpTool下载channelList
+#warning channelList Download
 - (void)setUpChannelList {
     
     [SingleHttpTool GETChannelModelSuccess:^(id object) {
-        NSLog(@"success");
+//        NSLog(@"success");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             self.channelModelsArr = [ChannelModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -108,9 +108,9 @@
             });
         });
     } failure:^(NSError *error) {
-        NSLog(@"error");
+//        NSLog(@"error");
     } offline:^{
-        NSLog(@"offline");
+//        NSLog(@"offline");
     }];
 }
 
