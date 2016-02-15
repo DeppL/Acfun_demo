@@ -9,10 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @class HomeModelType;
-@class HomeModelVisit;
-@class HomeModelOwner;
 @class HomeModelContent;
-@class HomeModelLatestBangumiVideo;
 
 
 @interface HomeModel : NSObject

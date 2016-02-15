@@ -14,6 +14,7 @@
 
 #define kSubLabelFont [UIFont systemFontOfSize:14]
 
+
 @interface CollectionViewHorizontalCell ()
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -32,6 +33,8 @@
     if (!_imageView) {
         CGRect rect = CGRectMake(0, 0, 360, 200);
         _imageView = [[UIImageView alloc]initWithFrame:rect];
+        _imageView.layer.cornerRadius = 5.0f;
+        _imageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_imageView];
     }
     return _imageView;
@@ -84,13 +87,16 @@
     
     if ([model.visit.views integerValue] > 9000) {
         self.playCountLabel.text = [NSString stringWithFormat:@"播放 %.1f万",[model.visit.views integerValue] / 10000.0];
-    } else {
+    }
+    else {
         self.playCountLabel.text = [NSString stringWithFormat:@"播放 %@",model.visit.views];
     }
     
+    
     if ([model.visit.danmakuSize integerValue] > 9000) {
         self.danmakuSizeLabel.text = [NSString stringWithFormat:@"弹幕 %.1f万",[model.visit.danmakuSize integerValue] / 10000.0];
-    } else {
+    }
+    else {
         self.danmakuSizeLabel.text = [NSString stringWithFormat:@"弹幕 %@",model.visit.danmakuSize];
     }
 

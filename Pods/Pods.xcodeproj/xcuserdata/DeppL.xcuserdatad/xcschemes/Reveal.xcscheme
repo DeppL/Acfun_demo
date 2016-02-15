@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '4767891691BDBD606D1FAFB0'
+               BlueprintIdentifier = 'F9195C9159DFC344338E89B1'
                BlueprintName = 'Reveal'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'libReveal.a'>

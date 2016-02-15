@@ -17,15 +17,13 @@ typedef void(^offline)();
 @property (nonatomic, strong) NSMutableDictionary *downLoadList;
 
 
-//- (void)GETDetilModelWithSubURL:(NSString *)subURL;
+//- (void)GETDetailModelWithSubURL:(NSString *)subURL;
 //- (void)GETClassifierModelWithChannelId:(NSString *)channelID;
 
 
 + (void)GETHomeModelSuccess:(success)success failure:(failure)failure offline:(offline)offline;
 + (void)GETChannelModelSuccess:(success)success failure:(failure)failure offline:(offline)offline;
 + (void)GETModelWithURL:(NSString *)url success:(success)success failure:(failure)failure offline:(offline)offline;
-
-
 
 + (instancetype)shareHttpTool;
 

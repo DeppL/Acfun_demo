@@ -38,12 +38,12 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
         [mgr.requestSerializer setValue:@"4.1.0" forHTTPHeaderField:@"appVersion"];
         [mgr.requestSerializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
         [mgr.requestSerializer setValue:@"zh-Hans-CN;q=1" forHTTPHeaderField:@"Accept-Language"];
-        [mgr.requestSerializer setValue:@"\"24e6f768-2be3-4381-b221-964a39e4abd7\"" forHTTPHeaderField:@"If-None-Match"];
+        [mgr.requestSerializer setValue:@"\"37a6f768-2be3-4381-b221-964a39e4abd7\"" forHTTPHeaderField:@"If-None-Match"];
         [mgr.requestSerializer setValue:@"0" forHTTPHeaderField:@"deviceType"];
         [mgr.requestSerializer setValue:@"AcFun/4.1.0 (iPad; iOS 9.2; Scale/2.00)" forHTTPHeaderField:@"User-Agent"];
         [mgr.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
         [mgr.requestSerializer setValue:@"1536x2048" forHTTPHeaderField:@"resolution"];
-        [mgr.requestSerializer setValue:@"C5EOO719-6DF8-4EC0-314B-4C82D57E72CC" forHTTPHeaderField:@"udid"];
+        [mgr.requestSerializer setValue:@"C3ACO719-6DF8-4EC0-314B-4C82D57E72CC" forHTTPHeaderField:@"udid"];
         self.manager = mgr;
         
         YYCache *cache = [[YYCache alloc]initWithName:SingleHttpToolCache];
@@ -82,7 +82,7 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
 
 #pragma mark - public
 
-//- (void)GETDetilModelWithParams:(NSString *)subURL;
+//- (void)GETDetailModelWithParams:(NSString *)subURL;
 //- (void)GETClassifierModelWithChannelId:(NSString *)channelID;
 
 
@@ -152,10 +152,10 @@ static NSString * const homeModelURL = @"http://api.aixifan.com/regions";
         return;
     }
     
-    id object = [tool.cache objectForKey:url];
-    if (object) {
-        success(object);
-    }
+//    id object = [tool.cache objectForKey:url];
+//    if (object) {
+//        success(object);
+//    }
     
     
     [[SingleHttpTool shareHttpTool].manager GET:url parameters:nil progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

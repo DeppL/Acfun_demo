@@ -30,6 +30,10 @@
     if (!_imageView) {
         CGRect rect = CGRectMake(0, 0, 235, 310);
         _imageView = [[UIImageView alloc]initWithFrame:rect];
+        _imageView.layer.cornerRadius = 10.0f;
+        _imageView.layer.borderWidth = 2.0f;
+        _imageView.layer.borderColor = kMyRed.CGColor;
+        _imageView.layer.masksToBounds = YES;
         [self.contentView addSubview:_imageView];
     }
     return _imageView;

@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>GPUImage.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MBProgressHUD.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -47,6 +52,16 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>119D1187D81382C397C69CA35EB52BE3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>6610362E50A6DE8BACCA1F2885CD9157</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
@@ -72,12 +87,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>C549E98209BE728DC5B2A4BA0168EE5B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C5E5158C273E8364D399EC60F71A38E9</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C66AFD066834E8AF200B9CE7E6CDBF13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>CC6973530778CF652406F7B56D9F9D80</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>DE5B9AC0A49BBCC60F9C36A48E38146D</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE0911938B5C387EC908C2299F8A20AA</key>
 		<dict>
 			<key>primary</key>
 			<true/>

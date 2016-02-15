@@ -48,7 +48,8 @@
     if ([model.visit.views integerValue] > 9000) {
         NSString *str = [NSString stringWithFormat:@"观看 %.1f万",[model.visit.views integerValue] / 10000.0];
         self.viewsLabel.text = str;
-    } else {
+    }
+    else {
         NSString *str = [NSString stringWithFormat:@"观看 %@",model.visit.views];
         self.viewsLabel.text = str;
     }
