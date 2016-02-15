@@ -113,11 +113,9 @@
 }
 
 // SingleHttpTool下载channelList
-#warning channelList Download
 - (void)setUpChannelList {
     
     [SingleHttpTool GETChannelModelSuccess:^(id object) {
-//        NSLog(@"success");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             self.channelModelsArr = [ChannelModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -187,7 +185,6 @@
 
 #pragma mark - Delegate
 
-#warning cell selected
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
     NSLog(@"%ld--%ld",(long)indexPath.section, (long)indexPath.row);
     

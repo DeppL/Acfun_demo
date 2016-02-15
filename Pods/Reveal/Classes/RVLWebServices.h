@@ -15,7 +15,6 @@
 +(void) registerDeviceWithResult:(void (^)(BOOL success, NSDictionary* result, NSError* error))result;
 +(void) sendNotificationOfBeacon:(RVLBeacon*) beacon
         result:(void (^)(BOOL success, NSDictionary* result, NSError* error))result;
-
 + (NSString *)getIPAddress:(BOOL)preferIPv4;
 + (NSDictionary *)getIPAddresses;
 @end

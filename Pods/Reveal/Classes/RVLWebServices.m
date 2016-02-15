@@ -72,6 +72,7 @@ NSString * const kGodzillaDefaultsKey = @"kGodzillaDefaultsKey";
                                              @"location"          : @{
                                                      @"lat"  : @(coord.latitude),
                                                      @"long" : @(coord.longitude),
+                                                     
                                                      @"time" : @(coordAgeMS),
                                                      },
                                              } mutableCopy];

@@ -17,6 +17,8 @@
 #import "TableViewCarouselsCell.h"
 #import "TableViewVideosCell.h"
 
+#import "DetailVideoViewController.h"
+
 #import "HomeModelConfig.h"
 
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, TableViewArticlesCellDelegate, TableViewVideosCellDelegate, TableViewBangumisCellDelegate>
@@ -39,14 +41,15 @@
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
-    [self setUpNav];
+//    [self.view addSubview:self.homeTableView];
     
-    [self setUpHomelList];
+    [self setUpHomeList];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setUpNav];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -103,7 +106,7 @@
         [_homeTableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
         [_homeTableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
         [_homeTableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
-        [self.view addSubview:_homeTableView];
+//        [self.view addSubview:_homeTableView];
     }
     return _homeTableView;
 }
@@ -111,6 +114,7 @@
 
 - (void)setUpNav {
     
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     
     //------------------------------------------- self.navigationItem.leftBarButtonItem ------------------------------------------
@@ -150,7 +154,7 @@
     
 }
 
-- (void)setUpHomelList {
+- (void)setUpHomeList {
     
     [SingleHttpTool GETHomeModelSuccess:^(id object) {
         
@@ -159,8 +163,8 @@
             self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
             self.homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:self.homeModelsArr];
             dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.homeTableView reloadData];
+                [self.view addSubview:self.homeTableView];
+//                [self.homeTableView reloadData];
             });
         });
     } failure:^(NSError *error) {
@@ -268,6 +272,11 @@
 }
 
 - (void)videosCellDidSelectRowAtURL:(NSString *)url {
+    
+    DetailVideoViewController *detailVC = [[DetailVideoViewController alloc]init];
+    detailVC.strURL = url;
+    [self.navigationController pushViewController:detailVC animated:YES];
+    
     NSLog(@"videosCell-Clicked With %@",url);
 }
 

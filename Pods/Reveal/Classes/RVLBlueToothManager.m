@@ -228,11 +228,20 @@ static RVLBlueToothManager *_sharedInstance;
         CLBeaconRegion *beaconRegion = [[CLBeaconRegion alloc] initWithProximityUUID:uuid
                                                                           identifier:beaconID];
         beaconRegion.notifyEntryStateOnDisplay = YES;
-        
+        // We ask for both because there isn't another way to know if the string is present in the info file or not to our knowledge
+        // TODO: see if we can find a way to be more intelligent about requesting one or the other based on the usage description being present
         if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]){
             [self.locationManager requestWhenInUseAuthorization];
         }
-        [self.locationManager startMonitoringForRegion:beaconRegion];
+        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
+            [self.locationManager requestAlwaysAuthorization];
+        }
+        // If we are only "when in use", we can't monitor, so we're forced to range right away for beacons
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedWhenInUse) {
+            [self.locationManager startRangingBeaconsInRegion:beaconRegion];
+        } else if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorizedAlways || [CLLocationManager authorizationStatus] == kCLAuthorizationStatusAuthorized) {
+            [self.locationManager startMonitoringForRegion:beaconRegion];
+        }
         [self.beaconRegions addObject:beaconRegion];
         
         [self.locationManager requestStateForRegion:beaconRegion];
@@ -242,6 +251,10 @@ static RVLBlueToothManager *_sharedInstance;
 - (void)locationManager:(CLLocationManager *)manager
 monitoringDidFailForRegion:(CLRegion *)region
               withError:(NSError *)error {
+    
+}
+
+-(void)locationManager:(CLLocationManager *)manager rangingBeaconsDidFailForRegion:(CLBeaconRegion *)region withError:(NSError *)error {
     
 }
 

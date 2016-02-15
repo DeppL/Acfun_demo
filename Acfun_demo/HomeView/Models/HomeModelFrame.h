@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class HomeModel;
 
 @interface HomeModelFrame : NSObject
 
@@ -27,8 +26,6 @@
 @property (nonatomic, assign) CGRect tableViewF;
 
 @property (nonatomic, assign) CGFloat cellHight;
-
-//@property (nonatomic, copy) NSArray *homeModelFrameArr;
 
 + (NSArray *)setUpFrameWithHomeModelArr:(NSArray *)homeModelArr;
 
