@@ -7,9 +7,10 @@
 //
 
 #import "TableViewCarouselsCell.h"
-//#import "HomeModel.h"
 #import "HomeModelConfig.h"
 #import "HomeModelFrame.h"
+
+NSString * const TableViewCarouselsCellID = @"TableViewCarouselsCellID";
 
 @interface TableViewCarouselsCell () <UIScrollViewDelegate>
 
@@ -29,7 +30,6 @@
 - (void)setUpWithModel:(HomeModel *)model {
     NSInteger viewPage = model.contents.count;
     UIImage *placeHolder = [UIImage imageNamed:@"placeHolder"];
-    
     
     for (int i = 0; i < viewPage; i ++) {
         
@@ -63,6 +63,7 @@
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.bounces = NO;
+        _scrollView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_scrollView];
     }
     return _scrollView;

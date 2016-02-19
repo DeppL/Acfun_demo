@@ -22,7 +22,7 @@
 
 @interface FocusViewController () <UITableViewDataSource, UITableViewDelegate, TableViewArticlesCellDelegate, TableViewVideosCellDelegate, TableViewBangumisCellDelegate>
 
-@property (nonatomic, copy) NSArray *homeModelsArr;
+@property (nonatomic, copy) NSMutableArray *homeModelsArr;
 @property (nonatomic, copy) NSArray *homeModelsFrameArr;
 
 @property (nonatomic, strong) UITableView *homeTableView;
@@ -43,7 +43,6 @@
     
     [self setUpNav];
     
-//    [self setUpHomelList];
 }
 
 
@@ -79,9 +78,9 @@
 
 #pragma mark - initialize
 
-- (NSArray *)homeModelsArr {
+- (NSMutableArray *)homeModelsArr {
     if (!_homeModelsArr) {
-        _homeModelsArr = [NSArray array];
+        _homeModelsArr = [NSMutableArray array];
     }
     return _homeModelsArr;
 }
@@ -152,26 +151,26 @@
     
 }
 
-- (void)setUpHomelList {
-    
-    [SingleHttpTool GETHomeModelSuccess:^(id object) {
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
-            self.homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:self.homeModelsArr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                
-                [self.homeTableView reloadData];
-            });
-        });
-    } failure:^(NSError *error) {
-        NSLog(@"failure");
-    } offline:^{
-        NSLog(@"offline");
-    }];
-    
-}
+//- (void)setUpHomelList {
+//    
+//    [SingleHttpTool GETHomeModelSuccess:^(id object) {
+//        
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//            
+//            self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
+//            self.homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:self.homeModelsArr];
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                
+//                [self.homeTableView reloadData];
+//            });
+//        });
+//    } failure:^(NSError *error) {
+//        NSLog(@"failure");
+//    } offline:^{
+//        NSLog(@"offline");
+//    }];
+//    
+//}
 
 
 #pragma mark - UITableViewDataSource
@@ -240,8 +239,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeModel *model = self.homeModelsArr[indexPath.row];
-    NSLog(@"focusTableView:%@ --- cell --- %ld",model.name, (long)indexPath.section);
+//    HomeModel *model = self.homeModelsArr[indexPath.row];
+//    NSLog(@"focusTableView:%@ --- cell --- %ld",model.name, (long)indexPath.section);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {

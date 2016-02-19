@@ -11,7 +11,7 @@
 @class HomeModel;
 @class HomeModelFrame;
 
-static NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
+extern NSString * const TableViewVideosCellID;
 
 @protocol TableViewVideosCellDelegate <NSObject>
 

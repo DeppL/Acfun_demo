@@ -26,10 +26,10 @@
 
 - (void)setUpFrameWithDetailCommentModel:(DetailCommentModelComment *)commentModel {
     self.userAvatarF = CGRectMake(kCustomPadding, kCustomPadding, 50, 50);
-    self.userNameLabelF = CGRectMake(CGRectGetMaxX(self.userAvatarF), kCustomPadding, 400, 25);
-    self.releaseDateLabelF = CGRectMake(CGRectGetMaxX(self.userAvatarF), CGRectGetMaxY(self.userNameLabelF), 400, 25);
+    self.userNameLabelF = CGRectMake(CGRectGetMaxX(self.userAvatarF) +kCustomPadding, kCustomPadding, 400, 25);
+    self.releaseDateLabelF = CGRectMake(CGRectGetMinX(self.userNameLabelF), CGRectGetMaxY(self.userNameLabelF), 400, 25);
     self.floorLabelF = CGRectMake(kDeviceWidth - 100, CGRectGetMinY(self.userNameLabelF), 100, 25);
-    CGRect rect = CGRectMake(kCustomPadding, CGRectGetMaxY(self.userAvatarF) + kCustomPadding, kDeviceWidth - 2 * kCustomPadding, CGFLOAT_MAX);
+    CGRect rect = CGRectMake(kCustomPadding * 2, CGRectGetMaxY(self.userAvatarF) + kCustomPadding, kDeviceWidth - 3 * kCustomPadding, CGFLOAT_MAX);
     
     CGRect autoHeightRect = [commentModel.content boundingRectWithSize:rect.size options:(NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading) attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:18]} context:nil];
     

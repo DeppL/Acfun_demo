@@ -18,8 +18,10 @@
 #import <UIImageView+WebCache.h>
 #import <Reachability.h>
 #import <YYCache.h>
+#import <MJRefresh.h>
 
 
-#import "SingleHttpTool.h"
+//#import "SingleHttpTool.h"
+#import "DLHttpTool.h"
 
 #endif /* PrefixHeader_pch */

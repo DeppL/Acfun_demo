@@ -22,6 +22,31 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
     
+    [self prepareForInternetwork];
+    
+    [self prepareForMainWindow];
+    
+    return YES;
+}
+
+/**
+ *  准备网络请求
+ */
+- (void)prepareForInternetwork {
+    
+    [DLHttpTool get:channelModelURL
+             params:nil
+        cachePolicy:DLHttpToolReloadIgnoringLocalCacheData
+            success:^(id json) {}
+            failure:^(NSError *error) {}];
+    
+}
+
+/**
+ *  准备主视图内容
+ */
+- (void)prepareForMainWindow {
+    
     self.window = [[UIWindow alloc]initWithFrame:[UIScreen mainScreen].bounds];
     
     UITabBarController *rootTabBarC = [[UITabBarController alloc]init];
@@ -50,15 +75,9 @@
     
     rootTabBarC.viewControllers = @[homeNavC, channelNavC, focusNavC, userNavC];
     
-    
-    
-    
     self.window.rootViewController = rootTabBarC;
     [self.window makeKeyAndVisible];
-    
-    return YES;
 }
-
 
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
@@ -82,6 +101,7 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
     [[SDImageCache sharedImageCache] clearDisk];
+    [DLHttpTool removeAllCaches];
 }
 
 

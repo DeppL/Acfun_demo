@@ -10,7 +10,7 @@
 @class HomeModel;
 @class HomeModelFrame;
 
-static NSString * const TableViewBannersCellID = @"TableViewBannersCellID";
+extern NSString * const TableViewBannersCellID;
 
 
 @interface TableViewBannersCell : UITableViewCell

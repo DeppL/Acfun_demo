@@ -11,7 +11,7 @@
 @class HomeModel;
 @class HomeModelFrame;
 
-static NSString * const TableViewCarouselsCellID = @"TableViewCarouselsCellID";
+extern NSString * const TableViewCarouselsCellID;
 
 @interface TableViewCarouselsCell : UITableViewCell
 

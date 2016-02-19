@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @class DetailVideoModel;
-static NSString * const VideoOwnerTableViewCellID = @"VideoOwnerTableViewCellID";
+extern NSString * const VideoOwnerTableViewCellID;
 
 @interface VideoOwnerTableViewCell : UITableViewCell
 

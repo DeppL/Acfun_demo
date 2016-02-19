@@ -12,6 +12,8 @@
 
 #import "NSDate+ReleaseTime.h"
 
+NSString * const VideoCommentsTableViewCellID = @"VideoCommentsTableViewCellID";
+
 @interface VideoCommentsTableViewCell ()
 
 @property (nonatomic, strong) UIImageView *userAvatar;
@@ -32,9 +34,9 @@
 
 - (void)setUpVideoCommentsTableViewCellWithModel:(DetailCommentModelComment *)model {
     NSURL *url = [NSURL URLWithString:model.avatar];
-    [self.userAvatar sd_setImageWithURL:url];
+    [self.userAvatar sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolder")];
     self.userNameLabel.text = model.username;
-    NSString *releaseTimeStr = [NSDate compareWithReleaseTime:model.time];
+    NSString *releaseTimeStr = [NSDate dateCompareWithReleaseTime:model.time];
     self.releaseDateLabel.text = releaseTimeStr;
     NSString *floorStr = [NSString stringWithFormat:@"#%@",model.floor];
     self.floorLabel.text = floorStr;
@@ -52,8 +54,7 @@
 
 - (UIImageView *)userAvatar {
     if (!_userAvatar) {
-        CGRect rect = CGRectMake(10, 10, 70, 70);
-        _userAvatar = [[UIImageView alloc]initWithFrame:rect];
+        _userAvatar = [[UIImageView alloc]init];
         _userAvatar.layer.cornerRadius = 50.0;
         _userAvatar.layer.masksToBounds = YES;
         _userAvatar.contentMode = UIViewContentModeScaleToFill;
@@ -65,10 +66,10 @@
 
 - (UILabel *)userNameLabel {
     if (!_userNameLabel) {
-        CGRect rect = CGRectMake(100, 10, 400, 35);
-        _userNameLabel = [[UILabel alloc]initWithFrame:rect];
+        _userNameLabel = [[UILabel alloc]init];
         _userNameLabel.textAlignment = NSTextAlignmentLeft;
-        _userNameLabel.font = [UIFont systemFontOfSize:21];
+        _userNameLabel.font = [UIFont systemFontOfSize:17];
+        _userNameLabel.textColor = [UIColor grayColor];
         _userNameLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_userNameLabel];
         
@@ -78,8 +79,7 @@
 
 - (UILabel *)releaseDateLabel {
     if (!_releaseDateLabel) {
-        CGRect rect = CGRectMake(100, 45, 400, 35);
-        _releaseDateLabel = [[UILabel alloc]initWithFrame:rect];
+        _releaseDateLabel = [[UILabel alloc]init];
         _releaseDateLabel.textAlignment = NSTextAlignmentLeft;
         _releaseDateLabel.font = [UIFont systemFontOfSize:15];
         _releaseDateLabel.textColor = [UIColor grayColor];
@@ -92,10 +92,11 @@
 
 - (UILabel *)floorLabel {
     if (!_floorLabel) {
-        CGRect rect = CGRectMake(kDeviceWidth - 100, 10, 100, 70);
-        _floorLabel = [[UILabel alloc]initWithFrame:rect];
+        _floorLabel = [[UILabel alloc]init];
         _floorLabel.textColor = [UIColor grayColor];
+        _floorLabel.font = [UIFont systemFontOfSize:15];
         _floorLabel.backgroundColor = kMyWhite;
+        _floorLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_floorLabel];
     }
     return _floorLabel;
@@ -103,9 +104,10 @@
 
 - (UILabel *)commentContentLabel {
     if (!_commentContentLabel) {
-        CGRect rect = CGRectMake(10, 90, kDeviceWidth - 20, 100);
-        _commentContentLabel = [[UILabel alloc]initWithFrame:rect];
+        _commentContentLabel = [[UILabel alloc]init];
+        _commentContentLabel.font = [UIFont systemFontOfSize:18];
         _commentContentLabel.numberOfLines = 0;
+        _commentContentLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_commentContentLabel];
     }
     return _commentContentLabel;

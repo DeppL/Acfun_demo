@@ -9,6 +9,8 @@
 #import "TableViewBannersCell.h"
 #import "HomeModelConfig.h"
 
+NSString * const TableViewBannersCellID = @"TableViewBannersCellID";
+
 @interface TableViewBannersCell ()
 
 @property (nonatomic, strong) UIImageView *mainImageView;
@@ -43,6 +45,7 @@
 - (UIImageView *)mainImageView {
     if (!_mainImageView) {
         _mainImageView = [[UIImageView alloc]init];
+        _mainImageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_mainImageView];
     }
     return _mainImageView;

@@ -10,6 +10,8 @@
 //#import "HomeModel.h"
 #import "HomeModelConfig.h"
 
+NSString * const TableViewSubArticleCellID = @"TableViewSubArticleCellID";
+
 @interface TableViewSubArticleCell ()
 
 @property (nonatomic, strong) UILabel *articlePathLabel;
@@ -66,6 +68,7 @@
         _articlePathLabel.font = [UIFont systemFontOfSize:10];
         _articlePathLabel.textColor = [UIColor grayColor];
         _articlePathLabel.textAlignment = NSTextAlignmentLeft;
+        _articlePathLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_articlePathLabel];
     }
     return _articlePathLabel;
@@ -78,6 +81,7 @@
         _commentsCountLabel.font = [UIFont systemFontOfSize:18];
         _commentsCountLabel.textColor = [UIColor redColor];
         _commentsCountLabel.textAlignment = NSTextAlignmentRight;
+        _commentsCountLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_commentsCountLabel];
     }
     return _commentsCountLabel;
@@ -90,6 +94,7 @@
         _titleLabel.font = [UIFont systemFontOfSize:18];
         _titleLabel.textColor = [UIColor blackColor];
         _titleLabel.textAlignment = NSTextAlignmentLeft;
+        _titleLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_titleLabel];
     }
     return _titleLabel;
@@ -102,6 +107,7 @@
         _commentsLabel.font = [UIFont systemFontOfSize:12];
         _commentsLabel.textColor = [UIColor grayColor];
         _commentsLabel.textAlignment = NSTextAlignmentRight;
+        _commentsLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_commentsLabel];
     }
     return _commentsLabel;
@@ -115,6 +121,7 @@
         _ownerSubLabel.font = [UIFont systemFontOfSize:12];
         _ownerSubLabel.textColor = [UIColor grayColor];
         _ownerSubLabel.textAlignment = NSTextAlignmentLeft;
+        _ownerSubLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_ownerSubLabel];
     }
     return _ownerSubLabel;
@@ -127,6 +134,7 @@
         _viewsLabel.font = [UIFont systemFontOfSize:10];
         _viewsLabel.textColor = [UIColor grayColor];
         _viewsLabel.textAlignment = NSTextAlignmentLeft;
+        _viewsLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_viewsLabel];
     }
     return _viewsLabel;

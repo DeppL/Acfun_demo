@@ -19,6 +19,7 @@
     if (!_subChannelImageView) {
         CGRect subChannelImageViewRect = CGRectMake((kChannelCollectionViewCellW - kChannelCollectionViewCellImageViewW) * 0.5, 0, kChannelCollectionViewCellImageViewW, kChannelCollectionViewCellImageViewH);
         _subChannelImageView = [[UIImageView alloc]initWithFrame:subChannelImageViewRect];
+        _subChannelImageView.backgroundColor = kMyWhite;
     }
     return _subChannelImageView;
 }
@@ -30,6 +31,7 @@
         _subChannelLabel.textAlignment = NSTextAlignmentCenter;
         _subChannelLabel.textColor = RGB(150, 150, 150);
         _subChannelLabel.font = [UIFont systemFontOfSize:12];
+        _subChannelLabel.backgroundColor = kMyWhite;
     }
     return _subChannelLabel;
 }

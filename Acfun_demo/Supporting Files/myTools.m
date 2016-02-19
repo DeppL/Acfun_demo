@@ -27,21 +27,21 @@
     NSLog(@"%@",props);
 }
 
-+ (void)printMothListOfObj:(id)obj
-{
-    unsigned int mothCout_f =0;
-    Method* mothList_f = class_copyMethodList([obj class],&mothCout_f);
-    for(int i=0;i<mothCout_f;i++)
-    {
-        Method temp_f = mothList_f[i];
-//        IMP imp_f = method_getImplementation(temp_f);
-//        SEL name_f = method_getName(temp_f);
-        const char* name_s =sel_getName(method_getName(temp_f));
-        int arguments = method_getNumberOfArguments(temp_f);
-        const char* encoding =method_getTypeEncoding(temp_f);
-        NSLog(@"\n\n方法名：%@\n参数个数：%d\n编码方式：%@\n",[NSString stringWithUTF8String:name_s],arguments,[NSString stringWithUTF8String:encoding]);
-    }
-    free(mothList_f);
-}
+//+ (void)printMothListOfObj:(id)obj
+//{
+//    unsigned int mothCout_f =0;
+//    Method* mothList_f = class_copyMethodList([obj class],&mothCout_f);
+//    for(int i=0;i<mothCout_f;i++)
+//    {
+//        Method temp_f = mothList_f[i];
+////        IMP imp_f = method_getImplementation(temp_f);
+////        SEL name_f = method_getName(temp_f);
+//        const char* name_s =sel_getName(method_getName(temp_f));
+//        int arguments = method_getNumberOfArguments(temp_f);
+//        const char* encoding =method_getTypeEncoding(temp_f);
+//        NSLog(@"\n\n方法名：%@\n参数个数：%d\n编码方式：%@\n",[NSString stringWithUTF8String:name_s],arguments,[NSString stringWithUTF8String:encoding]);
+//    }
+//    free(mothList_f);
+//}
 
 @end

@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const channelModelURL;
 
 @interface ChannelViewController : UIViewController
 

@@ -8,7 +8,7 @@
 
 #import "ClassifierSubView.h"
 
-@interface ClassifierSubView () <UITableViewDataSource, UITableViewDelegate>
+@interface ClassifierSubView () 
 
 
 

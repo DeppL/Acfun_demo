@@ -8,11 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const homeModelURL;
 
-//static NSString *homeCellID = @"homeCellID";
-//static NSString *homeCollectionHeadViewID = @"homeCollectionHeadViewID";
-//static NSString *homeCollectionFootViewID = @"homeCollectionFootViewID";
-//
 @interface HomeViewController : UIViewController
 
 @end

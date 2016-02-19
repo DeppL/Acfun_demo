@@ -11,7 +11,7 @@
 @class HomeModel;
 @class HomeModelFrame;
 
-static NSString * const TableViewBangumisCellID = @"TableViewBangumisCellID";
+extern NSString * const TableViewBangumisCellID;
 
 @protocol TableViewBangumisCellDelegate <NSObject>
 

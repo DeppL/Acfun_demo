@@ -18,6 +18,7 @@
         _footLable.textColor = kMyRed;
         _footLable.font = [UIFont systemFontOfSize:15];
         _footLable.textAlignment = NSTextAlignmentCenter;
+        _footLable.backgroundColor = kMyWhite;
         
         _whiteView = [[UIView alloc]initWithFrame:CGRectMake(0, frame.size.height - 5, frame.size.width, 5)];
         _whiteView.backgroundColor = RGBA(240, 240, 240, 1.0);

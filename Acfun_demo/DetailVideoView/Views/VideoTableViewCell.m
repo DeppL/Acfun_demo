@@ -10,6 +10,7 @@
 #import "DetailVideoModel.h"
 
 #define kVideoViewFHight 300
+NSString * const VideoTableViewCellID = @"VideoTableViewCellID";
 
 @interface VideoTableViewCell ()
 
@@ -34,6 +35,7 @@
     if (!_videoImageView) {
         _videoImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, 400)];
         _videoImageView.contentMode = UIViewContentModeScaleToFill;
+        _videoImageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_videoImageView];
     }
     return _videoImageView;

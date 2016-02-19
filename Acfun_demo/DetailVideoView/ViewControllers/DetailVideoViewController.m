@@ -19,6 +19,8 @@
 
 #import <GPUImage.h>
 
+
+
 static NSString * const detailVideosURL = @"http://api.aixifan.com/videos";
 static NSString * const detailCommentsURL = @"http://mobile.acfun.tv/comment/content/list?app_version=4.1.0&market=appstore&origin=ios&pageNo=1&pageSize=20&resolution=2048x1536&sys_name=ios&sys_version=9.2&version=4";
 
@@ -51,20 +53,27 @@ typedef void(^completed)();
     
     [self setUpTransparentNav];
     
-    __weak typeof(self) weakSelf = self;
-    [self setUpDetailVideoCompleted:^(){
-        [weakSelf drawingNavigetionBackgroundPicture];
-    }];
+    __weak __typeof(self) weakSelf = self;
     
-    [self setUpDetailComments];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        weakSelf.detailTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+            [weakSelf setUpDetailVideoCompleted:^{
+                [weakSelf drawingNavigetionBackgroundPicture];
+            }];
+            [weakSelf setUpDetailComments];
+        }];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [weakSelf.detailTableView.mj_header beginRefreshing];
+        });
+        
+    });
+    
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
-    
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-    
-//    [self.view addSubview:self.detailTableView];
+
     
     
 }
@@ -86,11 +95,13 @@ typedef void(^completed)();
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 - (void)viewDidLayoutSubviews {
     [super viewDidLayoutSubviews];
 }
+
 
 #pragma mark - 内存警告
 
@@ -110,17 +121,20 @@ typedef void(^completed)();
         _detailTableView.dataSource = self;
         _detailTableView.showsHorizontalScrollIndicator = NO;
         _detailTableView.showsVerticalScrollIndicator = NO;
-        _detailTableView.bounces = NO;
+//        _detailTableView.bounces = NO;
         [_detailTableView registerClass:[VideoTableViewCell class] forCellReuseIdentifier:VideoTableViewCellID];
         [_detailTableView registerClass:[VideoDescriptionTableViewCell class] forCellReuseIdentifier:VideoDescriptionTableViewCellID];
         [_detailTableView registerClass:[VideoOwnerTableViewCell class] forCellReuseIdentifier:VideoOwnerTableViewCellID];
         [_detailTableView registerClass:[VideoCommentsTableViewCell class] forCellReuseIdentifier:VideoCommentsTableViewCellID];
+        [self.view addSubview:_detailTableView];
     }
     return _detailTableView;
 }
 
 
-
+/**
+ *  设置 透明导航栏
+ */
 - (void)setUpTransparentNav {
     
     self.videoViewHidden = NO;
@@ -131,91 +145,125 @@ typedef void(^completed)();
     
 }
 
+/**
+ *  设置 高斯模糊导航栏
+ */
 - (void)setUpBlurredNav {
     
     self.videoViewHidden = YES;
     [self.navigationController.navigationBar setBackgroundImage:self.navigetionBackgroundPicture forBarMetrics:UIBarMetricsDefault];
 }
 
-
-
+/**
+ *  下载 视频信息 UP主信息
+ *
+ */
 - (void)setUpDetailVideoCompleted:(completed)completed {
+    
     NSString *str = [detailVideosURL stringByAppendingPathComponent:self.strURL];
     
-    [SingleHttpTool GETModelWithURL:str success:^(id object) {
+    __weak __typeof(self) weakSelf = self;
+    
+    [DLHttpTool get:str params:nil cachePolicy:DLHttpToolReturnCacheDataElseLoad success:^(id json) {
+        
+        if (!weakSelf) return;
+        
+        [weakSelf.detailTableView.mj_header endRefreshing];
+        
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
-            self.detailViderModel = [DetailVideoModel mj_objectWithKeyValues:object[@"data"]];
-            completed();
+            weakSelf.detailViderModel = [DetailVideoModel mj_objectWithKeyValues:json[@"data"]];
+            
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.view addSubview:self.detailTableView];
+                [weakSelf.detailTableView reloadData];
             });
+            
+            completed();
         });
+        
     } failure:^(NSError *error) {
+        
+        if (!weakSelf) return;
+        
         NSLog(@"failure");
-    } offline:^{
-        NSLog(@"offline");
+        [weakSelf.detailTableView.mj_header endRefreshing];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"链接失败" message:@"网络连接失败，请重试。" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:nil];
+        [alert show];
+        
     }];
-    
 }
 
+/**
+ *  下载 评论内容
+ */
 - (void)setUpDetailComments {
     
     NSString *str = [detailCommentsURL stringByAppendingFormat:@"&contentId=%@",self.strURL];
-    [SingleHttpTool GETModelWithURL:str success:^(id object) {
+    
+    __weak __typeof(self) weakSelf = self;
+    [DLHttpTool get:str params:nil cachePolicy:DLHttpToolReloadIgnoringLocalCacheData success:^(id json) {
         
+        if (!weakSelf) return;
         
-        self.detailCommentModel = [DetailCommentModel mj_objectWithKeyValues:object[@"data"]];
-        __block NSMutableDictionary *mDict = [NSMutableDictionary dictionary];
-        [self.detailCommentModel.page.map enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
-            DetailCommentModelComment *commentModel = [DetailCommentModelComment mj_objectWithKeyValues:obj];
-            [mDict setValue:commentModel forKey:key];
-        }];
-        self.detailCommentModel.page.map = [mDict copy];
-        
-        self.detailCommentModelFrameDict = [DetailCommentModelFrame setUpFrameWithDetailCommentModelDict:[mDict copy]];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-//            [self.detailTableView reloadData];
-#warning indexSet
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
-            [self.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+            DetailCommentModel *commentModel = [DetailCommentModel mj_objectWithKeyValues:json[@"data"]];
+            
+            __block NSMutableDictionary *mDict = [NSMutableDictionary dictionary];
+            [commentModel.page.map enumerateKeysAndObjectsUsingBlock:^(id  _Nonnull key, id  _Nonnull obj, BOOL * _Nonnull stop) {
+                
+                DetailCommentModelComment *subCommentModel = [DetailCommentModelComment mj_objectWithKeyValues:obj];
+                [mDict setValue:subCommentModel forKey:key];
+            }];
+            commentModel.page.map = mDict;
+            
+            weakSelf.detailCommentModel = commentModel;
+            weakSelf.detailCommentModelFrameDict = [DetailCommentModelFrame setUpFrameWithDetailCommentModelDict:mDict];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                if (!_detailViderModel) return;
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
+                [weakSelf.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                
+            });
+            
         });
+        
     } failure:^(NSError *error) {
-        NSLog(@"failure");
-    } offline:^{
-        NSLog(@"offline");
     }];
-
 }
 
 /**
  *  获取导航栏模糊化图片
  */
 - (void)drawingNavigetionBackgroundPicture {
+    
     __block UIImageView *imageView = [[UIImageView alloc]initWithFrame:kVideoViewF];
     NSURL *url = [NSURL URLWithString:self.detailViderModel.cover];
     imageView.contentMode = UIViewContentModeScaleToFill;
+    
+    __weak __typeof(self) weakSelf = self;
     [imageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!weakSelf || weakSelf.navigetionBackgroundPicture) return;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
             if ([image images]) {
                 UIImage *staticImage = [image images][0];
                 imageView.image = staticImage;
             }
             
             // 截取整张图片
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(kVideoViewF.size.width, kVideoViewF.size.height), YES, 0);
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(kVideoViewF.size.width, kVideoViewF.size.height), YES, 1.0);
             [[imageView layer] renderInContext:UIGraphicsGetCurrentContext()];
             UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
             // 截取目标区域图片
             CGImageRef imageRef = viewImage.CGImage;
-            CGRect rect = CGRectMake(0, (kVideoViewF.size.height - 64) * 2.0, kDeviceWidth * 2.0, 64 * 2.0);
+            CGRect rect = CGRectMake(0, (kVideoViewF.size.height - 64), kDeviceWidth, 64);
             imageRef = CGImageCreateWithImageInRect(imageRef, rect);
-            UIImage *sendImage = [[UIImage alloc]initWithCGImage:imageRef scale:2.0 orientation:UIImageOrientationUp];
+            UIImage *sendImage = [[UIImage alloc]initWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
             
             // 释放内存
             CGImageRelease(imageRef);
@@ -224,10 +272,10 @@ typedef void(^completed)();
             GPUImageGaussianBlurFilter *blurFilter = [[GPUImageGaussianBlurFilter alloc]init];
             blurFilter.blurRadiusInPixels = 10.0;
             UIImage *blurredImage = [blurFilter imageByFilteringImage:sendImage];
-            self.navigetionBackgroundPicture = blurredImage;
-            NSLog(@"blurFilterImageComplate");
+            weakSelf.navigetionBackgroundPicture = blurredImage;
+            
+
         });
-        
         
     }];
     
@@ -279,7 +327,6 @@ typedef void(^completed)();
         [cell setUpVideoCommentsTableViewCellFrameWithModel:commentModelCommentF];
     }
     
-    else return nil;
     
     [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     return cell;

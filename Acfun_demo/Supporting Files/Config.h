@@ -83,6 +83,10 @@ fprintf(stderr, "-------\n");                                               \
 #define IS_IOS6 (([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0)? (YES):(NO))
 #define IS_4INCH ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
+// HomeURL
+
+
+
 //释放内存
 #define RELEASE_SAFE(_Pointer) do{[_Pointer release],_Pointer = nil;}while(0)
 #endif

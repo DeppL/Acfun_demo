@@ -15,6 +15,7 @@
     if (self) {
         _headButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _headButton.titleLabel.font = [UIFont systemFontOfSize:18];
+        _headButton.backgroundColor = kMyWhite;
         [self addSubview:_headButton];
     }
     return self;

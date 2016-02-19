@@ -10,7 +10,7 @@
 
 @class HomeModelContent;
 
-static NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID";
+extern NSString * const CollecionViewHorizontalCellID;
 
 @interface CollectionViewHorizontalCell : UICollectionViewCell
 

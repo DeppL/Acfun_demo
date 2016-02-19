@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8804F9841C4A4EDE00194F58 /* channelList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8804F9831C4A4EDE00194F58 /* channelList.plist */; };
 		8804F98A1C4A757A00194F58 /* myTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 8804F9891C4A757A00194F58 /* myTools.m */; };
 		8805F21C1C2BF008001F51FF /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8805F21B1C2BF008001F51FF /* AppDelegate.m */; };
 		8805F23A1C2BF13B001F51FF /* Acfun_demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8805F2321C2BF13B001F51FF /* Acfun_demo.xcdatamodeld */; };
@@ -18,7 +17,10 @@
 		884ED78A1C70D0F5006CDD6F /* DetailCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7891C70D0F5006CDD6F /* DetailCommentModel.m */; };
 		884ED7911C71CB4D006CDD6F /* NSDate+ReleaseTime.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7901C71CB4D006CDD6F /* NSDate+ReleaseTime.m */; };
 		884ED7941C71E81F006CDD6F /* DetailCommentModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7931C71E81F006CDD6F /* DetailCommentModelFrame.m */; };
-		88514B111C521F8C00F37B5A /* SingleHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 88514B101C521F8C00F37B5A /* SingleHttpTool.m */; };
+		884ED7971C742B3D006CDD6F /* DLHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7961C742B3D006CDD6F /* DLHttpTool.m */; };
+		884ED79B1C75BF78006CDD6F /* UserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED79A1C75BF78006CDD6F /* UserViewModel.m */; };
+		884ED79D1C75CAA5006CDD6F /* UserViewStruction.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884ED79C1C75CAA5006CDD6F /* UserViewStruction.plist */; };
+		88514B111C521F8C00F37B5A /* SingleHttpTool.m.back in Sources */ = {isa = PBXBuildFile; fileRef = 88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */; };
 		88A99A031C6F15C5006BB646 /* DetailVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A999FB1C6F15C5006BB646 /* DetailVideoModel.m */; };
 		88A99A041C6F15C5006BB646 /* DetailVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A999FE1C6F15C5006BB646 /* DetailVideoViewController.m */; };
 		88A99A071C6F16E3006BB646 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A99A061C6F16E3006BB646 /* VideoTableViewCell.m */; };
@@ -43,7 +45,6 @@
 		88B22E5E1C6099CE00E7F54D /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E5A1C6099CE00E7F54D /* HistoryViewController.m */; };
 		88B22E5F1C6099CE00E7F54D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E5C1C6099CE00E7F54D /* SearchViewController.m */; };
 		88B22E671C6099D400E7F54D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E631C6099D400E7F54D /* UserViewController.m */; };
-		88B22E681C6099D400E7F54D /* SlideTabBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E661C6099D400E7F54D /* SlideTabBarView.m */; };
 		88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */; };
 		88B22E7F1C60E93C00E7F54D /* CollectionViewHorizontalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E701C60E93C00E7F54D /* CollectionViewHorizontalCell.m */; };
 		88B22E801C60E93C00E7F54D /* CollectionViewVerticalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E721C60E93C00E7F54D /* CollectionViewVerticalCell.m */; };
@@ -62,7 +63,6 @@
 
 /* Begin PBXFileReference section */
 		32195E865B75FA70404F1020 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		8804F9831C4A4EDE00194F58 /* channelList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = channelList.plist; sourceTree = "<group>"; };
 		8804F9881C4A757A00194F58 /* myTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = myTools.h; sourceTree = "<group>"; };
 		8804F9891C4A757A00194F58 /* myTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = myTools.m; sourceTree = "<group>"; };
 		8805F2141C2BF008001F51FF /* Acfun_demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Acfun_demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -83,8 +83,13 @@
 		884ED7901C71CB4D006CDD6F /* NSDate+ReleaseTime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+ReleaseTime.m"; sourceTree = "<group>"; };
 		884ED7921C71E81F006CDD6F /* DetailCommentModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailCommentModelFrame.h; sourceTree = "<group>"; };
 		884ED7931C71E81F006CDD6F /* DetailCommentModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailCommentModelFrame.m; sourceTree = "<group>"; };
-		88514B0F1C521F8C00F37B5A /* SingleHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SingleHttpTool.h; sourceTree = "<group>"; };
-		88514B101C521F8C00F37B5A /* SingleHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SingleHttpTool.m; sourceTree = "<group>"; };
+		884ED7951C742B3D006CDD6F /* DLHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DLHttpTool.h; sourceTree = "<group>"; };
+		884ED7961C742B3D006CDD6F /* DLHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DLHttpTool.m; sourceTree = "<group>"; };
+		884ED7991C75BF78006CDD6F /* UserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewModel.h; sourceTree = "<group>"; };
+		884ED79A1C75BF78006CDD6F /* UserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewModel.m; sourceTree = "<group>"; };
+		884ED79C1C75CAA5006CDD6F /* UserViewStruction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserViewStruction.plist; sourceTree = "<group>"; };
+		88514B0F1C521F8C00F37B5A /* SingleHttpTool.h.back */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleHttpTool.h.back; sourceTree = "<group>"; };
+		88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleHttpTool.m.back; sourceTree = "<group>"; };
 		88A999FA1C6F15C5006BB646 /* DetailVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVideoModel.h; sourceTree = "<group>"; };
 		88A999FB1C6F15C5006BB646 /* DetailVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVideoModel.m; sourceTree = "<group>"; };
 		88A999FD1C6F15C5006BB646 /* DetailVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVideoViewController.h; sourceTree = "<group>"; };
@@ -132,8 +137,6 @@
 		88B22E5C1C6099CE00E7F54D /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		88B22E621C6099D400E7F54D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		88B22E631C6099D400E7F54D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
-		88B22E651C6099D400E7F54D /* SlideTabBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideTabBarView.h; sourceTree = "<group>"; };
-		88B22E661C6099D400E7F54D /* SlideTabBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideTabBarView.m; sourceTree = "<group>"; };
 		88B22E691C609ACB00E7F54D /* ClassifierSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierSubView.h; sourceTree = "<group>"; };
 		88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierSubView.m; sourceTree = "<group>"; };
 		88B22E6F1C60E93C00E7F54D /* CollectionViewHorizontalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHorizontalCell.h; sourceTree = "<group>"; };
@@ -227,7 +230,6 @@
 			children = (
 				88F583AC1C60FEDB00681D39 /* Assets.xcassets */,
 				8805F22B1C2BF008001F51FF /* Info.plist */,
-				8804F9831C4A4EDE00194F58 /* channelList.plist */,
 				8805F2321C2BF13B001F51FF /* Acfun_demo.xcdatamodeld */,
 				8805F2391C2BF13B001F51FF /* main.m */,
 				8817D2CF1C2E3D540018B398 /* Config.h */,
@@ -235,6 +237,7 @@
 				8804F9881C4A757A00194F58 /* myTools.h */,
 				8804F9891C4A757A00194F58 /* myTools.m */,
 				88FD946B1C575E0F001CD81B /* URL_Note */,
+				884ED79C1C75CAA5006CDD6F /* UserViewStruction.plist */,
 			);
 			path = "Supporting Files";
 			sourceTree = "<group>";
@@ -242,8 +245,10 @@
 		8820DA561C4E1E92004CE184 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				88514B0F1C521F8C00F37B5A /* SingleHttpTool.h */,
-				88514B101C521F8C00F37B5A /* SingleHttpTool.m */,
+				88514B0F1C521F8C00F37B5A /* SingleHttpTool.h.back */,
+				88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */,
+				884ED7951C742B3D006CDD6F /* DLHttpTool.h */,
+				884ED7961C742B3D006CDD6F /* DLHttpTool.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -255,6 +260,15 @@
 				884ED7901C71CB4D006CDD6F /* NSDate+ReleaseTime.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		884ED7981C75BF55006CDD6F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				884ED7991C75BF78006CDD6F /* UserViewModel.h */,
+				884ED79A1C75BF78006CDD6F /* UserViewModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		88A999F21C6F15C5006BB646 /* DetailVideoView */ = {
@@ -467,6 +481,7 @@
 		88B22E601C6099D400E7F54D /* UserView */ = {
 			isa = PBXGroup;
 			children = (
+				884ED7981C75BF55006CDD6F /* Models */,
 				88B22E611C6099D400E7F54D /* ViewController */,
 				88B22E641C6099D400E7F54D /* Views */,
 			);
@@ -485,8 +500,6 @@
 		88B22E641C6099D400E7F54D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				88B22E651C6099D400E7F54D /* SlideTabBarView.h */,
-				88B22E661C6099D400E7F54D /* SlideTabBarView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -604,8 +617,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8804F9841C4A4EDE00194F58 /* channelList.plist in Resources */,
 				88B22E4B1C6099C600E7F54D /* HomeModel.m.back in Resources */,
+				884ED79D1C75CAA5006CDD6F /* UserViewStruction.plist in Resources */,
 				88FD946C1C575E0F001CD81B /* URL_Note in Resources */,
 				88B22E491C6099C600E7F54D /* HomeModel.h.back in Resources */,
 				88F583AD1C60FEDB00681D39 /* Assets.xcassets in Resources */,
@@ -694,18 +707,19 @@
 				88B22DFA1C60993A00E7F54D /* CollectionHeadView.m in Sources */,
 				88B22E811C60E93C00E7F54D /* TableViewSubArticleCell.m in Sources */,
 				88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */,
-				88514B111C521F8C00F37B5A /* SingleHttpTool.m in Sources */,
+				88514B111C521F8C00F37B5A /* SingleHttpTool.m.back in Sources */,
 				88B22E801C60E93C00E7F54D /* CollectionViewVerticalCell.m in Sources */,
 				88B22E5F1C6099CE00E7F54D /* SearchViewController.m in Sources */,
 				88B22E5D1C6099CE00E7F54D /* DownloadViewController.m in Sources */,
 				88B22E011C6099AE00E7F54D /* ClassifierViewController.m in Sources */,
 				8804F98A1C4A757A00194F58 /* myTools.m in Sources */,
+				884ED7971C742B3D006CDD6F /* DLHttpTool.m in Sources */,
 				88B22E521C6099C600E7F54D /* HomeViewController.m in Sources */,
 				88F3F9391C7017D700742C99 /* VideoDescriptionTableViewCell.m in Sources */,
 				88B22DF61C60993A00E7F54D /* ChannelModel.m in Sources */,
 				88B22E231C6099C000E7F54D /* FocusViewController.m in Sources */,
+				884ED79B1C75BF78006CDD6F /* UserViewModel.m in Sources */,
 				88B22E4A1C6099C600E7F54D /* HomeModel.m in Sources */,
-				88B22E681C6099D400E7F54D /* SlideTabBarView.m in Sources */,
 				88B22E4E1C6099C600E7F54D /* HomeModelMenu.m in Sources */,
 				884ED7911C71CB4D006CDD6F /* NSDate+ReleaseTime.m in Sources */,
 				88B22E5E1C6099CE00E7F54D /* HistoryViewController.m in Sources */,

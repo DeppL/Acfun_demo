@@ -9,6 +9,8 @@
 #import "VideoDescriptionTableViewCell.h"
 #import "DetailVideoModel.h"
 
+NSString * const VideoDescriptionTableViewCellID = @"VideoDescriptionTableViewCellID";
+
 @interface VideoDescriptionTableViewCell ()
 
 @property (nonatomic ,strong) UILabel *titleLable;

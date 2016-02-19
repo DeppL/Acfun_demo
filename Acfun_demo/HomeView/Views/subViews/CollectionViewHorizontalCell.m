@@ -14,6 +14,7 @@
 
 #define kSubLabelFont [UIFont systemFontOfSize:14]
 
+NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID";
 
 @interface CollectionViewHorizontalCell ()
 
@@ -35,6 +36,7 @@
         _imageView = [[UIImageView alloc]initWithFrame:rect];
         _imageView.layer.cornerRadius = 5.0f;
         _imageView.layer.masksToBounds = YES;
+        _imageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_imageView];
     }
     return _imageView;
@@ -47,6 +49,7 @@
         _mainLabel.font = kMainLabelFont;
         _mainLabel.textAlignment = NSTextAlignmentLeft;
         _mainLabel.textColor = [UIColor blackColor];
+        _imageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_mainLabel];
     }
     return _mainLabel;
@@ -59,6 +62,7 @@
         _playCountLabel.font = kSubLabelFont;
         _playCountLabel.textAlignment = NSTextAlignmentLeft;
         _playCountLabel.textColor = [UIColor grayColor];
+        _playCountLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_playCountLabel];
 
     }
@@ -72,6 +76,7 @@
         _danmakuSizeLabel.font = kSubLabelFont;
         _danmakuSizeLabel.textAlignment = NSTextAlignmentLeft;
         _danmakuSizeLabel.textColor = [UIColor grayColor];
+        _danmakuSizeLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_danmakuSizeLabel];
     }
     return _danmakuSizeLabel;

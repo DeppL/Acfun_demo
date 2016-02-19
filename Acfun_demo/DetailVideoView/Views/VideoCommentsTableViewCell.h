@@ -10,7 +10,7 @@
 
 @class DetailCommentModelComment;
 @class DetailCommentModelFrame;
-static NSString * const VideoCommentsTableViewCellID = @"VideoCommentsTableViewCellID";
+extern NSString * const VideoCommentsTableViewCellID;
 
 @interface VideoCommentsTableViewCell : UITableViewCell
 

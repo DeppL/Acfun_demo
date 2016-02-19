@@ -10,7 +10,7 @@
 @class HomeModel;
 @class HomeModelFrame;
 
-static NSString * const TableViewArticlesCellID = @"TableViewArticlesCellID";
+extern NSString * const TableViewArticlesCellID;
 
 
 @protocol TableViewArticlesCellDelegate <NSObject>

@@ -10,7 +10,7 @@
 
 @class HomeModelContent;
 
-static NSString * const TableViewSubArticleCellID = @"TableViewSubArticleCellID";
+extern NSString * const TableViewSubArticleCellID;
 
 
 @interface TableViewSubArticleCell : UITableViewCell

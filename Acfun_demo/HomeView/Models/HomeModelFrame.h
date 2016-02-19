@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+@class HomeModel;
 
 @interface HomeModelFrame : NSObject
 
@@ -28,5 +28,7 @@
 @property (nonatomic, assign) CGFloat cellHight;
 
 + (NSArray *)setUpFrameWithHomeModelArr:(NSArray *)homeModelArr;
+
++ (HomeModelFrame *)setUpFrameWithHomeModel:(HomeModel *)model;
 
 @end

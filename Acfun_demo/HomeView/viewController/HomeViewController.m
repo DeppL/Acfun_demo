@@ -21,12 +21,15 @@
 
 #import "HomeModelConfig.h"
 
+NSString *const homeModelURL = @"http://api.aixifan.com/regions";
+
 @interface HomeViewController () <UITableViewDataSource, UITableViewDelegate, TableViewArticlesCellDelegate, TableViewVideosCellDelegate, TableViewBangumisCellDelegate>
 
-@property (nonatomic, copy) NSArray *homeModelsArr;
+@property (nonatomic, copy) NSMutableArray *homeModelsArr;
+
 @property (nonatomic, copy) NSArray *homeModelsFrameArr;
 
-@property (nonatomic, strong) UITableView *homeTableView;
+@property (nonatomic, strong) UITableView *tableView;
 
 @end
 
@@ -39,21 +42,22 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
-//    [self.view addSubview:self.homeTableView];
+    [self setUpRefreshHeader];
     
-    [self setUpHomeList];
 }
 
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     [self setUpNav];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -69,20 +73,22 @@
     [super viewDidLayoutSubviews];
 }
 
+
 #pragma mark - 内存警告
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 
 
 #pragma mark - initialize
 
-- (NSArray *)homeModelsArr {
+- (NSMutableArray *)homeModelsArr {
     if (!_homeModelsArr) {
-        _homeModelsArr = [NSArray array];
+        _homeModelsArr = [[NSMutableArray alloc] init];
     }
     return _homeModelsArr;
 }
@@ -94,21 +100,22 @@
     return _homeModelsFrameArr;
 }
 
-- (UITableView *)homeTableView {
-    if (!_homeTableView) {
-        CGRect rect = CGRectMake(0, 64, kDeviceWidth, KDeviceHeight - 64);
-        _homeTableView = [[UITableView alloc]initWithFrame:rect style:UITableViewStylePlain];
-        _homeTableView.delegate = self;
-        _homeTableView.dataSource = self;
-        _homeTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_homeTableView registerClass:[TableViewArticlesCell class] forCellReuseIdentifier:TableViewArticlesCellID];
-        [_homeTableView registerClass:[TableViewBangumisCell class] forCellReuseIdentifier:TableViewBangumisCellID];
-        [_homeTableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
-        [_homeTableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
-        [_homeTableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
-//        [self.view addSubview:_homeTableView];
+- (UITableView *)tableView {
+    if (!_tableView) {
+        
+        _tableView = [[UITableView alloc]initWithFrame:self.view.bounds style:UITableViewStylePlain];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        [_tableView registerClass:[TableViewArticlesCell class] forCellReuseIdentifier:TableViewArticlesCellID];
+        [_tableView registerClass:[TableViewBangumisCell class] forCellReuseIdentifier:TableViewBangumisCellID];
+        [_tableView registerClass:[TableViewBannersCell class] forCellReuseIdentifier:TableViewBannersCellID];
+        [_tableView registerClass:[TableViewCarouselsCell class] forCellReuseIdentifier:TableViewCarouselsCellID];
+        [_tableView registerClass:[TableViewVideosCell class] forCellReuseIdentifier:TableViewVideosCellID];
+        [self.view addSubview:_tableView];
     }
-    return _homeTableView;
+    return _tableView;
 }
 
 
@@ -124,6 +131,7 @@
     handTitle.textColor = [UIColor whiteColor];
     handTitle.font = [UIFont fontWithName:@"Verdana-Bold" size:25];
     handTitle.textAlignment = NSTextAlignmentCenter;
+    
     UIBarButtonItem *titleBarButten = [[UIBarButtonItem alloc]initWithCustomView:handTitle];
     
     self.navigationItem.leftBarButtonItem = titleBarButten;
@@ -132,6 +140,7 @@
     
     UIButton *downLoadBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 132, 20, 44, 44)];
     [downLoadBtn setTitle:@"下载" forState:UIControlStateNormal];
+    [downLoadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [downLoadBtn addTarget:self action:@selector(pushToDownloadView) forControlEvents:UIControlEventTouchUpInside];
     
     // historyBtn
@@ -154,23 +163,104 @@
     
 }
 
-- (void)setUpHomeList {
+- (void)setUpRefreshHeader {
     
-    [SingleHttpTool GETHomeModelSuccess:^(id object) {
+    __weak typeof(self) weakSelf = self;
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf setUpHomeList];
+    }];
+    
+    [self.tableView.mj_header beginRefreshing];
+    self.tableView.mj_header.automaticallyChangeAlpha = YES;
+    
+}
+
+
+/**
+ *  主模型
+ */
+- (void)setUpHomeList {
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    __weak __typeof(self) weakSelf = self;
+    [DLHttpTool get:homeModelURL params:nil cachePolicy:DLHttpToolReloadIgnoringLocalCacheData success:^(id json) {
+        
+        [weakSelf.tableView.mj_header endRefreshing];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            self.homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
-            self.homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:self.homeModelsArr];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.view addSubview:self.homeTableView];
-//                [self.homeTableView reloadData];
-            });
+        
+            if (_homeModelsArr.count) { // 主tableview内容，是否已经存在
+                
+                NSArray *arr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
+                
+                for (int i = 0; i < arr.count; i++) {
+                    
+                    HomeModel *model = arr[i];
+                    if (model.contents) {
+                        
+                        [weakSelf.homeModelsArr replaceObjectAtIndex:i withObject:model];
+                        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:i];
+                        dispatch_async(dispatch_get_main_queue(), ^{
+                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                        });
+                        
+                    }
+                    else {
+                        [weakSelf getSubHomeListWith:model.homeId];
+                    }
+                }
+            }
+            else {
+                _homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
+                _homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:weakSelf.homeModelsArr];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [weakSelf.tableView reloadData];
+                });
+                
+                for (HomeModel *subOriginModel in weakSelf.homeModelsArr) {
+                    if (!subOriginModel.contents) [weakSelf getSubHomeListWith:subOriginModel.homeId];
+                }
+            }
         });
+        
+        
     } failure:^(NSError *error) {
         NSLog(@"failure");
-    } offline:^{
-        NSLog(@"offline");
+        [weakSelf.tableView.mj_header endRefreshing];
+        [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+    }];
+}
+
+
+/**
+ *  子模型
+ *
+ */
+- (void)getSubHomeListWith:(NSString *)subURL {
+    
+    NSString *urlSubStr = [homeModelURL stringByAppendingPathComponent:subURL];
+    
+    __weak __typeof(self) weakSelf = self;
+    [DLHttpTool get:urlSubStr params:nil cachePolicy:DLHttpToolReloadIgnoringLocalCacheData success:^(id json) {
+        
+        HomeModel *subModel = [HomeModel mj_objectWithKeyValues:json[@"data"]];
+        for (int i = 0; i < weakSelf.homeModelsArr.count; i ++) {
+            
+            HomeModel *subOriginModel = weakSelf.homeModelsArr[i];
+            if (subModel.homeId != subOriginModel.homeId) continue;
+            
+            [weakSelf.homeModelsArr replaceObjectAtIndex:i withObject:subModel];
+            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:i];
+            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+        }
+     
+    } failure:^(NSError *error) {
+        NSLog(@"subModel -- failure");
+        
     }];
     
 }
@@ -183,6 +273,7 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     HomeModel *model = self.homeModelsArr[indexPath.section];
     HomeModelFrame *modelFrame = self.homeModelsFrameArr[indexPath.section];
@@ -217,8 +308,7 @@
             [cell setDelegate:self];
             break;
         }
-            
-        default: return nil;
+        
     }
     
     [cell setUpWithModel:model];
@@ -229,21 +319,24 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+
     return self.homeModelsArr.count;
 }
 
 #pragma mark - UITableViewDelegate
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (!_homeModelsFrameArr) return 100;
+    
     HomeModelFrame *modelFrame = self.homeModelsFrameArr[indexPath.section];
     
-    if (indexPath.section == self.homeModelsArr.count - 1) return modelFrame.cellHight + 100;
     return modelFrame.cellHight;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    HomeModel *model = self.homeModelsArr[indexPath.row];
-    NSLog(@"focusTableView:%@ --- cell --- %ld",model.name, (long)indexPath.section);
+//    HomeModel *model = self.homeModelsArr[indexPath.row];
+//    NSLog(@"focusTableView:%@ --- cell --- %ld",model.name, (long)indexPath.section);
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -252,23 +345,10 @@
     return 5;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    
-    CGFloat sectionFooterHeight = 40;
-    CGFloat ButtomHeight = scrollView.contentSize.height - self.homeTableView.frame.size.height;
-    
-    if (ButtomHeight - sectionFooterHeight <= scrollView.contentOffset.y && scrollView.contentSize.height > 0) {
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-    } else  {
-        scrollView.contentInset = UIEdgeInsetsMake(0, 0, -(sectionFooterHeight), 0);
-    }
-    
-}
 
 #pragma mark - TableViewArticlesCellDelegate TableViewVideosCellDelegate
 
 - (void)articleCellDidSelectRowAtURL:(NSString *)url {
-    NSLog(@"articleCell-Clicked With %@",url);
 }
 
 - (void)videosCellDidSelectRowAtURL:(NSString *)url {
@@ -276,12 +356,9 @@
     DetailVideoViewController *detailVC = [[DetailVideoViewController alloc]init];
     detailVC.strURL = url;
     [self.navigationController pushViewController:detailVC animated:YES];
-    
-    NSLog(@"videosCell-Clicked With %@",url);
 }
 
 - (void)bangumisCellDidSelectRowAtURL:(NSString *)url {
-    NSLog(@"bangumisCell-Clicked With %@",url);
 }
 
 
@@ -290,19 +367,16 @@
 - (void)pushToDownloadView {
     //    DownloadViewController *downloadVC = [[DownloadViewController alloc]init];
     //    [self.navigationController pushViewController:downloadVC animated:NO];
-    
 }
 
 - (void)pushToHistoryView {
     //    HistoryViewController *historyVC = [[HistoryViewController alloc]init];
     //    [self.navigationController pushViewController:historyVC animated:YES];
-    
-    
 }
 
 - (void)pushToSearchView {
-    //    SearchViewController *searchVC = [[SearchViewController alloc]init];
-    //    [self.navigationController pushViewController:searchVC animated:NO];
+    SearchViewController *searchVC = [[SearchViewController alloc]init];
+    [self.navigationController pushViewController:searchVC animated:NO];
     NSLog(@"btnClick");
 }
 

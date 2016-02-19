@@ -15,6 +15,8 @@
 
 #define kSubLabelFont [UIFont systemFontOfSize:14]
 
+NSString * const TableViewArticlesCellID = @"TableViewArticlesCellID";
+
 @interface TableViewArticlesCell () <UITableViewDataSource, UITableViewDelegate>
 
 @property (nonatomic, strong) UITableView *mainTableView;
@@ -69,6 +71,7 @@
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc]init];
+        _headImageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_headImageView];
     }
     return _headImageView;
@@ -80,6 +83,7 @@
         _headLabel.font = kMainLabelFont;
         _headLabel.textAlignment = NSTextAlignmentLeft;
         _headLabel.textColor = [UIColor blackColor];
+        _headLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_headLabel];
         
     }
@@ -94,7 +98,7 @@
         _mainTableView.scrollEnabled = NO;
         _mainTableView.showsHorizontalScrollIndicator = NO;
         _mainTableView.showsVerticalScrollIndicator = NO;
-//        _mainTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _mainTableView.backgroundColor = kMyWhite;
         [_mainTableView registerClass:[TableViewSubArticleCell class] forCellReuseIdentifier:TableViewSubArticleCellID];
         [self.contentView addSubview:_mainTableView];
     }
@@ -107,6 +111,7 @@
         _footLabel.font = kSubLabelFont;
         _footLabel.textColor = kMyRed;
         _footLabel.textAlignment = NSTextAlignmentCenter;
+        _footLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_footLabel];
     }
     return _footLabel;

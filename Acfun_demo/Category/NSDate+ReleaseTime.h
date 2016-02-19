@@ -10,6 +10,13 @@
 
 @interface NSDate (ReleaseTime)
 
-+ (NSString *)compareWithReleaseTime:(NSString *)interval;
+/**
+ *  Get release time
+ *
+ *  @param interval NSString since 1970 ms
+ *
+ *  @return NSString *
+ */
++ (NSString *)dateCompareWithReleaseTime:(NSString *)interval;
 
 @end

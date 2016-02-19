@@ -10,7 +10,7 @@
 
 @class DetailVideoModel;
 
-static NSString * const VideoTableViewCellID = @"VideoTableViewCellID";
+extern NSString * const VideoTableViewCellID;
 
 @interface VideoTableViewCell : UITableViewCell
 

@@ -16,6 +16,7 @@
 #import "CollectionHeadView.h"
 #import "CollectionFootView.h"
 
+NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels";
 
 @interface ChannelViewController () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
@@ -46,6 +47,7 @@
     // 设置channelList
     [self setUpChannelList];
     
+        
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -103,32 +105,30 @@
     self.channelCollectionView = [[UICollectionView alloc]initWithFrame:self.view.bounds collectionViewLayout:flowLayout];
     self.channelCollectionView.delegate = self;
     self.channelCollectionView.dataSource = self;
-    self.channelCollectionView.backgroundColor = RGBA(255, 255, 255, 1.0);
+    self.channelCollectionView.backgroundColor = kMyWhite;
     
     [self.channelCollectionView registerClass:[ChannelCollectionViewCell class] forCellWithReuseIdentifier:channelCellID];
     [self.channelCollectionView registerClass:[CollectionHeadView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:collectionHeadViewID];
     [self.channelCollectionView registerClass:[CollectionFootView class] forSupplementaryViewOfKind:UICollectionElementKindSectionFooter withReuseIdentifier:collectionFootViewID];
     
-    self.view = self.channelCollectionView;
+    [self.view addSubview:self.channelCollectionView];
 }
 
-// SingleHttpTool下载channelList
+
 - (void)setUpChannelList {
-    
-    [SingleHttpTool GETChannelModelSuccess:^(id object) {
+    __weak __typeof(self) weakSelf = self;
+    [DLHttpTool get:channelModelURL params:nil cachePolicy:DLHttpToolReturnCacheDataThenLoad success:^(id json) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            self.channelModelsArr = [ChannelModel mj_objectArrayWithKeyValuesArray:object[@"data"]];
+            weakSelf.channelModelsArr = [ChannelModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.channelCollectionView reloadData];
+                [weakSelf.channelCollectionView reloadData];
             });
         });
     } failure:^(NSError *error) {
-        NSLog(@"error");
-    } offline:^{
-        NSLog(@"offline");
+        NSLog(@"failure");
+        [weakSelf setUpChannelList];
     }];
 }
-
 
 
 #pragma mark - DataSource
@@ -168,7 +168,7 @@
         CollectionHeadView *headView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:collectionHeadViewID forIndexPath:indexPath];
         [headView.headButton setTitle:channelModel.name forState:UIControlStateNormal];
         [headView.headButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [headView.headButton addTarget:self action:@selector(pushToSearchView:) forControlEvents:UIControlEventTouchUpInside];
+//        [headView.headButton addTarget:self action:@selector(pushToSearchView:) forControlEvents:UIControlEventTouchUpInside];
         return headView;
     } else {
 

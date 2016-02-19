@@ -16,6 +16,8 @@
 
 #define kSubLabelFont [UIFont systemFontOfSize:14]
 
+NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
+
 @interface TableViewVideosCell () <UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, strong) UICollectionView *mainCollectionView;
@@ -74,6 +76,7 @@
 - (UIImageView *)headImageView {
     if (!_headImageView) {
         _headImageView = [[UIImageView alloc]init];
+        _headImageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_headImageView];
     }
     return _headImageView;
@@ -85,6 +88,7 @@
         _headLabel.font = kMainLabelFont;
         _headLabel.textAlignment = NSTextAlignmentLeft;
         _headLabel.textColor = [UIColor blackColor];
+        _headLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_headLabel];
         
     }
@@ -100,7 +104,7 @@
         _mainCollectionView.scrollEnabled = NO;
         _mainCollectionView.showsHorizontalScrollIndicator = NO;
         _mainCollectionView.showsVerticalScrollIndicator = NO;
-        _mainCollectionView.backgroundColor = [UIColor clearColor];
+        _mainCollectionView.backgroundColor = kMyWhite;
         [_mainCollectionView registerClass:[CollectionViewHorizontalCell class] forCellWithReuseIdentifier:CollecionViewHorizontalCellID];
         
         
@@ -114,6 +118,7 @@
         _footLabel = [[UILabel alloc]init];
         _footLabel.font = kSubLabelFont;
         _footLabel.textColor = kMyRed;
+        _footLabel.backgroundColor = kMyWhite;
         _footLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_footLabel];
     }

@@ -14,6 +14,8 @@
 
 #define kSubLabelFont [UIFont systemFontOfSize:14]
 
+NSString * const CollecionViewVerticalCellID = @"CollecionViewVerticalCellID";
+
 @interface CollectionViewVerticalCell ()
 
 @property (nonatomic, strong) UIImageView *imageView;
@@ -34,6 +36,7 @@
         _imageView.layer.borderWidth = 2.0f;
         _imageView.layer.borderColor = kMyRed.CGColor;
         _imageView.layer.masksToBounds = YES;
+        _imageView.backgroundColor = kMyWhite;
         [self.contentView addSubview:_imageView];
     }
     return _imageView;
@@ -46,6 +49,7 @@
         _mainLabel.font = kMainLabelFont;
         _mainLabel.textAlignment = NSTextAlignmentLeft;
         _mainLabel.textColor = [UIColor blackColor];
+        _mainLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_mainLabel];
     }
     return _mainLabel;
@@ -58,6 +62,7 @@
         _subLabel.font = kSubLabelFont;
         _subLabel.textAlignment = NSTextAlignmentLeft;
         _subLabel.textColor = [UIColor grayColor];
+        _subLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_subLabel];
     }
     return _subLabel;
