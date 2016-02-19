@@ -76,6 +76,7 @@
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
+    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 - (void)didReceiveMemoryWarning {
