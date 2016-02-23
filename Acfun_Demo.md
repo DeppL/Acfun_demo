@@ -19,13 +19,18 @@
 ## 第一部分：HomeView
 
 ### > 主页－1
+Pic
+
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/HomeView-1.png)
 
 ### > 主页－2
+Pic
+
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/HomeView-2.png)
 
 
 ## 第二部分：ChannelView
+Pic
 
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ChannelView.png)
 
@@ -34,6 +39,7 @@
 
 
 ## 第四部分：UserView
+Pic
 
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/UserView.png)
 
@@ -41,16 +47,22 @@
 ## 第五部分：DetailView
 
 ### > VideoView－1
+Pic
+
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/DetailView-1.png)
 
 ### > VideoView－2
 UINavigationBar 使用 高斯模糊处理图片
+
+Pic
 
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/DetailView-3.png)
 
 
 ## 第六部分：ClassifierView
 未完
+
+Pic
 
 ![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView.png)
 
