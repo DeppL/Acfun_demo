@@ -11,7 +11,7 @@
 
 #define kVideoViewFHight 300
 NSString * const VideoTableViewCellID = @"VideoTableViewCellID";
-
+NSString * const DetailVideoTableViewCellImageCompleted = @"DetailVideoTableViewCellImageCompleted";
 @interface VideoTableViewCell ()
 
 @property (nonatomic, strong) UIImageView *videoImageView;
@@ -21,13 +21,25 @@ NSString * const VideoTableViewCellID = @"VideoTableViewCellID";
 @implementation VideoTableViewCell
 
 - (void)setUpVideoTableViewCellWithModel:(DetailVideoModel *)model {
+    
+    if (!model) return;
     NSURL *url = [NSURL URLWithString:model.cover];
     [self.videoImageView sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolder") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        
+        UIImage *staticImage;
         if ([image images]) {
-            UIImage *staticImage = [image images][0];
-            self.videoImageView.image = staticImage;
+            staticImage = [image images][0];
         }
+        else {
+            staticImage = image;
+        }
+        [[NSNotificationCenter defaultCenter] postNotificationName:DetailVideoTableViewCellImageCompleted object:staticImage];
+        
     }];
+}
+
+- (void)setUpVideoTableViewCellWithImage:(UIImage *)image {
+    self.videoImageView.image = image;
 }
 
 

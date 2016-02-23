@@ -28,7 +28,9 @@ NSString * const VideoDescriptionTableViewCellID = @"VideoDescriptionTableViewCe
     
     NSString *str = [NSString stringWithFormat:@"播放：%@  评论：%@  香蕉：%@",model.visit.views,model.visit.comments,model.visit.goldBanana];
     self.subLabel.text = str;
-    self.descriptionLabel.text = model.descriptionText;
+    
+    NSString *string = [model.descriptionText stringByReplacingOccurrencesOfString:@"<br/>" withString:@""];
+    self.descriptionLabel.text = string;
 }
 
 - (UILabel *)titleLable {

@@ -230,15 +230,6 @@
     }
 }
 
-- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView {}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {}
-
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {}
-
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView {}
-
-
 #pragma mark - 点击响应事件
 
 - (void)clickToCancel {

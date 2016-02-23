@@ -7,7 +7,6 @@
 //
 
 #import "DLHttpTool.h"
-#include "netdb.h"
 
 
 static NSString * const DLHttpToolRequestCache = @"DLHttpToolRequestCache";
@@ -33,6 +32,7 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestType) {
         // 创建请求管理者
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         mgr.requestSerializer = [AFHTTPRequestSerializer serializer];
+        mgr.requestSerializer.timeoutInterval = 10.0;
         [mgr.requestSerializer setValue:@"0" forHTTPHeaderField:@"deviceType"];
         [mgr.requestSerializer setValue:@"2000" forHTTPHeaderField:@"productId"];
         [mgr.requestSerializer setValue:@"appstore" forHTTPHeaderField:@"market"];
@@ -127,6 +127,8 @@ cachePolicy:(DLHttpToolRequestCachePolicy)cachePolicy
  */
 + (void)clearCacheFile {
     [[SDWebImageManager sharedManager].imageCache clearDisk];
+    
+    [[NSURLCache sharedURLCache] removeAllCachedResponses];
     
     [DLHttpTool removeAllCaches];
 }

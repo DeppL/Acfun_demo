@@ -40,7 +40,9 @@ NSString * const VideoCommentsTableViewCellID = @"VideoCommentsTableViewCellID";
     self.releaseDateLabel.text = releaseTimeStr;
     NSString *floorStr = [NSString stringWithFormat:@"#%@",model.floor];
     self.floorLabel.text = floorStr;
-    self.commentContentLabel.text = model.content;
+    
+    NSString *string = [model.content stringByReplacingOccurrencesOfString:@"<br/>" withString:@""];
+    self.commentContentLabel.text = string;
 }
 
 - (void)setUpVideoCommentsTableViewCellFrameWithModel:(DetailCommentModelFrame *)commentModelCommentF {

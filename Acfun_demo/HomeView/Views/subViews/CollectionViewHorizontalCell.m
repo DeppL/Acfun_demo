@@ -30,6 +30,7 @@ NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID
 
 @implementation CollectionViewHorizontalCell
 
+
 - (UIImageView *)imageView {
     if (!_imageView) {
         CGRect rect = CGRectMake(0, 0, 360, 200);

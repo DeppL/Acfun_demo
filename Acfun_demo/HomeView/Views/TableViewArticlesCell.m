@@ -45,7 +45,9 @@ NSString * const TableViewArticlesCellID = @"TableViewArticlesCellID";
         [self.headImageView sd_setImageWithURL:url placeholderImage:image];
     }
     
-    [self.headLabel setText:model.name];
+//    [self.headLabel setText:model.name];
+    NSString *headLabelText = [NSString stringWithFormat:@"%@ -> %@", model.name, model.homeId];
+    self.headLabel.text = headLabelText;
     
     if ([model.channelId integerValue]) {
         self.footLabel.hidden = NO;

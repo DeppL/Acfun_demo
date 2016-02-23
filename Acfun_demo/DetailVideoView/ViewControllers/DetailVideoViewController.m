@@ -38,6 +38,7 @@ typedef void(^completed)();
 
 @property (nonatomic, strong) UINavigationController *defautNaviC;
 
+//@property (nonatomic, strong) UIImage *videoTableViewCellImage;
 @property (nonatomic, strong) UIImage *navigetionBackgroundPicture;
 
 @property (nonatomic, assign, getter=isVideoViewHidden) BOOL videoViewHidden;
@@ -53,27 +54,23 @@ typedef void(^completed)();
     
     [self setUpTransparentNav];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drawingNavigetionBackgroundPicture:) name:DetailVideoTableViewCellImageCompleted object:nil];
+    
     __weak __typeof(self) weakSelf = self;
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        weakSelf.detailTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf setUpDetailVideoCompleted:^{
-                [weakSelf drawingNavigetionBackgroundPicture];
-            }];
-            [weakSelf setUpDetailComments];
-        }];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [weakSelf.detailTableView.mj_header beginRefreshing];
-        });
-        
-    });
+    self.detailTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf setUpDetailVideo];
+        [weakSelf setUpDetailComments];
+    }];
+    
+    [self.detailTableView.mj_header beginRefreshing];
     
     
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
-
+    
     
     
 }
@@ -110,6 +107,10 @@ typedef void(^completed)();
     // Dispose of any resources that can be recreated.
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 #pragma mark - initialize
 
@@ -121,7 +122,7 @@ typedef void(^completed)();
         _detailTableView.dataSource = self;
         _detailTableView.showsHorizontalScrollIndicator = NO;
         _detailTableView.showsVerticalScrollIndicator = NO;
-//        _detailTableView.bounces = NO;
+        _detailTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_detailTableView registerClass:[VideoTableViewCell class] forCellReuseIdentifier:VideoTableViewCellID];
         [_detailTableView registerClass:[VideoDescriptionTableViewCell class] forCellReuseIdentifier:VideoDescriptionTableViewCellID];
         [_detailTableView registerClass:[VideoOwnerTableViewCell class] forCellReuseIdentifier:VideoOwnerTableViewCellID];
@@ -158,7 +159,7 @@ typedef void(^completed)();
  *  下载 视频信息 UP主信息
  *
  */
-- (void)setUpDetailVideoCompleted:(completed)completed {
+- (void)setUpDetailVideo {
     
     NSString *str = [detailVideosURL stringByAppendingPathComponent:self.strURL];
     
@@ -167,20 +168,10 @@ typedef void(^completed)();
     [DLHttpTool get:str params:nil cachePolicy:DLHttpToolReturnCacheDataElseLoad success:^(id json) {
         
         if (!weakSelf) return;
+        weakSelf.detailViderModel = [DetailVideoModel mj_objectWithKeyValues:json[@"data"]];
+        [weakSelf.detailTableView reloadData];
         
         [weakSelf.detailTableView.mj_header endRefreshing];
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            
-            weakSelf.detailViderModel = [DetailVideoModel mj_objectWithKeyValues:json[@"data"]];
-            
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.detailTableView reloadData];
-            });
-            
-            completed();
-        });
-        
     } failure:^(NSError *error) {
         
         if (!weakSelf) return;
@@ -222,10 +213,11 @@ typedef void(^completed)();
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                if (!_detailViderModel) return;
-                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
-                [weakSelf.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-                
+                if (_detailViderModel) {
+//                    [weakSelf.detailTableView reloadData];
+                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
+                    [weakSelf.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+                }
             });
             
         });
@@ -234,33 +226,30 @@ typedef void(^completed)();
     }];
 }
 
+
 /**
  *  获取导航栏模糊化图片
  */
-- (void)drawingNavigetionBackgroundPicture {
+- (void)drawingNavigetionBackgroundPicture:(NSNotification *)notify {
     
-    __block UIImageView *imageView = [[UIImageView alloc]initWithFrame:kVideoViewF];
-    NSURL *url = [NSURL URLWithString:self.detailViderModel.cover];
-    imageView.contentMode = UIViewContentModeScaleToFill;
+    if (!self || self.navigetionBackgroundPicture) return;
     
-    __weak __typeof(self) weakSelf = self;
-    [imageView sd_setImageWithURL:url completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        if (!weakSelf || weakSelf.navigetionBackgroundPicture) return;
+    @synchronized(self) {
+        
+        if (!self || self.navigetionBackgroundPicture) return;
+        
+        __block UIImage *staticImage = notify.object;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            if ([image images]) {
-                UIImage *staticImage = [image images][0];
-                imageView.image = staticImage;
-            }
             
             // 截取整张图片
-            UIGraphicsBeginImageContextWithOptions(CGSizeMake(kVideoViewF.size.width, kVideoViewF.size.height), YES, 1.0);
-            [[imageView layer] renderInContext:UIGraphicsGetCurrentContext()];
-            UIImage *viewImage = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsBeginImageContext(kVideoViewF.size);
+            [staticImage drawInRect:CGRectMake(kVideoViewF.origin.x, kVideoViewF.origin.y, kVideoViewF.size.width, kVideoViewF.size.height)];
+            UIImage *reSizeImage = UIGraphicsGetImageFromCurrentImageContext();
             UIGraphicsEndImageContext();
             
             // 截取目标区域图片
-            CGImageRef imageRef = viewImage.CGImage;
+            CGImageRef imageRef = reSizeImage.CGImage;
             CGRect rect = CGRectMake(0, (kVideoViewF.size.height - 64), kDeviceWidth, 64);
             imageRef = CGImageCreateWithImageInRect(imageRef, rect);
             UIImage *sendImage = [[UIImage alloc]initWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationUp];
@@ -272,15 +261,14 @@ typedef void(^completed)();
             GPUImageGaussianBlurFilter *blurFilter = [[GPUImageGaussianBlurFilter alloc]init];
             blurFilter.blurRadiusInPixels = 10.0;
             UIImage *blurredImage = [blurFilter imageByFilteringImage:sendImage];
-            weakSelf.navigetionBackgroundPicture = blurredImage;
+            self.navigetionBackgroundPicture = blurredImage;
             
-
+            
         });
-        
-    }];
+
+    }
     
 }
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -300,6 +288,7 @@ typedef void(^completed)();
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     
     id cell;
     

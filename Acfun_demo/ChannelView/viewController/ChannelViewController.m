@@ -52,6 +52,7 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -230,7 +231,7 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
 
 - (IBAction)pushToSearchView:(id)sender {
     SearchViewController *searchVC = [[SearchViewController alloc]init];
-    [self.navigationController pushViewController:searchVC animated:NO];
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 @end

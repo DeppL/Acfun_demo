@@ -8,9 +8,13 @@
 
 #import "SearchViewController.h"
 
-@interface SearchViewController ()
+
+@interface SearchViewController () <UIScrollViewDelegate>
 
 @property (nonatomic, strong) UITextField *searchFeild;
+
+@property (nonatomic, strong) UIWebView *webView;
+@property (nonatomic, assign) CGPoint originPoint;
 
 @end
 
@@ -18,7 +22,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = kMyWhite;
+    [self.view addSubview:self.webView];
+    self.navigationItem.title = @"Acfun";
+    self.tabBarController.tabBar.hidden = YES;
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
+    
+}
+
+- (void)setUpNavi {
     self.tabBarController.tabBar.hidden = YES;
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     
@@ -26,7 +39,6 @@
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [cancelBtn setTitleColor:[UIColor grayColor] forState:UIControlStateHighlighted];
-    [cancelBtn addTarget:self action:@selector(clickBtnToCancel) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *cancelBarButten = [[UIBarButtonItem alloc]initWithCustomView:cancelBtn];
     
     self.navigationItem.rightBarButtonItem = cancelBarButten;
@@ -50,10 +62,24 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)clickBtnToCancel {
-    self.tabBarController.tabBar.hidden = NO;
-    [self.navigationController popToRootViewControllerAnimated:NO];
+- (UIWebView *)webView {
+    if (!_webView) {
+        _webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kDeviceWidth, KDeviceHeight)];
+        _webView.backgroundColor = kMyWhite;
+        _webView.scrollView.delegate = self;
+        _webView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, -64, 0);
+        NSURL *url = [NSURL URLWithString:@"http://m.acfun.tv/search/?query=Acfun&back=http%3A%2F%2Fm.acfun.tv%2F"];
+        NSURLRequest *request = [NSURLRequest requestWithURL:url];
+        
+        [_webView loadRequest:request];
+    }
+    return _webView;
 }
+
+//- (void)clickBtnToCancel {
+//    self.tabBarController.tabBar.hidden = NO;
+//    [self.navigationController popToRootViewControllerAnimated:NO];
+//}
 
 /*
 #pragma mark - Navigation
@@ -65,4 +91,23 @@
 }
 */
 
+#pragma mark - UIScrollViewDelegate
+
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+    self.originPoint = scrollView.contentOffset;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {
+    CGPoint point = *targetContentOffset;
+    
+    if (velocity.y > 0 || self.originPoint.y < point.y) {
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+    else if (velocity.y < 0 || self.originPoint.y > point.y) {
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    }
+
+    
+}
 @end

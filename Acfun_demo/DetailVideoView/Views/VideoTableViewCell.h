@@ -11,9 +11,12 @@
 @class DetailVideoModel;
 
 extern NSString * const VideoTableViewCellID;
+extern NSString * const DetailVideoTableViewCellImageCompleted;
 
 @interface VideoTableViewCell : UITableViewCell
 
 - (void)setUpVideoTableViewCellWithModel:(DetailVideoModel *)model;
+
+- (void)setUpVideoTableViewCellWithImage:(UIImage *)image;
 
 @end

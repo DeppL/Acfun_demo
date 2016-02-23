@@ -31,6 +31,10 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
 
 @property (nonatomic, strong) UITableView *tableView;
 
+@property (nonatomic, strong) NSArray<UIBarButtonItem *> *leftBarButtonItems;
+
+@property (nonatomic, strong) NSArray<UIBarButtonItem *> *rightBarButtonItems;
+
 @end
 
 @implementation HomeViewController
@@ -42,8 +46,6 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
-    
     [self setUpRefreshHeader];
     
 }
@@ -51,8 +53,9 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self setUpNav];
     
+    [self setUpNav];
+    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -79,7 +82,6 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-    [[SDImageCache sharedImageCache] clearMemory];
 }
 
 
@@ -118,48 +120,64 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
     return _tableView;
 }
 
+- (NSArray *)leftBarButtonItems {
+    if (!_leftBarButtonItems) {
+        
+        //------------------------------------------- self.navigationItem.leftBarButtonItem ------------------------------------------
+        // handTitle
+        UILabel *handTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
+        handTitle.text = @"Acfun";
+        handTitle.textColor = [UIColor whiteColor];
+        handTitle.font = [UIFont fontWithName:@"Verdana-Bold" size:25];
+        handTitle.textAlignment = NSTextAlignmentCenter;
+        
+        UIBarButtonItem *titleBarButten = [[UIBarButtonItem alloc]initWithCustomView:handTitle];
+        
+        _leftBarButtonItems = @[titleBarButten];
+    }
+    return _leftBarButtonItems;
+}
+
+- (NSArray *)rightBarButtonItems {
+    if (!_rightBarButtonItems) {
+        
+        //------------------------------------------- self.navigationItem.rightBarButtonItem ------------------------------------------
+        
+        UIButton *downLoadBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 132, 20, 44, 44)];
+        [downLoadBtn setTitle:@"下载" forState:UIControlStateNormal];
+        [downLoadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [downLoadBtn addTarget:self action:@selector(pushToDownloadView) forControlEvents:UIControlEventTouchUpInside];
+        
+        // historyBtn
+        UIButton *historyBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 88, 20, 44, 44)];
+        [historyBtn setTitle:@"历史" forState:UIControlStateNormal];
+        [historyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [historyBtn addTarget:self action:@selector(pushToHistoryView) forControlEvents:UIControlEventTouchUpInside];
+        
+        // searchBtn
+        UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 44, 20, 44, 44)];
+        [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
+        [searchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [searchBtn addTarget:self action:@selector(pushToSearchView) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBarButtonItem *downloadBarButten = [[UIBarButtonItem alloc]initWithCustomView:downLoadBtn];
+        UIBarButtonItem *historyBarButten = [[UIBarButtonItem alloc]initWithCustomView:historyBtn];
+        UIBarButtonItem *searchBarButten = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
+        
+        _rightBarButtonItems = @[searchBarButten, historyBarButten, downloadBarButten];
+
+    }
+    return _rightBarButtonItems;
+}
 
 - (void)setUpNav {
     
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
     
-    //------------------------------------------- self.navigationItem.leftBarButtonItem ------------------------------------------
-    // handTitle
-    UILabel *handTitle = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
-    handTitle.text = @"Acfun";
-    handTitle.textColor = [UIColor whiteColor];
-    handTitle.font = [UIFont fontWithName:@"Verdana-Bold" size:25];
-    handTitle.textAlignment = NSTextAlignmentCenter;
+    self.navigationItem.leftBarButtonItems = self.leftBarButtonItems;
     
-    UIBarButtonItem *titleBarButten = [[UIBarButtonItem alloc]initWithCustomView:handTitle];
-    
-    self.navigationItem.leftBarButtonItem = titleBarButten;
-    
-    //------------------------------------------- self.navigationItem.rightBarButtonItem ------------------------------------------
-    
-    UIButton *downLoadBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 132, 20, 44, 44)];
-    [downLoadBtn setTitle:@"下载" forState:UIControlStateNormal];
-    [downLoadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [downLoadBtn addTarget:self action:@selector(pushToDownloadView) forControlEvents:UIControlEventTouchUpInside];
-    
-    // historyBtn
-    UIButton *historyBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 88, 20, 44, 44)];
-    [historyBtn setTitle:@"历史" forState:UIControlStateNormal];
-    [historyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [historyBtn addTarget:self action:@selector(pushToHistoryView) forControlEvents:UIControlEventTouchUpInside];
-    
-    // searchBtn
-    UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 44, 20, 44, 44)];
-    [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-    [searchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(pushToSearchView) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *downloadBarButten = [[UIBarButtonItem alloc]initWithCustomView:downLoadBtn];
-    UIBarButtonItem *historyBarButten = [[UIBarButtonItem alloc]initWithCustomView:historyBtn];
-    UIBarButtonItem *searchBarButten = [[UIBarButtonItem alloc]initWithCustomView:searchBtn];
-    
-    self.navigationItem.rightBarButtonItems = @[searchBarButten, historyBarButten, downloadBarButten];
+    self.navigationItem.rightBarButtonItems = self.rightBarButtonItems;
     
 }
 
@@ -189,42 +207,40 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
         
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         
-            if (_homeModelsArr.count) { // 主tableview内容，是否已经存在
+            NSMutableArray *arr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
+            
+            for (int i = 0; i < arr.count; i ++) {
+                HomeModel *newModel = arr[i];
                 
-                NSArray *arr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
-                
-                for (int i = 0; i < arr.count; i++) {
+                // 旧模型存在
+                if      ( _homeModelsArr.count && !newModel.contents) {
+                    [weakSelf getSubHomeListWith:newModel.homeId];
+                    [arr replaceObjectAtIndex:i withObject:weakSelf.homeModelsArr[i]];
+                }
+                else if ( _homeModelsArr.count &&  newModel.contents) {
                     
-                    HomeModel *model = arr[i];
-                    if (model.contents) {
-                        
-                        [weakSelf.homeModelsArr replaceObjectAtIndex:i withObject:model];
-                        NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:i];
-                        dispatch_async(dispatch_get_main_queue(), ^{
-                            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-                        });
-                        
-                    }
-                    else {
-                        [weakSelf getSubHomeListWith:model.homeId];
-                    }
+                }
+                
+                // 旧模型不存在
+                else if (!_homeModelsArr.count && !newModel.contents) {
+                    [weakSelf getSubHomeListWith:newModel.homeId];
+                }
+                else if (!_homeModelsArr.count &&  newModel.contents) {
+                    
                 }
             }
-            else {
-                _homeModelsArr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
-                _homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:weakSelf.homeModelsArr];
-                
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    [weakSelf.tableView reloadData];
-                });
-                
-                for (HomeModel *subOriginModel in weakSelf.homeModelsArr) {
-                    if (!subOriginModel.contents) [weakSelf getSubHomeListWith:subOriginModel.homeId];
-                }
-            }
-        });
+
+            _homeModelsArr = arr;
+            _homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:weakSelf.homeModelsArr];
+            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf.tableView reloadData];
+//            });
+        
+            
+//        });
         
         
     } failure:^(NSError *error) {
@@ -251,11 +267,24 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
         for (int i = 0; i < weakSelf.homeModelsArr.count; i ++) {
             
             HomeModel *subOriginModel = weakSelf.homeModelsArr[i];
+            
             if (subModel.homeId != subOriginModel.homeId) continue;
             
             [weakSelf.homeModelsArr replaceObjectAtIndex:i withObject:subModel];
-            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:i];
-            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
+            
+            NSArray *visibleRows = weakSelf.tableView.indexPathsForVisibleRows;
+            
+            for (NSIndexPath *visibleIndexPath in visibleRows) {
+                if (visibleIndexPath.section == i) {
+                    [weakSelf.tableView reloadData];
+                    return;
+                }
+            }
+            
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:i];
+            [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+//            NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:i];
+//            [weakSelf.tableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
         }
      
     } failure:^(NSError *error) {
@@ -376,7 +405,7 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
 
 - (void)pushToSearchView {
     SearchViewController *searchVC = [[SearchViewController alloc]init];
-    [self.navigationController pushViewController:searchVC animated:NO];
+    [self.navigationController pushViewController:searchVC animated:YES];
     NSLog(@"btnClick");
 }
 

@@ -15,7 +15,6 @@
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[interval floatValue]/1000];
     NSTimeInterval timeInterval = date.timeIntervalSinceNow * -1;
     
-    
     if (timeInterval <= 60 * 2) {
         return @"刚刚发布";
     }
