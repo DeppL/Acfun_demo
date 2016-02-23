@@ -48,7 +48,7 @@
     self.tabBarController.tabBar.hidden = YES;
     
     // 设置navigationItem
-    [self setUpNav];
+//    [self setUpNav];
     
     // 设置导航条
     [self.view addSubview:self.guideView];
@@ -141,35 +141,21 @@
         _mainScrollView.delegate = self;
         _mainScrollView.contentSize = CGSizeMake(kDeviceWidth * _tabCount, KDeviceHeight - kGuideViewHight - 64);
         
+        
         for (int i = 0; i < _tabCount; i ++) {
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64)];
-            imageView.image = [UIImage imageNamed:@"placeHolder"];
+            
+            CGRect rect = CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64);
+            UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
+            
+            CAGradientLayer *gradient = [CAGradientLayer layer];
+            gradient.frame = CGRectMake(0, 0, kDeviceWidth, KDeviceHeight);
+            gradient.colors = [NSArray arrayWithObjects: (id)RGB(240, 136, 144).CGColor, (id)RGB(81, 150, 167).CGColor,nil];
+            [imageView.layer insertSublayer:gradient atIndex:0];
+            
             [_mainScrollView addSubview:imageView];
         }
     }
     return _mainScrollView;
-}
-
-// 设置navigationItem
-- (void)setUpNav {
-    
-    
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
-    titleLabel.text = self.channelSubModel.name;
-    titleLabel.textColor = kMyWhite;
-    [self.navigationItem.titleView addSubview:titleLabel];
-    
-//    self.navigationItem.title = self.channelSubModel.name;
-//    self.navigationItem.
-    
-    UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 100, 44)];
-    
-    [cancelBtn setTitle:@"cancel" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [cancelBtn addTarget:self action:@selector(clickToCancel) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *cancelItem = [[UIBarButtonItem alloc]initWithCustomView:cancelBtn];
-    self.navigationItem.leftBarButtonItem = cancelItem;
-    
 }
 
 
