@@ -45,9 +45,9 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
     [self setUpCollectionView];
     
     // 设置channelList
-    [self setUpChannelList];
+    self.channelCollectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(setUpChannelList)];
     
-        
+    [self.channelCollectionView.mj_header beginRefreshing];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -117,17 +117,28 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
 
 
 - (void)setUpChannelList {
+    
     __weak __typeof(self) weakSelf = self;
-    [DLHttpTool get:channelModelURL params:nil cachePolicy:DLHttpToolReturnCacheDataThenLoad success:^(id json) {
+    [DLHttpTool get:channelModelURL params:nil cachePolicy:DLHttpToolReloadIgnoringLocalCacheData success:^(id json) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             weakSelf.channelModelsArr = [ChannelModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
             dispatch_async(dispatch_get_main_queue(), ^{
+                
                 [weakSelf.channelCollectionView reloadData];
+                [weakSelf.channelCollectionView.mj_header endRefreshing];
             });
         });
     } failure:^(NSError *error) {
-        NSLog(@"failure");
-        [weakSelf setUpChannelList];
+        
+        if (![weakSelf.view.window isKeyWindow]) return;
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"链接失败" message:@"网络连接失败，请重试。" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//            [weakSelf setUpChannelList];
+        }];
+        [alertVC addAction:action];
+        
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
     }];
 }
 
@@ -194,8 +205,6 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
     
     classifierVC.channelSubModel = self.channelModelsArr[indexPath.section];
     
-//    [self.navigationController presentViewController:userVC animated:YES completion:nil];
-//    [self presentViewController:userVC animated:YES completion:nil];
     [self.navigationController pushViewController:classifierVC animated:YES];
 }
 

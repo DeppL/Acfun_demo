@@ -35,6 +35,9 @@ static CGFloat TimerDelayInSec = 4.0;
     if (_scrollView) {
         [_scrollView removeFromSuperview];
         _scrollView = nil;
+        [_timer invalidate];
+        _timer = nil;
+        _pageControl.currentPage = 0;
     }
     
     __weak __typeof(self) weakSelf = self;

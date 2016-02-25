@@ -34,6 +34,8 @@ typedef void(^completed)();
 
 @property (nonatomic, strong) DetailVideoModel *detailViderModel;
 @property (nonatomic, strong) DetailCommentModel *detailCommentModel;
+
+
 @property (nonatomic, copy) NSDictionary *detailCommentModelFrameDict;
 
 @property (nonatomic, strong) UINavigationController *defautNaviC;
@@ -65,13 +67,9 @@ typedef void(^completed)();
     
     [self.detailTableView.mj_header beginRefreshing];
     
-    
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
-    
-    
     
 }
 
@@ -82,7 +80,6 @@ typedef void(^completed)();
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -92,7 +89,14 @@ typedef void(^completed)();
 
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
-    [[SDImageCache sharedImageCache] clearMemory];
+    
+    NSString *str1 = [detailVideosURL stringByAppendingPathComponent:self.strURL];
+    
+    [DLHttpTool cancelTaskWithURL:[NSURL URLWithString:str1]];
+    
+    NSString *str2 = [detailCommentsURL stringByAppendingFormat:@"&contentId=%@",self.strURL];
+    
+    [DLHttpTool cancelTaskWithURL:[NSURL URLWithString:str2]];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -110,6 +114,9 @@ typedef void(^completed)();
 - (void)dealloc {
     NSLog(@"%s", __func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [[SDImageCache sharedImageCache] clearMemory];
+    
+
 }
 
 #pragma mark - initialize
@@ -167,20 +174,24 @@ typedef void(^completed)();
     
     [DLHttpTool get:str params:nil cachePolicy:DLHttpToolReturnCacheDataElseLoad success:^(id json) {
         
-        if (!weakSelf) return;
+        if (![weakSelf.view.window isKeyWindow]) return;
+        
         weakSelf.detailViderModel = [DetailVideoModel mj_objectWithKeyValues:json[@"data"]];
         [weakSelf.detailTableView reloadData];
         
         [weakSelf.detailTableView.mj_header endRefreshing];
     } failure:^(NSError *error) {
         
-        if (!weakSelf) return;
+        if (![weakSelf.view.window isKeyWindow]) return;
         
-        NSLog(@"failure");
         [weakSelf.detailTableView.mj_header endRefreshing];
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"链接失败" message:@"网络连接失败，请重试。" delegate:self cancelButtonTitle:@"CANCEL" otherButtonTitles:nil];
-        [alert show];
         
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"链接失败" message:@"网络连接失败，请重试。" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleCancel handler:nil];
+        [alertVC addAction:action];
+        
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
     }];
 }
 
@@ -194,7 +205,7 @@ typedef void(^completed)();
     __weak __typeof(self) weakSelf = self;
     [DLHttpTool get:str params:nil cachePolicy:DLHttpToolReloadIgnoringLocalCacheData success:^(id json) {
         
-        if (!weakSelf) return;
+        if (![weakSelf.view.window isKeyWindow]) return;
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             
@@ -206,6 +217,7 @@ typedef void(^completed)();
                 DetailCommentModelComment *subCommentModel = [DetailCommentModelComment mj_objectWithKeyValues:obj];
                 [mDict setValue:subCommentModel forKey:key];
             }];
+            
             commentModel.page.map = mDict;
             
             weakSelf.detailCommentModel = commentModel;
@@ -213,11 +225,9 @@ typedef void(^completed)();
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 
-                if (_detailViderModel) {
-//                    [weakSelf.detailTableView reloadData];
-                    NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
-                    [weakSelf.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
-                }
+                if (!_detailViderModel) return;
+                NSIndexSet *indexSet = [NSIndexSet indexSetWithIndex:2];
+                [weakSelf.detailTableView reloadSections:indexSet withRowAnimation:UITableViewRowAnimationNone];
             });
             
         });
@@ -377,6 +387,9 @@ typedef void(^completed)();
     }
     
 }
+
+#pragma mark - ButtenClick
+
 
 
 

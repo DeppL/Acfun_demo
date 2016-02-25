@@ -28,7 +28,6 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestType) {
 
 - (id)init{
     if (self = [super init]){
-        
         // 创建请求管理者
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         mgr.requestSerializer = [AFHTTPRequestSerializer serializer];
@@ -47,7 +46,6 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestType) {
         [mgr.requestSerializer setValue:@"2048x1536" forHTTPHeaderField:@"resolution"];
         [mgr.requestSerializer setValue:@"C3ACO719-6DF8-4EC0-314B-4C82D57E72CC" forHTTPHeaderField:@"udid"];
         self.manager = mgr;
-
     }
     return self;
 }
@@ -121,6 +119,15 @@ cachePolicy:(DLHttpToolRequestCachePolicy)cachePolicy
     [[DLHttpTool defaultHttpTool].cache removeObjectForKey:key];
 }
 
++ (void)cancelTaskWithURL:(NSURL *)url {
+    
+    NSArray *arr2 = [[DLHttpTool defaultHttpTool].manager tasks];
+    
+    for (NSURLSessionTask *task in arr2) {
+        if ([task.originalRequest.URL isEqual:url]) [task cancel];
+//        [task cancel];
+    }
+}
 
 /**
  *  清除本地缓存文件
@@ -262,7 +269,10 @@ cachePolicy:(DLHttpToolRequestCachePolicy)cachePolicy
                     }
                 }];
             } else {
-                [DLHttpTool showExceptionDialog];
+                if (failure) {
+                    NSError *error;
+                    failure(error);
+                }
             }
             break;
         }
@@ -280,7 +290,10 @@ cachePolicy:(DLHttpToolRequestCachePolicy)cachePolicy
                     }
                 }];
             } else {
-                [DLHttpTool showExceptionDialog];
+                if (failure) {
+                    NSError *error;
+                    failure(error);
+                }
             }
             
             break;

@@ -206,47 +206,47 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
         [weakSelf.tableView.mj_header endRefreshing];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
         
+        NSMutableArray *arr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
         
-//        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-            NSMutableArray *arr = [HomeModel mj_objectArrayWithKeyValuesArray:json[@"data"]];
+        for (int i = 0; i < arr.count; i ++) {
+            HomeModel *newModel = arr[i];
             
-            for (int i = 0; i < arr.count; i ++) {
-                HomeModel *newModel = arr[i];
-                
-                // 旧模型存在
-                if      ( _homeModelsArr.count && !newModel.contents) {
-                    [weakSelf getSubHomeListWith:newModel.homeId];
-                    [arr replaceObjectAtIndex:i withObject:weakSelf.homeModelsArr[i]];
-                }
-                else if ( _homeModelsArr.count &&  newModel.contents) {
-                    
-                }
-                
-                // 旧模型不存在
-                else if (!_homeModelsArr.count && !newModel.contents) {
-                    [weakSelf getSubHomeListWith:newModel.homeId];
-                }
-                else if (!_homeModelsArr.count &&  newModel.contents) {
-                    
-                }
+            // 旧模型存在
+            if      ( _homeModelsArr.count && !newModel.contents) {
+                [weakSelf getSubHomeListWith:newModel.homeId];
+                [arr replaceObjectAtIndex:i withObject:weakSelf.homeModelsArr[i]];
             }
+            else if ( _homeModelsArr.count &&  newModel.contents) {
+                
+            }
+            
+            // 旧模型不存在
+            else if (!_homeModelsArr.count && !newModel.contents) {
+                [weakSelf getSubHomeListWith:newModel.homeId];
+            }
+            else if (!_homeModelsArr.count &&  newModel.contents) {
+                
+            }
+        }
 
-            _homeModelsArr = arr;
-            _homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:weakSelf.homeModelsArr];
-            
-//            dispatch_async(dispatch_get_main_queue(), ^{
-                [weakSelf.tableView reloadData];
-//            });
-        
-            
-//        });
+        _homeModelsArr = arr;
+        _homeModelsFrameArr = [HomeModelFrame setUpFrameWithHomeModelArr:weakSelf.homeModelsArr];
+    
+        [weakSelf.tableView reloadData];
         
         
     } failure:^(NSError *error) {
         NSLog(@"failure");
         [weakSelf.tableView.mj_header endRefreshing];
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+        
+        if (![weakSelf.view.window isKeyWindow]) return;
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"链接失败" message:@"网络连接失败，请重试。" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"CANCEL" style:UIAlertActionStyleCancel handler:nil];
+        [alertVC addAction:action];
+        
+        [weakSelf presentViewController:alertVC animated:YES completion:nil];
         
     }];
 }
@@ -408,7 +408,6 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
     [self.navigationController pushViewController:searchVC animated:YES];
     NSLog(@"btnClick");
 }
-
 
 
 @end

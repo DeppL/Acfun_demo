@@ -47,6 +47,13 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestCachePolicy){
 + (double)getCacheFileSize;
 
 /**
+ *  取消下载任务
+ *
+ *  @param url
+ */
++ (void)cancelTaskWithURL:(NSURL *)url;
+
+/**
  *  默认 DLHttpToolReturnCacheDataThenLoad 的缓存方式
  */
 + (void)get:(NSString *)url

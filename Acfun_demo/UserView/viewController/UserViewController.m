@@ -139,11 +139,13 @@
     
     if (rowModel.rowType == UserTableViewCellStyleList) {
         
+        __weak __typeof(self)weakSelf = self;
+        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:rowModel.detailTextArr[0] preferredStyle:UIAlertControllerStyleAlert];
         
         for (int i = 1; i < rowModel.detailTextArr.count; i++) {
             UIAlertAction *alertAction = [UIAlertAction actionWithTitle:rowModel.detailTextArr[i] style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                UITableViewCell *cell = [weakSelf.tableView cellForRowAtIndexPath:indexPath];
                 cell.detailTextLabel.text = action.title;
             }];
             

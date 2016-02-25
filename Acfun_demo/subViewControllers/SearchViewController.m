@@ -68,6 +68,7 @@
         _webView.backgroundColor = kMyWhite;
         _webView.scrollView.delegate = self;
         _webView.scrollView.contentInset = UIEdgeInsetsMake(64, 0, -64, 0);
+        _webView.scrollView.bounces = NO;
         NSURL *url = [NSURL URLWithString:@"http://m.acfun.tv/search/?query=Acfun&back=http%3A%2F%2Fm.acfun.tv%2F"];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         
