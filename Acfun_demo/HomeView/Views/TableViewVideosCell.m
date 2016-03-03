@@ -7,14 +7,10 @@
 //
 
 #import "TableViewVideosCell.h"
-//#import "HomeModel.h"
 #import "HomeModelConfig.h"
 #import "HomeModelFrame.h"
 #import "CollectionViewHorizontalCell.h"
 
-#define kMainLabelFont [UIFont systemFontOfSize:18]
-
-#define kSubLabelFont [UIFont systemFontOfSize:14]
 
 NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
 
@@ -44,7 +40,7 @@ NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
     
     if (model.image) {
         NSURL *url = [NSURL URLWithString:model.image];
-        UIImage *image = [UIImage imageNamed:@"placeHolder"];
+        UIImage *image = [UIImage imageNamed:@"placeHolderIcon"];
         [self.headImageView sd_setImageWithURL:url placeholderImage:image];
     }
     
@@ -127,13 +123,6 @@ NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
     return _footLabel;
 }
 
-- (HomeModel *)homeModel {
-    if (!_homeModel) {
-        _homeModel = [[HomeModel alloc]init];
-    }
-    return _homeModel;
-}
-
 
 #pragma mark - UICollectionViewDataSource
 
@@ -144,7 +133,7 @@ NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     CollectionViewHorizontalCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CollecionViewHorizontalCellID forIndexPath:indexPath];
     HomeModelContent *subModel = self.homeModel.contents[indexPath.row];
-    [cell setUpCollectionHorizontalCellWithModel:subModel];
+    [cell setUpCollectionHorizontalCellWithHomeModel:subModel];
     return cell;
 }
 
@@ -160,6 +149,7 @@ NSString * const TableViewVideosCellID = @"TableViewVideosCellID";
         [self.delegate videosCellDidSelectRowAtURL:subModel.url];
     }
 }
+
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section {
     return 35;
 }

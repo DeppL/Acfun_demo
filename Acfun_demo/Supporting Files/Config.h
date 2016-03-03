@@ -83,7 +83,10 @@ fprintf(stderr, "-------\n");                                               \
 #define IS_IOS6 (([[[UIDevice currentDevice] systemVersion] floatValue] >= 6.0)? (YES):(NO))
 #define IS_4INCH ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 
-// HomeURL
+// 字体大小
+#define kMainLabelFont [UIFont systemFontOfSize:16]
+
+#define kSubLabelFont [UIFont systemFontOfSize:14]
 
 
 

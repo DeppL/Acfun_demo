@@ -36,8 +36,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:2 inSection:2];
-//    NSArray *arr = [NSArray arrayWithObject:indexPath];
     [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
 }
 
@@ -111,11 +111,8 @@
             
             break;
         }
-        
     }
-    
     return cell;
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

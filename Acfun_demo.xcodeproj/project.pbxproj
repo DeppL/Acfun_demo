@@ -12,6 +12,7 @@
 		8805F23A1C2BF13B001F51FF /* Acfun_demo.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8805F2321C2BF13B001F51FF /* Acfun_demo.xcdatamodeld */; };
 		8805F23E1C2BF13B001F51FF /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8805F2391C2BF13B001F51FF /* main.m */; };
 		880A13451C4F6FF100B3866C /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 880A13441C4F6FF100B3866C /* libz.tbd */; };
+		8824B8F71C86AFA2007AC812 /* ChildClassifierViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8824B8F61C86AFA2007AC812 /* ChildClassifierViewController.m */; };
 		884ED7841C70B131006CDD6F /* VideoOwnerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7831C70B131006CDD6F /* VideoOwnerTableViewCell.m */; };
 		884ED7871C70B16C006CDD6F /* VideoCommentsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7861C70B16C006CDD6F /* VideoCommentsTableViewCell.m */; };
 		884ED78A1C70D0F5006CDD6F /* DetailCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7891C70D0F5006CDD6F /* DetailCommentModel.m */; };
@@ -20,7 +21,7 @@
 		884ED7971C742B3D006CDD6F /* DLHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED7961C742B3D006CDD6F /* DLHttpTool.m */; };
 		884ED79B1C75BF78006CDD6F /* UserViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 884ED79A1C75BF78006CDD6F /* UserViewModel.m */; };
 		884ED79D1C75CAA5006CDD6F /* UserViewStruction.plist in Resources */ = {isa = PBXBuildFile; fileRef = 884ED79C1C75CAA5006CDD6F /* UserViewStruction.plist */; };
-		88514B111C521F8C00F37B5A /* SingleHttpTool.m.back in Sources */ = {isa = PBXBuildFile; fileRef = 88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */; };
+		8886B1381C854446002079FB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8886B1371C854446002079FB /* Assets.xcassets */; };
 		88A99A031C6F15C5006BB646 /* DetailVideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A999FB1C6F15C5006BB646 /* DetailVideoModel.m */; };
 		88A99A041C6F15C5006BB646 /* DetailVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A999FE1C6F15C5006BB646 /* DetailVideoViewController.m */; };
 		88A99A071C6F16E3006BB646 /* VideoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88A99A061C6F16E3006BB646 /* VideoTableViewCell.m */; };
@@ -45,7 +46,6 @@
 		88B22E5E1C6099CE00E7F54D /* HistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E5A1C6099CE00E7F54D /* HistoryViewController.m */; };
 		88B22E5F1C6099CE00E7F54D /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E5C1C6099CE00E7F54D /* SearchViewController.m */; };
 		88B22E671C6099D400E7F54D /* UserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E631C6099D400E7F54D /* UserViewController.m */; };
-		88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */; };
 		88B22E7F1C60E93C00E7F54D /* CollectionViewHorizontalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E701C60E93C00E7F54D /* CollectionViewHorizontalCell.m */; };
 		88B22E801C60E93C00E7F54D /* CollectionViewVerticalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E721C60E93C00E7F54D /* CollectionViewVerticalCell.m */; };
 		88B22E811C60E93C00E7F54D /* TableViewSubArticleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E741C60E93C00E7F54D /* TableViewSubArticleCell.m */; };
@@ -55,8 +55,10 @@
 		88B22E851C60E93C00E7F54D /* TableViewCarouselsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E7C1C60E93C00E7F54D /* TableViewCarouselsCell.m */; };
 		88B22E861C60E93C00E7F54D /* TableViewVideosCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E7E1C60E93C00E7F54D /* TableViewVideosCell.m */; };
 		88B22E891C60E9AD00E7F54D /* HomeModelFrame.m in Sources */ = {isa = PBXBuildFile; fileRef = 88B22E881C60E9AD00E7F54D /* HomeModelFrame.m */; };
+		88C234691C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C234681C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.m */; };
+		88C2346C1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 88C2346B1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.m */; };
 		88F3F9391C7017D700742C99 /* VideoDescriptionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 88F3F9381C7017D700742C99 /* VideoDescriptionTableViewCell.m */; };
-		88F583AD1C60FEDB00681D39 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 88F583AC1C60FEDB00681D39 /* Assets.xcassets */; };
+		88FCBDA61C85691300D839DD /* ClassifierViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 88FCBDA51C85691300D839DD /* ClassifierViewModel.m */; };
 		88FD946C1C575E0F001CD81B /* URL_Note in Resources */ = {isa = PBXBuildFile; fileRef = 88FD946B1C575E0F001CD81B /* URL_Note */; };
 		D15484E5BD899D311A57C1A4 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 32195E865B75FA70404F1020 /* libPods.a */; };
 /* End PBXBuildFile section */
@@ -73,6 +75,8 @@
 		8805F2391C2BF13B001F51FF /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		880A13441C4F6FF100B3866C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		8817D2CF1C2E3D540018B398 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
+		8824B8F51C86AFA2007AC812 /* ChildClassifierViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildClassifierViewController.h; sourceTree = "<group>"; };
+		8824B8F61C86AFA2007AC812 /* ChildClassifierViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildClassifierViewController.m; sourceTree = "<group>"; };
 		884ED7821C70B131006CDD6F /* VideoOwnerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoOwnerTableViewCell.h; sourceTree = "<group>"; };
 		884ED7831C70B131006CDD6F /* VideoOwnerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoOwnerTableViewCell.m; sourceTree = "<group>"; };
 		884ED7851C70B16C006CDD6F /* VideoCommentsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoCommentsTableViewCell.h; sourceTree = "<group>"; };
@@ -88,8 +92,7 @@
 		884ED7991C75BF78006CDD6F /* UserViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewModel.h; sourceTree = "<group>"; };
 		884ED79A1C75BF78006CDD6F /* UserViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewModel.m; sourceTree = "<group>"; };
 		884ED79C1C75CAA5006CDD6F /* UserViewStruction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserViewStruction.plist; sourceTree = "<group>"; };
-		88514B0F1C521F8C00F37B5A /* SingleHttpTool.h.back */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleHttpTool.h.back; sourceTree = "<group>"; };
-		88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = SingleHttpTool.m.back; sourceTree = "<group>"; };
+		8886B1371C854446002079FB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		88A999FA1C6F15C5006BB646 /* DetailVideoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVideoModel.h; sourceTree = "<group>"; };
 		88A999FB1C6F15C5006BB646 /* DetailVideoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetailVideoModel.m; sourceTree = "<group>"; };
 		88A999FD1C6F15C5006BB646 /* DetailVideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetailVideoViewController.h; sourceTree = "<group>"; };
@@ -137,8 +140,6 @@
 		88B22E5C1C6099CE00E7F54D /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
 		88B22E621C6099D400E7F54D /* UserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserViewController.h; sourceTree = "<group>"; };
 		88B22E631C6099D400E7F54D /* UserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserViewController.m; sourceTree = "<group>"; };
-		88B22E691C609ACB00E7F54D /* ClassifierSubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierSubView.h; sourceTree = "<group>"; };
-		88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierSubView.m; sourceTree = "<group>"; };
 		88B22E6F1C60E93C00E7F54D /* CollectionViewHorizontalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewHorizontalCell.h; sourceTree = "<group>"; };
 		88B22E701C60E93C00E7F54D /* CollectionViewHorizontalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewHorizontalCell.m; sourceTree = "<group>"; };
 		88B22E711C60E93C00E7F54D /* CollectionViewVerticalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewVerticalCell.h; sourceTree = "<group>"; };
@@ -158,9 +159,14 @@
 		88B22E871C60E9AD00E7F54D /* HomeModelFrame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModelFrame.h; sourceTree = "<group>"; };
 		88B22E881C60E9AD00E7F54D /* HomeModelFrame.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModelFrame.m; sourceTree = "<group>"; };
 		88B519C81C43976300A59610 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		88C234671C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierViewNormalCollectionViewCell.h; sourceTree = "<group>"; };
+		88C234681C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierViewNormalCollectionViewCell.m; sourceTree = "<group>"; };
+		88C2346A1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierViewCollectionReusableView.h; sourceTree = "<group>"; };
+		88C2346B1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierViewCollectionReusableView.m; sourceTree = "<group>"; };
 		88F3F9371C7017D700742C99 /* VideoDescriptionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDescriptionTableViewCell.h; sourceTree = "<group>"; };
 		88F3F9381C7017D700742C99 /* VideoDescriptionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDescriptionTableViewCell.m; sourceTree = "<group>"; };
-		88F583AC1C60FEDB00681D39 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		88FCBDA41C85691300D839DD /* ClassifierViewModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ClassifierViewModel.h; sourceTree = "<group>"; };
+		88FCBDA51C85691300D839DD /* ClassifierViewModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ClassifierViewModel.m; sourceTree = "<group>"; };
 		88FD946B1C575E0F001CD81B /* URL_Note */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = URL_Note; sourceTree = "<group>"; };
 		C00D391E9470A4EE3BAC9D53 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		ED925E19846DCD2E9ABC970B /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
@@ -228,7 +234,7 @@
 		8805F2311C2BF13B001F51FF /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				88F583AC1C60FEDB00681D39 /* Assets.xcassets */,
+				8886B1371C854446002079FB /* Assets.xcassets */,
 				8805F22B1C2BF008001F51FF /* Info.plist */,
 				8805F2321C2BF13B001F51FF /* Acfun_demo.xcdatamodeld */,
 				8805F2391C2BF13B001F51FF /* main.m */,
@@ -245,12 +251,19 @@
 		8820DA561C4E1E92004CE184 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				88514B0F1C521F8C00F37B5A /* SingleHttpTool.h.back */,
-				88514B101C521F8C00F37B5A /* SingleHttpTool.m.back */,
 				884ED7951C742B3D006CDD6F /* DLHttpTool.h */,
 				884ED7961C742B3D006CDD6F /* DLHttpTool.m */,
 			);
 			path = Tools;
+			sourceTree = "<group>";
+		};
+		8824B8EE1C869171007AC812 /* SubViewController */ = {
+			isa = PBXGroup;
+			children = (
+				8824B8F51C86AFA2007AC812 /* ChildClassifierViewController.h */,
+				8824B8F61C86AFA2007AC812 /* ChildClassifierViewController.m */,
+			);
+			path = SubViewController;
 			sourceTree = "<group>";
 		};
 		884ED78B1C71CA8C006CDD6F /* Category */ = {
@@ -372,6 +385,8 @@
 		88B22DFC1C6099AE00E7F54D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				88FCBDA41C85691300D839DD /* ClassifierViewModel.h */,
+				88FCBDA51C85691300D839DD /* ClassifierViewModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -379,6 +394,7 @@
 		88B22DFD1C6099AE00E7F54D /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				8824B8EE1C869171007AC812 /* SubViewController */,
 				88B22DFE1C6099AE00E7F54D /* ClassifierViewController.h */,
 				88B22DFF1C6099AE00E7F54D /* ClassifierViewController.m */,
 			);
@@ -388,8 +404,10 @@
 		88B22E001C6099AE00E7F54D /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				88B22E691C609ACB00E7F54D /* ClassifierSubView.h */,
-				88B22E6A1C609ACB00E7F54D /* ClassifierSubView.m */,
+				88C234671C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.h */,
+				88C234681C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.m */,
+				88C2346A1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.h */,
+				88C2346B1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -621,7 +639,7 @@
 				884ED79D1C75CAA5006CDD6F /* UserViewStruction.plist in Resources */,
 				88FD946C1C575E0F001CD81B /* URL_Note in Resources */,
 				88B22E491C6099C600E7F54D /* HomeModel.h.back in Resources */,
-				88F583AD1C60FEDB00681D39 /* Assets.xcassets in Resources */,
+				8886B1381C854446002079FB /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,14 +724,13 @@
 				88B22E4C1C6099C600E7F54D /* HomeModelContent.m in Sources */,
 				88B22DFA1C60993A00E7F54D /* CollectionHeadView.m in Sources */,
 				88B22E811C60E93C00E7F54D /* TableViewSubArticleCell.m in Sources */,
-				88B22E6B1C609ACB00E7F54D /* ClassifierSubView.m in Sources */,
-				88514B111C521F8C00F37B5A /* SingleHttpTool.m.back in Sources */,
 				88B22E801C60E93C00E7F54D /* CollectionViewVerticalCell.m in Sources */,
 				88B22E5F1C6099CE00E7F54D /* SearchViewController.m in Sources */,
 				88B22E5D1C6099CE00E7F54D /* DownloadViewController.m in Sources */,
 				88B22E011C6099AE00E7F54D /* ClassifierViewController.m in Sources */,
 				8804F98A1C4A757A00194F58 /* myTools.m in Sources */,
 				884ED7971C742B3D006CDD6F /* DLHttpTool.m in Sources */,
+				88C2346C1C86D7F1008E5D9C /* ClassifierViewCollectionReusableView.m in Sources */,
 				88B22E521C6099C600E7F54D /* HomeViewController.m in Sources */,
 				88F3F9391C7017D700742C99 /* VideoDescriptionTableViewCell.m in Sources */,
 				88B22DF61C60993A00E7F54D /* ChannelModel.m in Sources */,
@@ -725,6 +742,9 @@
 				88B22E5E1C6099CE00E7F54D /* HistoryViewController.m in Sources */,
 				884ED7941C71E81F006CDD6F /* DetailCommentModelFrame.m in Sources */,
 				88B22E511C6099C600E7F54D /* HomeModelVisit.m in Sources */,
+				8824B8F71C86AFA2007AC812 /* ChildClassifierViewController.m in Sources */,
+				88FCBDA61C85691300D839DD /* ClassifierViewModel.m in Sources */,
+				88C234691C86D640008E5D9C /* ClassifierViewNormalCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

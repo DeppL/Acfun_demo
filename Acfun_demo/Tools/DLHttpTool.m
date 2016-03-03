@@ -29,6 +29,8 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestType) {
 - (id)init{
     if (self = [super init]){
         // 创建请求管理者
+        // "a0698eff-3113-4206-80d7-d34f62dd8983"
+        // D0BAD719-6DF8-4EC0-814B-2B15C27E72CC
         AFHTTPSessionManager *mgr = [AFHTTPSessionManager manager];
         mgr.requestSerializer = [AFHTTPRequestSerializer serializer];
         mgr.requestSerializer.timeoutInterval = 10.0;
@@ -39,12 +41,12 @@ typedef NS_ENUM(NSUInteger, DLHttpToolRequestType) {
         [mgr.requestSerializer setValue:@"4.1.0" forHTTPHeaderField:@"appVersion"];
         [mgr.requestSerializer setValue:@"gzip, deflate" forHTTPHeaderField:@"Accept-Encoding"];
         [mgr.requestSerializer setValue:@"zh-Hans-CN;q=1" forHTTPHeaderField:@"Accept-Language"];
-        [mgr.requestSerializer setValue:@"\"37a6f768-2be3-4381-b221-964a39e4abd7\"" forHTTPHeaderField:@"If-None-Match"];
+        [mgr.requestSerializer setValue:@"\"a0698eff-3113-4206-80d7-d34f62dd8983\"" forHTTPHeaderField:@"If-None-Match"];
         [mgr.requestSerializer setValue:@"0" forHTTPHeaderField:@"deviceType"];
         [mgr.requestSerializer setValue:@"AcFun/4.1.0 (iPad; iOS 9.2; Scale/2.00)" forHTTPHeaderField:@"User-Agent"];
         [mgr.requestSerializer setValue:@"keep-alive" forHTTPHeaderField:@"Connection"];
         [mgr.requestSerializer setValue:@"2048x1536" forHTTPHeaderField:@"resolution"];
-        [mgr.requestSerializer setValue:@"C3ACO719-6DF8-4EC0-314B-4C82D57E72CC" forHTTPHeaderField:@"udid"];
+        [mgr.requestSerializer setValue:@"D0BAD719-6DF8-4EC0-814B-2B15C27E72CC" forHTTPHeaderField:@"udid"];
         self.manager = mgr;
     }
     return self;
@@ -141,25 +143,25 @@ cachePolicy:(DLHttpToolRequestCachePolicy)cachePolicy
 }
 
 
-+ (void)clearCacheFileOld {
-    
-    
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-    
-    NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-    
-    NSArray *files = [fileManager subpathsAtPath:cachPath];
-    
-    for (NSString *fileName in files) {
-        
-        NSError *error;
-        NSString *path = [cachPath stringByAppendingPathComponent:fileName];
-        
-        if ([fileManager fileExistsAtPath:path]) [fileManager removeItemAtPath:path error:&error];
-        
-    }
-    
-}
+//+ (void)clearCacheFileOld {
+//    
+//    
+//    NSFileManager *fileManager = [NSFileManager defaultManager];
+//    
+//    NSString *cachPath = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+//    
+//    NSArray *files = [fileManager subpathsAtPath:cachPath];
+//    
+//    for (NSString *fileName in files) {
+//        
+//        NSError *error;
+//        NSString *path = [cachPath stringByAppendingPathComponent:fileName];
+//        
+//        if ([fileManager fileExistsAtPath:path]) [fileManager removeItemAtPath:path error:&error];
+//        
+//    }
+//    
+//}
 
 /**
  *  计算本地缓存文件大小

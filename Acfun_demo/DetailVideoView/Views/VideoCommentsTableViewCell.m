@@ -34,9 +34,9 @@ NSString * const VideoCommentsTableViewCellID = @"VideoCommentsTableViewCellID";
 
 - (void)setUpVideoCommentsTableViewCellWithModel:(DetailCommentModelComment *)model {
     NSURL *url = [NSURL URLWithString:model.avatar];
-    [self.userAvatar sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolder")];
+    [self.userAvatar sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolderIcon")];
     self.userNameLabel.text = model.username;
-    NSString *releaseTimeStr = [NSDate dateCompareWithReleaseTime:model.time];
+    NSString *releaseTimeStr = [NSDate dl_dateCompareWithReleaseTime:model.time];
     self.releaseDateLabel.text = releaseTimeStr;
     NSString *floorStr = [NSString stringWithFormat:@"#%@",model.floor];
     self.floorLabel.text = floorStr;

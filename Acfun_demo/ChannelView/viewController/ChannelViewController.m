@@ -53,6 +53,8 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     self.tabBarController.tabBar.hidden = NO;
+    
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -90,7 +92,7 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
     //------------------------------------------- self.navigationItem.titleView ------------------------------------------
     // searchBtn
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    searchBtn.frame = CGRectMake(0, 0, 1536 / 2.0, 30);
+    searchBtn.frame = CGRectMake(0, 0, kDeviceWidth, 30);
     searchBtn.backgroundColor = [UIColor whiteColor];
     [searchBtn setTitle:@"请输入关键词或ac号" forState:UIControlStateNormal];
     [searchBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
@@ -129,7 +131,7 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
             });
         });
     } failure:^(NSError *error) {
-        
+        [weakSelf.channelCollectionView.mj_header endRefreshing];
         if (![weakSelf.view.window isKeyWindow]) return;
         
         UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"链接失败" message:@"网络连接失败，请重试。" preferredStyle:UIAlertControllerStyleAlert];
@@ -157,7 +159,7 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
     // 获取subCell模型数据
     ChannelModel *subModel = [ChannelModel getSubChannelModelInModelArr:self.channelModelsArr withSection:indexPath.section andRow:indexPath.row];
     
-    UIImage *placeHolderImage = [UIImage imageNamed:@"placeHolder"];
+    UIImage *placeHolderImage = [UIImage imageNamed:@"placeHolderIcon"];
     NSURL *url = [NSURL URLWithString:subModel.img];
     
     // 设置subCell
@@ -201,10 +203,9 @@ NSString *const channelModelURL = @"http://api.aixifan.com/channels/allChannels"
     NSLog(@"%ld--%ld",(long)indexPath.section, (long)indexPath.row);
     
     ClassifierViewController *classifierVC = [[ClassifierViewController alloc]init];
-    [classifierVC setFirstResponseViewWithIndex:indexPath.row];
     
-    classifierVC.channelSubModel = self.channelModelsArr[indexPath.section];
-    
+    ChannelModel *channelSubModel = self.channelModelsArr[indexPath.section];
+    [classifierVC setChannelModel:channelSubModel andFirstResponseViewWithIndex:indexPath.row];
     [self.navigationController pushViewController:classifierVC animated:YES];
 }
 

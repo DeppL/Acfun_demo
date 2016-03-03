@@ -12,11 +12,7 @@
 
 @interface ClassifierViewController : UIViewController
 
-//@property (nonatomic, strong) NSString *classifierMark;
-//@property (nonatomic, strong)
 
-@property (nonatomic, strong) ChannelModel *channelSubModel;
-
-- (void)setFirstResponseViewWithIndex:(NSInteger)indexRow;
+- (void)setChannelModel:(ChannelModel *)subModel andFirstResponseViewWithIndex:(NSInteger)indexRow;
 
 @end

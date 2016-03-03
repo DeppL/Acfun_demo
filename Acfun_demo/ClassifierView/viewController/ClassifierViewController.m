@@ -9,28 +9,50 @@
 #import "ClassifierViewController.h"
 #import "ChannelModel.h"
 
+#import "ChildClassifierViewController.h"
+//#import "ClassifierViewCollectionViewCell.h"
+#import "ClassifierViewModel.h"
+
+
 #define kGuideViewHight 40
 #define kGuideViewWidth kDeviceWidth / _tabCount
 
 @interface ClassifierViewController () <UIScrollViewDelegate>
 
+// 总页数
 @property (nonatomic, assign) NSInteger tabCount;
 
-
+// 第一响应页
 @property (nonatomic, assign) NSInteger firstResponseRow;
+
+// 当前页
+@property (nonatomic, assign) NSInteger currentRow;
+
+// 主功能视图
 @property (nonatomic, strong) UIView *slideView;
 @property (nonatomic, strong) UIView *guideView;
-@property (nonatomic, strong) UIScrollView *mainScrollView;
+@property (nonatomic, strong) UIScrollView *scrollView;
 
+// 记录childVC是否存在
+@property (nonatomic, assign) NSInteger childVCState;
+
+
+@property (nonatomic, strong) ChannelModel *channelSubModel;
 
 @end
 
 @implementation ClassifierViewController
 
+
+
 #pragma mark -
 #pragma mark - public
-- (void)setFirstResponseViewWithIndex:(NSInteger)indexRow {
+
+- (void)setChannelModel:(ChannelModel *)subModel andFirstResponseViewWithIndex:(NSInteger)indexRow {
     self.firstResponseRow = indexRow;
+    self.currentRow = indexRow;
+    self.channelSubModel = subModel;
+    NSLog(@"%ld", (long)self.currentRow);
 }
 
 #pragma mark -
@@ -42,28 +64,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
-    
-    //
     self.tabBarController.tabBar.hidden = YES;
-    
-    // 设置navigationItem
-//    [self setUpNav];
-    
+    self.automaticallyAdjustsScrollViewInsets = NO;
     // 设置导航条
-    [self.view addSubview:self.guideView];
-    
-    // 设置主视图
-    [self.view addSubview:self.mainScrollView];
+//    [self.view addSubview:self.guideView];
+    self.guideView.backgroundColor = kMyWhite;
+    self.view.backgroundColor = kMyWhite;
     
     // 设置第一响应视图
     [self setFirstResponseView];
-    
     
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    self.tabBarController.tabBar.hidden = YES;
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor redColor]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -88,14 +107,17 @@
     [super viewDidLayoutSubviews];
 }
 
+- (void)dealloc {
+    NSLog(@"%s", __func__);
+}
 
 #pragma mark - 初始化
 - (UIView *)slideView {
     if (!_slideView) {
         _slideView = [[UIView alloc]init];
-        _slideView = [[UIView alloc]initWithFrame:CGRectMake((kGuideViewWidth - 30) * 0.5, kGuideViewHight + 64 - 5, 30, 5)];
+//        _slideView = [[UIView alloc]initWithFrame:CGRectMake((kGuideViewWidth - 30) * 0.5, kGuideViewHight + 64 - 5, 30, 5)];
+        _slideView = [[UIView alloc]initWithFrame:CGRectMake((kGuideViewWidth - 30) * 0.5, kGuideViewHight - 5, 30, 5)];
         _slideView.backgroundColor = kMyRed;
-
     }
     return _slideView;
 }
@@ -103,19 +125,17 @@
 - (UIView *)guideView {
     if (!_guideView) {
         
-        _guideView = [[UIView alloc]init];
-        self.automaticallyAdjustsScrollViewInsets = NO;
-        _tabCount = self.channelSubModel.childChannels.count;
-        
         CGRect guideRect = CGRectMake(0, 64, kDeviceWidth, kGuideViewHight);
-        _guideView = [[UIScrollView alloc]initWithFrame:guideRect];
-        [_guideView setBounds:guideRect];
+        _guideView = [[UIView alloc]initWithFrame:guideRect];
+        _tabCount = self.channelSubModel.childChannels.count;
         _guideView.backgroundColor = kMyWhite;
-        
+        [self.view addSubview:_guideView];
         
         for (int i = 0; i < _tabCount; i ++) {
-            CGRect btnRect = CGRectMake(kGuideViewWidth * i, 64, kGuideViewWidth, kGuideViewHight);
+//            CGRect btnRect = CGRectMake(kGuideViewWidth * i, 64, kGuideViewWidth, kGuideViewHight);
+            CGRect btnRect = CGRectMake(kGuideViewWidth * i, 0, kGuideViewWidth, kGuideViewHight);
             UIButton *btn = [[UIButton alloc]initWithFrame:btnRect];
+//            UIButton *btn = [[UIButton alloc]init];
             ChannelModel *model = self.channelSubModel.childChannels[i];
             [btn setTitle:model.name forState:UIControlStateNormal];
             [btn setTitleColor:RGB(150, 150, 150) forState:UIControlStateNormal];
@@ -124,60 +144,65 @@
             btn.titleLabel.font = [UIFont systemFontOfSize:15];
             [_guideView addSubview:btn];
         }
-        
         [_guideView addSubview:self.slideView];
     }
     return _guideView;
 }
 
-- (UIScrollView *)mainScrollView {
-    if (!_mainScrollView) {
-        
-        _mainScrollView = [[UIScrollView alloc]init];
-        
-        CGRect mainScrollViewRect = CGRectMake(0, 64 + kGuideViewHight, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64);
-        _mainScrollView = [[UIScrollView alloc]initWithFrame:mainScrollViewRect];
-        _mainScrollView.pagingEnabled = YES;
-        _mainScrollView.delegate = self;
-        _mainScrollView.contentSize = CGSizeMake(kDeviceWidth * _tabCount, KDeviceHeight - kGuideViewHight - 64);
-        
-        
-        for (int i = 0; i < _tabCount; i ++) {
-            
-            CGRect rect = CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - kGuideViewHight - 64);
-            UIImageView *imageView = [[UIImageView alloc]initWithFrame:rect];
-            
-            CAGradientLayer *gradient = [CAGradientLayer layer];
-            gradient.frame = CGRectMake(0, 0, kDeviceWidth, KDeviceHeight);
-            gradient.colors = [NSArray arrayWithObjects: (id)RGB(240, 136, 144).CGColor, (id)RGB(81, 150, 167).CGColor,nil];
-            [imageView.layer insertSublayer:gradient atIndex:0];
-            
-            [_mainScrollView addSubview:imageView];
-        }
+- (UIScrollView *)scrollView {
+    if (!_scrollView) {
+        CGRect rect = CGRectMake(0, 105, kDeviceWidth, KDeviceHeight - 105);
+        _scrollView = [[UIScrollView alloc]initWithFrame:rect];
+        _scrollView.delegate = self;
+        _scrollView.pagingEnabled = YES;
+        _scrollView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"loadingView"]];
+        _scrollView.contentSize = CGSizeMake(kDeviceWidth * _tabCount, rect.size.height);
+//        [self.view addSubview:_scrollView];
+        [self.view insertSubview:_scrollView belowSubview:_guideView];
     }
-    return _mainScrollView;
+    return _scrollView;
+}
+
+// 添加当前countVC
+- (void)addChildClassifierViewControllerWithNSInteger:(NSInteger)i {
+    
+    NSInteger count = 1 << i;
+    
+    if (count & self.childVCState) return;
+    
+    self.childVCState += count;
+    
+    ChildClassifierViewController *childVC = [[ChildClassifierViewController alloc] init];
+    childVC.view.frame = CGRectMake(kDeviceWidth * i, 0, kDeviceWidth, KDeviceHeight - 64 - 40);
+    
+    ChannelModel *subModel = self.channelSubModel.childChannels[i];
+    childVC.subModel = subModel;
+    [self addChildViewController:childVC];
+    [self.scrollView addSubview:childVC.view];
 }
 
 
 // 设置第一响应视图
 - (void)setFirstResponseView {
     
-    if (!self.mainScrollView || !self.slideView) return;
+    if (!self.scrollView || !self.slideView) return;
     
-    [_mainScrollView setContentOffset:CGPointMake(kDeviceWidth * _firstResponseRow, 0) animated:NO];
+    [_scrollView setContentOffset:CGPointMake(kDeviceWidth * _firstResponseRow, 0) animated:NO];
     
     CGFloat slideViewCenterX = kGuideViewWidth * (_firstResponseRow + 0.5);
     CGPoint slideViewCenterP = _slideView.center;
     slideViewCenterP.x = slideViewCenterX;
     [_slideView setCenter:slideViewCenterP];
     
-    UIButton *btn = _guideView.subviews[_firstResponseRow];
+    UIButton *btn = self.guideView.subviews[_firstResponseRow];
     [btn setTitleColor:kMyRed forState:UIControlStateNormal];
     
+    self.currentRow = _firstResponseRow;
+    
+    [self addChildClassifierViewControllerWithNSInteger:self.currentRow];
 }
 
-
-#pragma mark - scrollViewDelegate
+#pragma mark - UIScrollViewDelegate
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     // 位置系数
@@ -189,7 +214,7 @@
     _slideView.frame = rect;
     
     // 滚动时，设置guideView的颜色
-    if (i >= _guideView.subviews.count - 4 || fabs(i - (NSUInteger)(i) + 0.5) < 0.1 ) return;
+    if (i >= _guideView.subviews.count - 2 || fabs(i - (NSUInteger)(i) + 0.5) < 0.1 ) return;
     
     UIButton *leftBtn = _guideView.subviews[(NSUInteger)i];
     UIButton *rightBtn = _guideView.subviews[(NSUInteger)(i + 1)];
@@ -204,16 +229,17 @@
 }
 
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
-    
-}
-// called on finger up if the user dragged. velocity is in points/millisecond. targetContentOffset may be changed to adjust where the scroll view comes to rest
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset {}
-// called on finger up if the user dragged. decelerate is true if it will continue moving afterwards
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (scrollView.contentOffset.x < 0) {
         [self clickToCancel];
     }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    if (self.currentRow == scrollView.contentOffset.x / kDeviceWidth) return;
+    self.currentRow = scrollView.contentOffset.x / kDeviceWidth;
+    [self addChildClassifierViewControllerWithNSInteger:self.currentRow];
+    NSLog(@"%ld", (long)self.currentRow);
 }
 
 #pragma mark - 点击响应事件
@@ -225,8 +251,12 @@
 
 - (void)guideBtnClicked:(id)sender {
     UIButton *btn = (UIButton *)sender;
-    [_mainScrollView setContentOffset:CGPointMake(btn.tag * kDeviceWidth, 0) animated:YES];
+    [_scrollView setContentOffset:CGPointMake(btn.tag * kDeviceWidth, 0) animated:YES];
+    self.currentRow = btn.tag;
+    [self addChildClassifierViewControllerWithNSInteger:self.currentRow];
+    NSLog(@"%ld", (long)self.currentRow);
 }
+
 
 
 

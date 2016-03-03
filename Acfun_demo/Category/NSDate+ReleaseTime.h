@@ -17,6 +17,6 @@
  *
  *  @return NSString *
  */
-+ (NSString *)dateCompareWithReleaseTime:(NSString *)interval;
++ (NSString *)dl_dateCompareWithReleaseTime:(NSString *)interval;
 
 @end

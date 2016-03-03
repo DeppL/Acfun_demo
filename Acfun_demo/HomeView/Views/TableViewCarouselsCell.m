@@ -45,7 +45,7 @@ static CGFloat TimerDelayInSec = 4.0;
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         weakSelf.model = model;
         NSInteger viewPage = model.contents.count;
-        UIImage *placeHolder = [UIImage imageNamed:@"placeHolder"];
+        UIImage *placeHolder = [UIImage imageNamed:@"placeHolderPic"];
         
         NSMutableArray *mContentsArr = [NSMutableArray arrayWithArray:model.contents];
         [mContentsArr insertObject:mContentsArr.lastObject atIndex:0];

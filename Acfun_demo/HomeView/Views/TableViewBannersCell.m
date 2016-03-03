@@ -32,7 +32,7 @@ NSString * const TableViewBannersCellID = @"TableViewBannersCellID";
         url = [NSURL URLWithString:model.image];
     }
     
-    UIImage *image = [UIImage imageNamed:@"placeHolder"];
+    UIImage *image = [UIImage imageNamed:@"placeHolderIcon"];
     [self.mainImageView sd_setImageWithURL:url placeholderImage:image];
 }
 

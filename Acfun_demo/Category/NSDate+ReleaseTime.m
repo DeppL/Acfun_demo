@@ -10,7 +10,7 @@
 
 @implementation NSDate (ReleaseTime)
 
-+ (NSString *)dateCompareWithReleaseTime:(NSString *)interval {
++ (NSString *)dl_dateCompareWithReleaseTime:(NSString *)interval {
     
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:[interval floatValue]/1000];
     NSTimeInterval timeInterval = date.timeIntervalSinceNow * -1;

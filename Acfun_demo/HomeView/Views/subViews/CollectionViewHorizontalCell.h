@@ -9,11 +9,14 @@
 #import <UIKit/UIKit.h>
 
 @class HomeModelContent;
+@class ClassifierViewVideoModel;
 
 extern NSString * const CollecionViewHorizontalCellID;
 
 @interface CollectionViewHorizontalCell : UICollectionViewCell
 
-- (void)setUpCollectionHorizontalCellWithModel:(HomeModelContent *)model;
+- (void)setUpCollectionHorizontalCellWithHomeModel:(HomeModelContent *)model;
+
+- (void)setUpCollectionHorizontalCellWithClassifierViewVideoModel:(ClassifierViewVideoModel *)model;
 
 @end

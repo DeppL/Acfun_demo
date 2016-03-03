@@ -11,9 +11,6 @@
 //#import "HomeModel.h"
 #import "HomeModelConfig.h"
 
-#define kMainLabelFont [UIFont systemFontOfSize:18]
-
-#define kSubLabelFont [UIFont systemFontOfSize:14]
 
 NSString * const TableViewArticlesCellID = @"TableViewArticlesCellID";
 
@@ -41,7 +38,7 @@ NSString * const TableViewArticlesCellID = @"TableViewArticlesCellID";
     
     if (model.image) {
         NSURL *url = [NSURL URLWithString:model.image];
-        UIImage *image = [UIImage imageNamed:@"placeHolder"];
+        UIImage *image = [UIImage imageNamed:@"placeHolderIcon"];
         [self.headImageView sd_setImageWithURL:url placeholderImage:image];
     }
     

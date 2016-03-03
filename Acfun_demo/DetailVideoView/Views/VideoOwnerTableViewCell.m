@@ -33,7 +33,7 @@ NSString * const VideoOwnerTableViewCellID = @"VideoOwnerTableViewCellID";
     [self.ownerAvatar sd_setImageWithURL:url];
     self.ownerName.text = model.owner.name;
     
-    NSString *str = [NSDate dateCompareWithReleaseTime:model.releaseDate];
+    NSString *str = [NSDate dl_dateCompareWithReleaseTime:model.releaseDate];
     self.releaseDateLabel.text = str;
     [self.contentView addSubview:self.followedButten];
     self.followedState = NO;

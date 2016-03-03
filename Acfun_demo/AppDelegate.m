@@ -63,10 +63,10 @@
     UIImage *channelImg = [UIImage imageNamed:@"tabbar_item_question"];
     channelVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"CHANNEL" image:channelImg selectedImage:nil];
     
-    FocusViewController *focusVC = [[FocusViewController alloc]init];
-    UINavigationController *focusNavC = [[UINavigationController alloc]initWithRootViewController:focusVC];
-    UIImage *focusImg = [UIImage imageNamed:@"tabbar_item_home"];
-    focusVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"HOME" image:focusImg selectedImage:nil];
+//    FocusViewController *focusVC = [[FocusViewController alloc]init];
+//    UINavigationController *focusNavC = [[UINavigationController alloc]initWithRootViewController:focusVC];
+//    UIImage *focusImg = [UIImage imageNamed:@"tabbar_item_home"];
+//    focusVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"HOME" image:focusImg selectedImage:nil];
     
     UserViewController *userVC = [[UserViewController alloc]init];
     UINavigationController *userNavC = [[UINavigationController alloc]initWithRootViewController:userVC];
@@ -74,7 +74,8 @@
     userVC.tabBarItem = [[UITabBarItem alloc]initWithTitle:@"USER" image:personImg selectedImage:nil];
     
     
-    rootTabBarC.viewControllers = @[homeNavC, channelNavC, focusNavC, userNavC];
+//    rootTabBarC.viewControllers = @[homeNavC, channelNavC, focusNavC, userNavC];
+    rootTabBarC.viewControllers = @[homeNavC, channelNavC, userNavC];
     
     self.window.rootViewController = rootTabBarC;
     [self.window makeKeyAndVisible];

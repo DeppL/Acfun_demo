@@ -9,10 +9,9 @@
 #import "CollectionViewHorizontalCell.h"
 //#import "HomeModel.h"
 #import "HomeModelConfig.h"
+#import "ClassifierViewModel.h"
 
-#define kMainLabelFont [UIFont systemFontOfSize:16]
 
-#define kSubLabelFont [UIFont systemFontOfSize:14]
 
 NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID";
 
@@ -50,7 +49,7 @@ NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID
         _mainLabel.font = kMainLabelFont;
         _mainLabel.textAlignment = NSTextAlignmentLeft;
         _mainLabel.textColor = [UIColor blackColor];
-        _imageView.backgroundColor = kMyWhite;
+        _mainLabel.backgroundColor = kMyWhite;
         [self.contentView addSubview:_mainLabel];
     }
     return _mainLabel;
@@ -83,8 +82,8 @@ NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID
     return _danmakuSizeLabel;
 }
 
-- (void)setUpCollectionHorizontalCellWithModel:(HomeModelContent *)model {
-    UIImage *image = [UIImage imageNamed:@"placeHolder"];
+- (void)setUpCollectionHorizontalCellWithHomeModel:(HomeModelContent *)model {
+    UIImage *image = [UIImage imageNamed:@"placeHolderPic"];
     NSURL *url = [NSURL URLWithString:model.image];
     [self.imageView sd_setImageWithURL:url placeholderImage:image];
     
@@ -104,6 +103,34 @@ NSString * const CollecionViewHorizontalCellID = @"CollecionViewHorizontalCellID
     }
     else {
         self.danmakuSizeLabel.text = [NSString stringWithFormat:@"弹幕 %@",model.visit.danmakuSize];
+    }
+
+}
+
+- (void)setUpCollectionHorizontalCellWithClassifierViewVideoModel:(ClassifierViewVideoModel *)model {
+    UIImage *image = [UIImage imageNamed:@"placeHolderPic"];
+    NSURL *url = [NSURL URLWithString:model.cover];
+    self.imageView.layer.borderWidth = 2.0f;
+    self.imageView.layer.borderColor = kMyRed.CGColor;
+    [self.imageView sd_setImageWithURL:url placeholderImage:image];
+    
+    
+    [self.mainLabel setText:model.title];
+    
+    
+    if ([model.views integerValue] > 9000) {
+        self.playCountLabel.text = [NSString stringWithFormat:@"播放 %.1f万",[model.views integerValue] / 10000.0];
+    }
+    else {
+        self.playCountLabel.text = [NSString stringWithFormat:@"播放 %@",model.views];
+    }
+    
+    
+    if ([model.danmakuSize integerValue] > 9000) {
+        self.danmakuSizeLabel.text = [NSString stringWithFormat:@"弹幕 %.1f万",[model.danmakuSize integerValue] / 10000.0];
+    }
+    else {
+        self.danmakuSizeLabel.text = [NSString stringWithFormat:@"弹幕 %@",model.danmakuSize];
     }
 
 }

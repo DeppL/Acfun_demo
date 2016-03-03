@@ -69,7 +69,7 @@ NSString * const CollecionViewVerticalCellID = @"CollecionViewVerticalCellID";
 }
 
 - (void)setUpCollectionVerticalCellWithModel:(HomeModelContent *)model {
-    UIImage *image = [UIImage imageNamed:@"placeHolder"];
+    UIImage *image = [UIImage imageNamed:@"placeHolderPic"];
     NSURL *url = [NSURL URLWithString:model.image];
     [self.imageView sd_setImageWithURL:url placeholderImage:image];
     

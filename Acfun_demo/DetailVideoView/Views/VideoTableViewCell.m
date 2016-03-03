@@ -24,7 +24,7 @@ NSString * const DetailVideoTableViewCellImageCompleted = @"DetailVideoTableView
     
     if (!model) return;
     NSURL *url = [NSURL URLWithString:model.cover];
-    [self.videoImageView sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolder") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+    [self.videoImageView sd_setImageWithURL:url placeholderImage:IMAGE(@"placeHolderPic") completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
         
         UIImage *staticImage;
         if ([image images]) {

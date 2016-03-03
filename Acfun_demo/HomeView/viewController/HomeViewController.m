@@ -143,21 +143,19 @@ NSString *const homeModelURL = @"http://api.aixifan.com/regions";
         
         //------------------------------------------- self.navigationItem.rightBarButtonItem ------------------------------------------
         
-        UIButton *downLoadBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 132, 20, 44, 44)];
-        [downLoadBtn setTitle:@"下载" forState:UIControlStateNormal];
-        [downLoadBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        // downLoadBtn
+        UIButton *downLoadBtn = [[UIButton alloc]initWithFrame:CGRectMake(kDeviceWidth / 2.0 - 132, 20, 30, 30)];
+        [downLoadBtn setImage:IMAGE(@"ic_download_white") forState:UIControlStateNormal];
         [downLoadBtn addTarget:self action:@selector(pushToDownloadView) forControlEvents:UIControlEventTouchUpInside];
         
         // historyBtn
-        UIButton *historyBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 88, 20, 44, 44)];
-        [historyBtn setTitle:@"历史" forState:UIControlStateNormal];
-        [historyBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        UIButton *historyBtn = [[UIButton alloc]initWithFrame:CGRectMake(kDeviceWidth / 2.0 - 88, 20, 30, 30)];
+        [historyBtn setImage:IMAGE(@"ic_history_white") forState:UIControlStateNormal];
         [historyBtn addTarget:self action:@selector(pushToHistoryView) forControlEvents:UIControlEventTouchUpInside];
         
         // searchBtn
-        UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(1536 / 2.0 - 44, 20, 44, 44)];
-        [searchBtn setTitle:@"搜索" forState:UIControlStateNormal];
-        [searchBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        UIButton *searchBtn = [[UIButton alloc]initWithFrame:CGRectMake(kDeviceWidth / 2.0 - 44, 20, 30, 30)];
+        [searchBtn setImage:IMAGE(@"ic_search_white") forState:UIControlStateNormal];
         [searchBtn addTarget:self action:@selector(pushToSearchView) forControlEvents:UIControlEventTouchUpInside];
         
         UIBarButtonItem *downloadBarButten = [[UIBarButtonItem alloc]initWithCustomView:downLoadBtn];

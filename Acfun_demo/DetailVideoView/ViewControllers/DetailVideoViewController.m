@@ -22,7 +22,8 @@
 
 
 static NSString * const detailVideosURL = @"http://api.aixifan.com/videos";
-static NSString * const detailCommentsURL = @"http://mobile.acfun.tv/comment/content/list?app_version=4.1.0&market=appstore&origin=ios&pageNo=1&pageSize=20&resolution=2048x1536&sys_name=ios&sys_version=9.2&version=4";
+//static NSString * const detailCommentsURL = @"http://mobile.acfun.tv/comment/content/list?app_version=4.1.0&market=appstore&origin=ios&pageNo=1&pageSize=20&resolution=2048x1536&sys_name=ios&sys_version=9.2&version=4";
+static NSString * const detailCommentsURL = @"http://mobile.acfun.tv/comment/content/list?pageNo=1&pageSize=20&version=4";
 
 #define kVideoViewF CGRectMake(0, 0, kDeviceWidth, 400)
 typedef void(^completed)();
@@ -38,7 +39,7 @@ typedef void(^completed)();
 
 @property (nonatomic, copy) NSDictionary *detailCommentModelFrameDict;
 
-@property (nonatomic, strong) UINavigationController *defautNaviC;
+//@property (nonatomic, strong) UINavigationController *defautNaviC;
 
 //@property (nonatomic, strong) UIImage *videoTableViewCellImage;
 @property (nonatomic, strong) UIImage *navigetionBackgroundPicture;
@@ -54,7 +55,7 @@ typedef void(^completed)();
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setUpTransparentNav];
+//    [self setUpTransparentNav];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(drawingNavigetionBackgroundPicture:) name:DetailVideoTableViewCellImageCompleted object:nil];
     
@@ -76,15 +77,17 @@ typedef void(^completed)();
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self setUpTransparentNav];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    self.tabBarController.tabBar.hidden = NO;
+//    self.tabBarController.tabBar.hidden = NO;
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -112,7 +115,6 @@ typedef void(^completed)();
 }
 
 - (void)dealloc {
-    NSLog(@"%s", __func__);
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [[SDImageCache sharedImageCache] clearMemory];
     
@@ -340,9 +342,7 @@ typedef void(^completed)();
         return 400;
     }
     else if (1 == indexPath.section) {
-        if (0 == indexPath.row) {
-            return 104;
-        }
+        if (0 == indexPath.row) return 104;
         else return 90;
     }
     else if (2 == indexPath.section) {
@@ -354,12 +354,8 @@ typedef void(^completed)();
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (0 == section) {
-        return 0;
-    }
-    else {
-        return 44;
-    }
+    if (0 == section) return 0;
+    else return 44;
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -369,7 +365,11 @@ typedef void(^completed)();
     if (1 == section) {
         headerView.textLabel.text = @"视频信息";
     }
-    else {
+    else if (2 == section && _detailCommentModel) {
+        NSString *string = [NSString stringWithFormat:@"评论内容 (%lu)", (unsigned long)_detailCommentModel.page.list.count];
+        headerView.textLabel.text = string;
+    }
+    else if (2 == section && !_detailCommentModel) {
         headerView.textLabel.text = @"评论内容";
     }
     return headerView;
