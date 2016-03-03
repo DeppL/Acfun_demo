@@ -89,11 +89,19 @@ UINavigationBar 使用 高斯模糊处理图片
 
 
 ## <a name="ClassifierView-pane"></a> 第六部分：ClassifierView
-未完
+分类内容
 
-[Picture](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView.png)-(边框为手动添加)
 
-![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView.png)
+### `>` ClassifierView－1
+[Picture](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView－1.png)-(边框为手动添加)
+
+![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView－1.png)
+
+### `>` ClassifierView－2
+
+[Picture](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView－2.png)-(边框为手动添加)
+
+![MacDown logo](https://raw.githubusercontent.com/DeppL/MarkdownPhotoLib/master/Acfun_Demo_Pic/ClassifierView－2.png)
 
 
 
